@@ -5,6 +5,15 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.textTI.storeManagement.exception.ClientException;
 import com.textTI.storeManagement.manager.ClientManager;
 import com.textTI.storeManagement.model.Client;
 
@@ -44,10 +53,16 @@ public class ClientController extends BaseController{
 		logger.info("Creating a client");
 
 		//TODO validate Client 
+		try{
 		if(client.getId() != null)
 			this.clientManager.update(client);
 		else
 			this.clientManager.insert(client);
+		}catch(ClientException ce)
+		{
+			//TODO create a validator
+			logger.error(ce.getMessage());
+		}
 		
 		return "redirect:/client/list";
 	}
