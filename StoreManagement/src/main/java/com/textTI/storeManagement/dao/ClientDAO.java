@@ -1,11 +1,14 @@
 package com.textTI.storeManagement.dao;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
 import com.textTI.storeManagement.model.Client;
+import com.textTI.storeManagement.model.ClientType;
 import com.textTI.storeManagement.utils.HibernateUtil;
 
 @Repository
@@ -30,5 +33,17 @@ public class ClientDAO extends BaseDAO{
 		session.close();
 
 		return client;
+	}
+
+	public List<Client> getAll() {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+
+		@SuppressWarnings("unchecked")
+		List<Client> clients = session.createQuery("from Client").list();
+
+		session.close();
+
+		return clients;
 	}
 }
