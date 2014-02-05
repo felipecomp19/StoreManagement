@@ -1,5 +1,7 @@
 package com.textTI.storeManagement.manager;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -44,5 +46,9 @@ public class ClientManager {
 		Client _cli = this.clientDAO.getByCPF(newClient.getCpf());
 		if(_cli != null)
 			throw new ClientException(ExceptionCode.CPF_JA_EXISTE);
+	}
+
+	public List<Client> getAll() {
+		return this.clientDAO.getAll();
 	}	
 }
