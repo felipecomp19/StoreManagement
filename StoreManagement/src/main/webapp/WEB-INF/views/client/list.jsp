@@ -57,12 +57,15 @@
 											<th><div>
 													<spring:message code="label.email" />
 												</div></th>
-											<th><div>
-													<spring:message code="label.clientType" />
-												</div></th>
-											<th><div>
-													<spring:message code="label.actions" />
-												</div></th>
+											<th>
+												<div><spring:message code="label.clientType" /></div>
+											</th>
+											<th>
+												<div><spring:message code="label.createdOn" /></div>
+											</th>
+											<th>
+												<div><spring:message code="label.actions" /></div>
+											</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -72,6 +75,7 @@
 												<td>${client.cpf}</td>
 												<td>${client.email}</td>
 												<td>${client.clientType.name}</td>
+												<td>${client.createdOn}</td>
 												<td class="center"> 
 													<div class="btn-group">
 														<button class="btn btn-xs btn-default dropdown-toggle"

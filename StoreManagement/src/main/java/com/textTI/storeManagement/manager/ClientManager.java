@@ -1,5 +1,6 @@
 package com.textTI.storeManagement.manager;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ public class ClientManager {
 	public void insert(Client newClient) throws ClientException 
 	{
 		this.validate(newClient);
+		newClient.setCreatedOn(new Date());
 		this.clientDAO.insert(newClient);
 	}
 	

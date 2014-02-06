@@ -1,5 +1,6 @@
 package com.textTI.storeManagement.model;
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -26,6 +27,9 @@ public class Client extends BaseModel {
 	@Column(name = "email", nullable = false)
 	private String email;
 	
+	@Column(name = "createdOn")
+	private Date createdOn;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "clientType", nullable = false)
 	private ClientType clientType;
@@ -35,6 +39,8 @@ public class Client extends BaseModel {
 				joinColumns = { @JoinColumn(name = "client_id", nullable = false, updatable = false) }, 
 				inverseJoinColumns = { @JoinColumn(name = "store_id", nullable = false, updatable = false) })
 	private Set<Store> stores;
+	
+	private Address address;
 
 	public Client() {
 		super();
@@ -79,4 +85,20 @@ public class Client extends BaseModel {
 	public void setStores(Set<Store> stores) {
 		this.stores = stores;
 	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public Date getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
+	}	
 }
