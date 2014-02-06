@@ -31,6 +31,8 @@
 		<mapping class="com.textTI.storeManagement.model.Client"/>
 		<mapping class="com.textTI.storeManagement.model.Store"/>
 		<mapping class="com.textTI.storeManagement.model.ClientType"/>
+		<mapping class="com.textTI.storeManagement.model.Address"/>
+		<mapping class="com.textTI.storeManagement.model.MailingList"/>
 						
 	</session-factory>
 </hibernate-configuration>

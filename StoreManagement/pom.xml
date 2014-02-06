@@ -224,6 +224,9 @@
 			<resource>
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
+				<excludes>
+					<exclude>hibernate.cfg.xml</exclude>
+				</excludes>
 			</resource>
 		</resources>
 		<testResources>

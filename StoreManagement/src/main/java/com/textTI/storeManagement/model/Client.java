@@ -3,6 +3,7 @@ package com.textTI.storeManagement.model;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -40,6 +42,8 @@ public class Client extends BaseModel {
 				inverseJoinColumns = { @JoinColumn(name = "store_id", nullable = false, updatable = false) })
 	private Set<Store> stores;
 	
+	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name = "address")
 	private Address address;
 
 	public Client() {

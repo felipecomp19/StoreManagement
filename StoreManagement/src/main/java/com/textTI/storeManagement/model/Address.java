@@ -1,9 +1,15 @@
 package com.textTI.storeManagement.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 @Entity
 @Table(name = "tb_address")
-public class Address {
+public class Address extends BaseModel {
 	
+	private static final long serialVersionUID = 7849037788850367722L;
+
 	@Column(name = "street")
 	private String street;
 	
