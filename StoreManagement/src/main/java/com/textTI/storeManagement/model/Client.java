@@ -20,7 +20,7 @@ public class Client extends BaseModel {
 	@Column(name = "name", length = 100, nullable = false)
 	private String name;
 	
-	@Column(name = "cpf", length = 11, unique = true, nullable = false)
+	@Column(name = "cpf", length = 15, unique = false, nullable = false)
 	private String cpf;
 	
 	@Column(name = "email", nullable = false)

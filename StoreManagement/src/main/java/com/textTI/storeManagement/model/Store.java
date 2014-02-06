@@ -29,6 +29,11 @@ public class Store extends BaseModel {
 		super();
 	}
 	
+	public String getIdAsString()
+	{
+		return new Long(super.getId()).toString();
+	}
+	
 	public String getName() {
 		return name;
 	}

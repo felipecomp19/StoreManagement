@@ -13,8 +13,8 @@
 	<!-- Use title if it's in the page YAML frontmatter -->
 	<title>SM - Morana</title>
 
-	<link href="<%=request.getContextPath()%>/resources/coreAdmin/stylesheets/application.css" media="screen" rel="stylesheet" type="text/css" />
-	<script src="<%=request.getContextPath()%>/resources/coreAdmin/javascripts/application.js" type="text/javascript"></script>
+	<link href="${pageContext.request.contextPath}/resources/coreAdmin/stylesheets/application.css" media="screen" rel="stylesheet" type="text/css" />
+	<script src="${pageContext.request.contextPath}/resources/coreAdmin/javascripts/application.js" type="text/javascript"></script>
 </head>
 <body>
 	<!-- top bar -->
@@ -92,10 +92,10 @@
 
 				<ul id="yJ6h3Npe7C" class="collapse ">
 					<li class="">
-						<a href="#"> <i	class="icon-plus-sign-alt"> </i><spring:message code="label.new" /> </a>
+						<a href="${pageContext.request.contextPath}/client/create"> <i	class="icon-plus-sign-alt"> </i><spring:message code="label.new" /> </a>
 					</li>
 					<li class="">
-						<a href="#"> <i class="icon-th-large"></i> <spring:message code="label.listAll"/> </a>
+						<a href="${pageContext.request.contextPath}/client/list"> <i class="icon-th-large"></i> <spring:message code="label.listAll"/> </a>
 					</li>
 					<li class="">
 						<a href="#"> <i class="icon-folder-open-alt"></i> <spring:message code="label.import" /> </a>
@@ -110,7 +110,7 @@
 			<!-- Lojas -->
 			<li class="">
 				<span class="glow"></span> 
-				<a href="store/list"> <i class="icon-building icon-2x"></i> <span><spring:message code="label.stores"></spring:message></span> </a>
+				<a href="${pageContext.request.contextPath}/store/list"> <i class="icon-building icon-2x"></i> <span><spring:message code="label.stores"></spring:message></span> </a>
 			</li>
 			<!-- [END] Lojas -->
 
