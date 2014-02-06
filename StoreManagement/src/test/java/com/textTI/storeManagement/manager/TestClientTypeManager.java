@@ -78,8 +78,8 @@ public class TestClientTypeManager extends BaseManagerTestCase {
 		createClientType(cliType);
 		
 		ClientType cliType2 = new ClientType();
-		cliType.setName("normal 2");
-		cliType.setDescription("cliente normal 2");
+		cliType2.setName("normal 2");
+		cliType2.setDescription("cliente normal 2");
 		
 		//create 2
 		createClientType(cliType2);
