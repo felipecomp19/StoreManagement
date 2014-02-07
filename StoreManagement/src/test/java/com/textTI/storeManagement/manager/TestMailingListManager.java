@@ -15,7 +15,6 @@ import com.textTI.storeManagement.model.Client;
 import com.textTI.storeManagement.model.ClientType;
 import com.textTI.storeManagement.model.MailingList;
 import com.textTI.storeManagement.model.Store;
-import com.textTI.storeManagement.utils.TestUtils;
 
 public class TestMailingListManager extends BaseManagerTestCase {
 	
@@ -37,11 +36,9 @@ public class TestMailingListManager extends BaseManagerTestCase {
 		logger.info("starting CRUD MailingList...");
 		
 		List<Client> clients = new ArrayList<Client>();
-		
 		Set<Store> stores = createAndInsertStores();
 		ClientType clientType = createAndInsertClientType();
-		Client cli = this.createAndInsertOneClient(stores,clientType); 
-		
+		Client cli = this.createAndInsertOneClient("33067630807", stores,clientType); 
 		clients.add(cli);
 		
 		MailingList mailingList = createMailingList("Morana", clients);
@@ -60,11 +57,49 @@ public class TestMailingListManager extends BaseManagerTestCase {
 			this.storeManager.delete(store);
 		}
 	}
+	
+	@Test
+	public void testGetAllMailingList()
+	{
+		List<Client> clients = new ArrayList<Client>();
+		Set<Store> stores = createAndInsertStores();
+		ClientType clientType = createAndInsertClientType();
+		Client cli = this.createAndInsertOneClient("33067630801",stores,clientType); 
+		Client cli2 = this.createAndInsertOneClient("33067630802",stores,clientType);
+		clients.add(cli);
+		clients.add(cli2);
+		
+		MailingList mailingList = this.createMailingList("Morana", clients);
+		MailingList mailingList2 = this.createMailingList("Morana 2", clients);
+		this.insertMailingList(mailingList);
+		this.insertMailingList(mailingList2);
+		
+		List<MailingList> lists = this.mailingListManager.getAll();
+		Assert.assertNotNull(lists);
+		Assert.assertEquals(2, lists.size());
+		for (MailingList ml : lists) {
+			Assert.assertEquals(2,ml.getClients().size());
+		}
+		
+		delete(mailingList);
+		delete(mailingList2);
+		
+		this.clientManager.delete(cli);
+		this.clientManager.delete(cli2);
+		this.clientTypeManager.delete(clientType);
+		for (Store store : stores) {
+			this.storeManager.delete(store);
+		}
+	}
 
-	private MailingList createMailingList(String string, List<Client> clients) {
+	private MailingList createMailingList(String listName, List<Client> clients) {
 		MailingList ml = new MailingList();
-		ml.setName(string);
+		ml.setName(listName);
 		ml.setClients(clients);
+		ml.setDefaultFromEmail("felipecomp19@gmail.com");
+		ml.setDefaultFromName("Felipe Teixeira");
+		ml.setDefaultSubject("Promoção Morana");
+
 		return ml;
 	}
 	
@@ -100,7 +135,7 @@ public class TestMailingListManager extends BaseManagerTestCase {
 		logger.info("DONE");
 	}
 	
-	private Client createAndInsertOneClient(Set<Store> stores, ClientType clientType) {
+	private Client createAndInsertOneClient(String cpf, Set<Store> stores, ClientType clientType) {
 		
 		Address address = new Address();
 		address.setStreet("Rua 1");
@@ -109,7 +144,7 @@ public class TestMailingListManager extends BaseManagerTestCase {
 		
 		Client c1 = new Client();
 		c1.setName("Felipe Teixeira");
-		c1.setCpf("33067630807");
+		c1.setCpf(cpf);
 		c1.setEmail("felipecomp19@gmail.com");
 		c1.setAddress(address);
 		c1.setStores(stores);

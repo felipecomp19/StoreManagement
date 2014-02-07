@@ -18,6 +18,10 @@
 						<span class="breadcrumb-arrow"><span></span></span>
 					</div>
 					<div class="breadcrumb-button">
+						<span class="breadcrumb-label"> <i class="icon-group"></i> <spring:message code="label.clients" />
+						</span> <span class="breadcrumb-arrow"><span></span></span>
+					</div>
+					<div class="breadcrumb-button">
 						<span class="breadcrumb-label"> <i class="icon-user"></i>
 							<spring:message code="label.clientTypes" />
 						</span> <span class="breadcrumb-arrow"><span></span></span>

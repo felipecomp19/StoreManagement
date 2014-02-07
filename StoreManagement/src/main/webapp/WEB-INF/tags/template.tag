@@ -113,6 +113,26 @@
 				<a href="${pageContext.request.contextPath}/store/list"> <i class="icon-building icon-2x"></i> <span><spring:message code="label.stores"></spring:message></span> </a>
 			</li>
 			<!-- [END] Lojas -->
+				
+			<!-- Campanhas -->
+			<li class="dark-nav">
+				<span class="glow"></span> 
+				<a class="accordion-toggle collapsed " data-toggle="collapse" href="#campaigns">
+					 <i class="icon-envelope-alt icon-2x"></i><span><spring:message code="label.campaigns" /><i class="icon-caret-down"></i></span>
+				</a>
+				<ul id="campaigns" class="collapse ">
+					<li>
+						<a href="${pageContext.request.contextPath}/campaign/create"> <i class="icon-plus-sign-alt"> </i><spring:message code="label.newCampaign" /> </a>
+					</li>
+					<li>
+						<a href="${pageContext.request.contextPath}/campaign/list"> <i class="icon-th-large"> </i><spring:message code="label.listAllCampaigns" /> </a>
+					</li>
+					<li>
+						<a href="${pageContext.request.contextPath}/mailingList/list"> <i class="icon-list-alt"> </i><spring:message code="label.mailingLists" /> </a>
+					</li>
+				</ul>
+			</li>
+			<!-- [END] Campanhas -->
 
 			<!-- Configurações  -->
 			<li class="dark-nav ">
@@ -127,9 +147,11 @@
 					</li>
 				</ul>
 			</li>
+			<!-- [END] Configurações -->
 		</ul>
 
 		<div class="hidden-sm hidden-xs">
+			<!-- 
 			<div class="text-center" style="margin-top: 60px">
 				<div class="easy-pie-chart-percent" style="display: inline-block"
 					data-percent="89">
@@ -139,8 +161,9 @@
 					<b>CPU Usage</b>
 				</div>
 			</div>
+			 -->
 
-			<hr class="divider" style="margin-top: 60px">
+			<hr class="divider" style="margin-top: 500px">
 
 			<div class="sparkline-box side">
 
@@ -155,21 +178,21 @@
 
 				<hr class="divider">
 				<div class="sparkline-row">
-					<h4 class="dark-green">
-						<span><spring:message code="label.income" /></span> $43.330
-					</h4>
-					<div class="sparkline big" data-color="darkGreen">
-						<!--6,3,24,25,27,29,14,26,20,8,12,20-->
-					</div>
-				</div>
-
-				<hr class="divider">
-				<div class="sparkline-row">
 					<h4 class="blue">
 						<span><spring:message code="label.sales"></spring:message></span> 223
 					</h4>
 					<div class="sparkline big" data-color="blue">
 						<!--11,19,20,20,5,18,11,6,16,20,26,11-->
+					</div>
+				</div>
+
+				<hr class="divider">
+				<div class="sparkline-row">
+					<h4 class="dark-green">
+						<span><spring:message code="label.income" /></span> $43.330
+					</h4>
+					<div class="sparkline big" data-color="darkGreen">
+						<!--6,3,24,25,27,29,14,26,20,8,12,20-->
 					</div>
 				</div>
 

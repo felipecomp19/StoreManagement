@@ -1,5 +1,8 @@
 package com.textTI.storeManagement.manager;
 
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +16,7 @@ public class MailingListManager {
 	private MailingListDAO mlDao;
 
 	public void insert(MailingList mailingList) {
+		mailingList.setCreatedOn(new Date());
 		this.mlDao.insert(mailingList);
 	}
 
@@ -29,4 +33,8 @@ public class MailingListManager {
 		this.mlDao.update(mailingList);
 	}
 
+	public List<MailingList> getAll() {
+		
+		return this.mlDao.getAll();
+	}
 }
