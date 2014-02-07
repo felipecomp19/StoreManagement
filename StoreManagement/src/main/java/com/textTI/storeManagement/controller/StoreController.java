@@ -37,13 +37,13 @@ public class StoreController extends BaseController{
 		return "store/list";
 	}
 	
-	@RequestMapping(value = "/newStore", method = RequestMethod.GET)
-	public String newStore(Locale locale, Model model) {
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public String create(Locale locale, Model model) {
 		logger.info("Accessed the new store view", locale);
 		
 		model.addAttribute("store", new Store());
 		
-		return "store/newStore";
+		return "store/create";
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)

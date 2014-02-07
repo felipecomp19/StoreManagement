@@ -34,13 +34,13 @@ public class ClientTypeController extends BaseController{
 		return "clientType/list";
 	}
 	
-	@RequestMapping(value = "/newClientType", method = RequestMethod.GET)
-	public String newClientType(Locale locale, Model model) {
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public String create(Locale locale, Model model) {
 		logger.info("Accessed the new client type view", locale);
 		
 		model.addAttribute("clientType", new ClientType());
 		
-		return "clientType/newClientType";
+		return "clientType/create";
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)

@@ -40,7 +40,7 @@
 							<span class="title"><spring:message code="label.clientTypes" /></span>
 							<ul class="box-toolbar">
 								<li>
-									<a href="newClientType">
+									<a href="${pageContext.request.contextPath}/clientType/create">
 									<button class="btn btn-green">
 										<i class="icon-building"></i>&nbsp&nbsp<spring:message code="label.newClientType" />
 									</button>

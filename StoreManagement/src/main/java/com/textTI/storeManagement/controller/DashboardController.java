@@ -14,7 +14,7 @@ public class DashboardController extends BaseController{
 	public String dashboard(Locale locale, Model model) {
 		logger.info("Accessed the dashboard", locale);
 		
-		return "dashboard";
+		return "dashboard/dashboard";
 	}
 
 }

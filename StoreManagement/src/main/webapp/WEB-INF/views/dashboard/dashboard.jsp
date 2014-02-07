@@ -1,5 +1,6 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html;charset=UTF-8" language="java" %>
 <t:template>
 	<jsp:body>
@@ -68,51 +69,56 @@
 		<!-- main content -->
 		<div class="container">
 	   		<div class="row">
+				<!--big normal buttons-->
 				<div class="col-md-3">
-					<!--big normal buttons-->
-					<div class="action-nav-normal">
-	
-						<div class="row action-nav-row">
-							<div class="col-sm-6 action-nav-button">
-								<a href="#" title="New Project"> <i class="icon-file-alt"></i>
-									<span>New Project</span>
-								</a> <span class="triangle-button red"><i class="icon-plus"></i></span>
-							</div>
-							<div class="col-sm-6 action-nav-button">
-								<a href="#" title="Messages"> <i class="icon-comments-alt"></i>
-									<span>Messages</span>
-								</a> <span class="label label-black">14</span>
-							</div>
-						</div>
-						<div class="row action-nav-row">
-							<div class="col-sm-6 action-nav-button">
-								<a href="#" title="Files"> <i class="icon-folder-open-alt"></i>
-									<span>Files</span>
-								</a>
-							</div>
-							<div class="col-sm-6 action-nav-button">
-								<a href="#" title="Users"> <i class="icon-user"></i> <span>Users</span>
-								</a> <span class="triangle-button green"><span class="inner">+3</span></span>
-							</div>
-						</div>
-						<div class="row action-nav-row">
-							<div class="col-sm-6 action-nav-button">
-								<a href="#" title="Friends"> <i class="icon-facebook-sign"></i>
-									<span>Friends</span>
-								</a>
-							</div>
-							<div class="col-sm-6 action-nav-button">
-								<a href="#" title="Followers"> <i class="icon-twitter"></i>
-									<span>Followers</span>
-								</a> <span class="triangle-button blue"><span class="inner">+8</span></span>
-							</div>
-						</div>
+					<%@include file="bigNormalButtons.jsp" %>
+				</div>
+				<!--[END] big normal buttons-->
+				
+				<!-- charts -->				
+				<div class="col-md-9">
+					<div class="box">
+						<div class="box-header">
+			        		<div class="title">
+			        			<spring:message code="label.charts"/>
+		        			</div>
+		      			</div>
+		      			<div class="box-content">
+		      				<%@include file="charts.jsp" %>
+		      			</div>
 					</div>
 				</div>
+				<!-- [END] charts -->
 			</div>
+			<div class="row">
+			  <!-- calendar -->
+			  <div class="col-md-6">
+			    <div class="box">
+			      <div class="box-header">
+			        <div class="title"><spring:message code="label.calendar"/></div>
+			      </div>
+			      <div class="box-content">
+			        <div id="calendar"></div>
+			      </div>
+			    </div>
+			  </div>
+			  <!-- [END] calendar -->
+			  
+			  <!-- activities -->
+			  <div class="col-md-6">
+			    <div class="box">
+			      <div class="box-header">
+			        <div class="title"><spring:message code="label.calendar"/></div>
+			      </div>
+			      <div class="box-content">
+			      	<%@include file="activities.jsp" %>
+			      </div>
+			    </div>
+			  </div>
+			  <!-- [END] activities -->
+  			</div>
 		</div>
 		<!-- [END] main content -->
-		
 	</jsp:body>
 </t:template>
 </html>

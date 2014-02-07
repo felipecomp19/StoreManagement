@@ -59,7 +59,7 @@
 							<span class="title"><spring:message code="label.stores" /></span>
 							<ul class="box-toolbar">
 								<li>
-									<a href="newStore">
+									<a href="${pageContext.request.contextPath}/store/create">
 									<button class="btn btn-green">
 										<i class="icon-building"></i>&nbsp&nbsp<spring:message code="label.newStore" />
 									</button>
