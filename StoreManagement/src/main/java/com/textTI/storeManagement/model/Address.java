@@ -21,6 +21,15 @@ public class Address extends BaseModel {
 	
 	@Column(name = "cep", length = 20)
 	private String cep;
+	
+	@Column(name = "neighbourhood", length = 50)
+	private String neighbourhood;
+	
+	@Column(name = "city", length = 50)
+	private String city;
+	
+	@Column(name = "state", length = 50)
+	private String state;
 
 	public String getStreet() {
 		return street;

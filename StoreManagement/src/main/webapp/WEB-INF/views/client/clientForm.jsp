@@ -27,6 +27,32 @@
 						</li>
 					</ul>
 				</div>
+				<div class="col-lg-6">
+					<ul class="padded separate-sections">
+						<li><h4><spring:message code="label.address" /></h4></li>
+						<li class="input">
+							<input type="text" name="address.cep" placeholder="<spring:message code="label.cep"/>" value="${client.address.cep}"/>
+						</li>
+						<li class="input">
+							<input type="text" name="address.street" placeholder="<spring:message code="label.street"/>" value="${client.address.street}"/>
+						</li>
+						<li class="input">
+							<input type="text" name="address.number" placeholder="<spring:message code="label.number"/>" value="${client.address.number}"/>
+						</li>
+						<li class="input">
+							<input type="text" name="address.city" placeholder="<spring:message code="label.city"/>" value="${client.address.city}"/>
+						</li>
+						<li class="input">
+							<input type="text" name="address.state" placeholder="<spring:message code="label.state"/>" value="${client.address.state}"/>
+						</li>
+						<li class="input">
+							<input type="text" name="address.neighbourhood" placeholder="<spring:message code="label.neighbourhood"/>" value="${client.address.neighbourhood}"/>
+						</li>
+						<li class="input">
+							<input type="text" name="address.complement" placeholder="<spring:message code="label.complement"/>" value="${client.address.complement}"/>
+						</li>
+					</ul>
+				</div>
 			</div>
 			<div class="form-actions">
 				<button type="submit" class="btn btn-blue"><spring:message code="label.save" /></button>

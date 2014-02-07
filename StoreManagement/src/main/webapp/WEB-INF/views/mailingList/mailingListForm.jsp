@@ -26,6 +26,40 @@
 						</li>
 					</ul>
 				</div>
+				<div class="col-lg-6">
+					<div class="box">
+						<div class="box-header">
+							<span class="title"><spring:message code="label.clients" /></span>
+						</div><!-- box-header -->
+					</div>
+					<div class="box-content">
+						<div id="dataTables">
+							<table cellpadding="0" cellspacing="0" border="0"
+								class="dTable responsive">
+								<thead>
+									<tr>
+										<th>[ ]<spring:message code="label.selectAll" /></th>
+										<th><spring:message code="label.name" /></th>
+										<th><spring:message code="label.email"/></th>
+										<th><spring:message code="label.clientType" /></th>
+										<th><spring:message code="label.clientSince" /></th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach var="client" items="${mailingList.clients}">
+										<tr>
+											<td>[ ]</td>
+											<td>${client.name}</td>
+											<td>${client.email}</td>
+											<td>${client.clientType.name}</td>
+											<td>${client.createdOn}</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="form-actions">
 				<button type="submit" class="btn btn-blue"><spring:message code="label.save" /></button>
