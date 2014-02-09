@@ -8,7 +8,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
 import com.textTI.storeManagement.model.Client;
-import com.textTI.storeManagement.model.ClientType;
 import com.textTI.storeManagement.utils.HibernateUtil;
 
 @Repository

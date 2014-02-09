@@ -1,7 +1,6 @@
 package com.textTI.storeManagement.manager;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -9,8 +8,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.textTI.storeManagement.exception.ClientException;
-import com.textTI.storeManagement.model.Address;
 import com.textTI.storeManagement.model.Client;
 import com.textTI.storeManagement.model.ClientType;
 import com.textTI.storeManagement.model.MailingList;
@@ -36,7 +33,7 @@ public class TestMailingListManager extends BaseManagerTestCase {
 		logger.info("starting CRUD MailingList...");
 		
 		List<Client> clients = new ArrayList<Client>();
-		Set<Store> stores = createAndInsertStores();
+		Set<Store> stores = this.createAndInsertStores();
 		ClientType clientType = createAndInsertClientType();
 		Client cli = this.createAndInsertOneClient("33067630807", stores,clientType); 
 		clients.add(cli);
@@ -133,46 +130,5 @@ public class TestMailingListManager extends BaseManagerTestCase {
 		logger.info("deleting maillist");
 		this.mailingListManager.delete(mailingList);
 		logger.info("DONE");
-	}
-	
-	private Client createAndInsertOneClient(String cpf, Set<Store> stores, ClientType clientType) {
-		
-		Address address = new Address();
-		address.setStreet("Rua 1");
-		address.setNumber(1);
-		address.setCep("12421410");
-		
-		Client c1 = new Client();
-		c1.setName("Felipe Teixeira");
-		c1.setCpf(cpf);
-		c1.setEmail("felipecomp19@gmail.com");
-		c1.setAddress(address);
-		c1.setStores(stores);
-		c1.setClientType(clientType);
-
-		try {
-			this.clientManager.insert(c1);
-		} catch (ClientException e) {
-			e.printStackTrace();
-		}
-		
-		return c1;
-	}
-
-	private ClientType createAndInsertClientType() {
-		ClientType client = new ClientType();
-		client.setName("PF");
-		client.setDescription("Pessoa Física");
-		this.clientTypeManager.insert(client);
-		return client;
-	}
-
-	private Set<Store> createAndInsertStores() {
-		Store st = new Store();
-		st.setName("Morana");
-		Set<Store> stores = new HashSet<Store>();
-		stores.add(st);
-		this.storeManager.insert(st);
-		return stores;
 	}
 }

@@ -6,14 +6,14 @@
 	<div class="row action-nav-row">
 		<div class="col-sm-6 action-nav-button">
 			<a href="${pageContext.request.contextPath}/client/create" title="<spring:message code="label.newClient" />"> 
-				<i class="icon-user-alt"></i>
+				<i class="icon-user"></i>
 				<span><spring:message code="label.newClient" /></span>
 			</a> 
 			<span class="triangle-button green"><i class="icon-plus"></i></span>
 		</div>
 		<div class="col-sm-6 action-nav-button">
 			<a href="${pageContext.request.contextPath}/clientType/create" title="<spring:message code="label.newClientType" />">
-				<i class="icon-group-alt"></i>
+				<i class="icon-group"></i>
 				<span><spring:message code="label.newClientType" /></span>
 			</a> <span class="triangle-button blue"></span>
 		</div>

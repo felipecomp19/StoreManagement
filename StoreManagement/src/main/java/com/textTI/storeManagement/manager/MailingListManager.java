@@ -34,7 +34,6 @@ public class MailingListManager {
 	}
 
 	public List<MailingList> getAll() {
-		
 		return this.mlDao.getAll();
 	}
 }

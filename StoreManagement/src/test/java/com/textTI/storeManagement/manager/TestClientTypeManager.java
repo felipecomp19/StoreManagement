@@ -37,7 +37,8 @@ public class TestClientTypeManager extends BaseManagerTestCase {
 		deleteClientType(cliType);
 	}
 	
-	private void deleteClientType(ClientType cliType) {
+	@Override
+	public void deleteClientType(ClientType cliType) {
 		logger.info("deleting clientType");
 		this.cliTypaManager.delete(cliType);
 		logger.info("DONE!");

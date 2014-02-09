@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.textTI.storeManagement.manager.ClientManager;
 import com.textTI.storeManagement.manager.MailingListManager;
 import com.textTI.storeManagement.model.MailingList;
 
@@ -19,6 +20,9 @@ public class MailingListController extends BaseController {
 	
 	@Autowired
 	private MailingListManager mlManager;
+	
+	@Autowired
+	private ClientManager cliManager;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model)
@@ -36,7 +40,10 @@ public class MailingListController extends BaseController {
 	public String create(Model model)
 	{
 		logger.info("Accesses the create mailing list view");
-		model.addAttribute("mailingList",new MailingList());
+		
+		MailingList ml = new MailingList();
+		ml.setClients(this.cliManager.getAll());
+		model.addAttribute("mailingList", ml);
 		
 		return "mailingList/create";
 	}
