@@ -154,18 +154,6 @@
 		</ul>
 
 		<div class="hidden-sm hidden-xs">
-			<!-- 
-			<div class="text-center" style="margin-top: 60px">
-				<div class="easy-pie-chart-percent" style="display: inline-block"
-					data-percent="89">
-					<span>89%</span>
-				</div>
-				<div style="padding-top: 20px">
-					<b>CPU Usage</b>
-				</div>
-			</div>
-			 -->
-
 			<hr class="divider" style="margin-top: 500px">
 
 			<div class="sparkline-box side">
@@ -178,28 +166,8 @@
 						<!--16,7,23,13,12,11,15,4,19,18,4,24-->
 					</div>
 				</div>
-
 				<hr class="divider">
-				<div class="sparkline-row">
-					<h4 class="blue">
-						<span><spring:message code="label.sales"></spring:message></span> 223
-					</h4>
-					<div class="sparkline big" data-color="blue">
-						<!--11,19,20,20,5,18,11,6,16,20,26,11-->
-					</div>
-				</div>
-
-				<hr class="divider">
-				<div class="sparkline-row">
-					<h4 class="dark-green">
-						<span><spring:message code="label.income" /></span> $43.330
-					</h4>
-					<div class="sparkline big" data-color="darkGreen">
-						<!--6,3,24,25,27,29,14,26,20,8,12,20-->
-					</div>
-				</div>
-
-				<hr class="divider">
+				
 			</div>
 		</div>
 	</div>

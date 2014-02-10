@@ -41,10 +41,10 @@
 						<table class="dTable responsive">
 							<thead>
 								<tr>
-									<th>
+									<th style="width: 40px">
 										<div>
-											<input type="checkbox" class="icheck" id="selectAll">
-											<label for="selectAll"><spring:message code="label.selectAll" /></label>
+											<input type="checkbox" class="icheck" id="selectAll" title="<spring:message code="label.selectAll" />">
+											<!-- <label for="selectAll" title=""><spring:message code="label.selectAll" /></label> -->
 										</div>
 									</th>
 									<th><spring:message code="label.name" /></th>
@@ -85,3 +85,11 @@
 		</a>
 	</div>
 </form:form>
+<script type="text/javascript">
+    $(document).ready(function () {
+    	$("#selectAll").click(function(){
+    		$('input:checkbox').prop('checked', this.checked);
+    	});
+ 	});
+</script>
+
