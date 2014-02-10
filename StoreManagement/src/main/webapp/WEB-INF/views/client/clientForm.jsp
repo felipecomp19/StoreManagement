@@ -8,21 +8,28 @@
 				<div class="col-lg-6">
 					<ul class="padded separate-sections">
 						<li>
-							<div class="icheckbox_flat-aero checked" style="position: relative;">
-								<form:checkboxes id="stores" items="${stores}" path="stores" itemValue="idAsString" itemLabel="name" class="icheck" style="position: absolute; opacity: 0;"/>
-							</div>
+							<%-- <c:forEach var="store" items="${stores}">
+								<div>
+								<input type="checkbox" name="stores" value="${store.id}" id="st${store.id}" class="icheck">
+								<label for="st${store.id}">${store.name}</label>
+								</div>
+							</c:forEach> --%>
+							<!-- <div class="icheckbox_flat-aero checked" style="position: relative;"> -->
+							<form:checkboxes id="stores" items="${stores}" path="stores" itemValue="idAsString" itemLabel="name" class="icheck"/>
+							<!-- </div> -->
+						</li>
+						<li class="input">
+							<input type="text" name="cpf" placeholder="<spring:message code="label.cpf"/>" value="${client.cpf}"/>
 						</li>
 						<li class="input">
 							<input type="hidden" name="id" value="${client.id}"/>
 							<input type="text" name="name" placeholder="<spring:message code="label.name"/>" value="${client.name}"/>
 						</li>
 						<li class="input">
-							<input type="text" name="cpf" placeholder="<spring:message code="label.cpf"/>" value="${client.cpf}"/>
-						</li>
-						<li class="input">
 							<input type="text" name="email" placeholder="<spring:message code="label.email"/>" value="${client.email}"/>
 						</li>
 						<li class="input">
+							<label><spring:message code="label.selectClientType" /></label>
 							<form:select path="clientType" items="${clientTypes}" itemValue="id" itemLabel="name" />
 						</li>
 					</ul>

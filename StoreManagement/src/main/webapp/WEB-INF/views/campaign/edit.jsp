@@ -21,7 +21,7 @@
 						</span> <span class="breadcrumb-arrow"><span></span></span>
 					</div>
 					<div class="breadcrumb-button">
-						<span class="breadcrumb-label"> <i class="icon-pencil"></i> <spring:message code="label.newCampaign" />
+						<span class="breadcrumb-label"> <i class="icon-pencil"></i> <spring:message code="label.edit" />
 						</span> <span class="breadcrumb-arrow"><span></span></span>
 					</div>
 				</div>

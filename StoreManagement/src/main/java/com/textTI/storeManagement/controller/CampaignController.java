@@ -54,6 +54,8 @@ public class CampaignController extends BaseController {
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public String edit(@PathVariable("id") long id, Model model)
 	{
+		Campaign campaign = this.campaignManager.getById(id);
+		model.addAttribute("campaing", campaign);
 		
 		return "campaign/edit";
 	}
@@ -61,6 +63,8 @@ public class CampaignController extends BaseController {
 	@RequestMapping(value = "/celete/{id}", method = RequestMethod.GET)
 	public String delete(@PathVariable("id") long id)
 	{
+		Campaign campaign = this.campaignManager.getById(id);
+		this.campaignManager.delete(campaign);
 		
 		return "redirect:/campaign/list";
 	}
@@ -68,9 +72,10 @@ public class CampaignController extends BaseController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String save(@ModelAttribute("campaign") Campaign campaign, HttpServletRequest request)
 	{
-		Campaign c = campaign;
-		
-		//this.campaignManager.insert(campaign);
+		if(campaign.getId() != null)
+			this.campaignManager.update(campaign);
+		else
+			this.campaignManager.insert(campaign);
 		
 		return "redirect:/campaign/list";
 	}

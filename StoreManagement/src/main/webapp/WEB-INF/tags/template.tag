@@ -14,9 +14,10 @@
 	<title>SM - Morana</title>
 
 	<link href="${pageContext.request.contextPath}/resources/coreAdmin/stylesheets/application.css" media="screen" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/cleditor/jquery.cleditor.css" />
 	<script src="${pageContext.request.contextPath}/resources/coreAdmin/javascripts/application.js" type="text/javascript"></script>
 	<%-- <script src="${pageContext.request.contextPath}/resources/js/jquery-2.1.0.min.js" type="text/javascript" ></script> --%>
- 	<script src="${pageContext.request.contextPath}/resources/CLEditor1_4_4/jquery.cleditor.min.js" type="text/javascript"></script> 
+ 	<script src="${pageContext.request.contextPath}/resources/cleditor/jquery.cleditor.min.js" type="text/javascript"></script> 
 </head>
 <body>
 	<!-- top bar -->

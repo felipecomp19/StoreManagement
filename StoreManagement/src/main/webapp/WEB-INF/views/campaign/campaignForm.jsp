@@ -1,7 +1,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<form:form class="fill-up" method="POST" modelAttribute="campaing" action="${pageContext.request.contextPath}/campaing/save">
+<form:form class="fill-up" method="POST" modelAttribute="campaing" action="${pageContext.request.contextPath}/campaign/save">
 	<div class="row">
 		<div class="col-md-6">
 			<ul class="padded separate-sections">
@@ -12,7 +12,7 @@
 					<input type="text" name="name" placeholder="<spring:message code="label.campaignName"/>" value="${campaign.name}" />
 				</li>
 				<li>
-					<textarea rows="3" placeholder="<spring:message code="label.campaignDescription" />"></textarea>
+					<textarea name="description" rows="3" placeholder="<spring:message code="label.campaignDescription" />"></textarea>
 				</li>
 			</ul>
 		</div>
@@ -32,14 +32,30 @@
 					<h4>Email</h4>
 				</li>
 				<li>
-					<textarea id="email" name="input">Go ahead, take it for a test drive. Highlight some text and click some buttons.</textarea>
+					<textarea id="emailContent" name="emailContent"></textarea>
 				</li>
 			</ul>
 		</div>
 	</div>
+	<div class="form-actions">
+		<button type="submit" class="btn btn-blue"><spring:message code="label.save" /></button>
+		<a href="${pageContext.request.contextPath}/campaign/list">
+			<button type="button" class="btn btn-default"><spring:message code="label.cancel" /></button>
+		</a>
+	</div>
 </form:form>
 <script type="text/javascript">
     $(document).ready(function () {
-    	$("#email").cleditor()[0].focus();
+    	$("#emailContent").cleditor();
+    	
  	});
+    
+    /* function showValue()
+    {
+    	var v = $("#email").val();
+    	
+    	alert(v);
+    	
+    	return;
+    } */
  </script>

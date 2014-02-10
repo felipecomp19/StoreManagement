@@ -20,7 +20,7 @@
 					<ul class="list-inline pull-right sparkline-box">
 						<li class="sparkline-row">
 							<h4 class="blue">
-								<span><spring:message code="label.clients"/></span> 847
+								<span><spring:message code="label.clients"/></span>${clientsSize}
 							</h4>
 							<div class="sparkline big" data-color="blue">
 								<!--25,11,5,28,25,19,27,6,4,23,20,6-->
@@ -108,7 +108,7 @@
 			  <div class="col-md-6">
 			    <div class="box">
 			      <div class="box-header">
-			        <div class="title"><spring:message code="label.calendar"/></div>
+			        <div class="title"><spring:message code="label.lastUpdates"/></div>
 			      </div>
 			      <div class="box-content">
 			      	<%@include file="activities.jsp" %>

@@ -15,27 +15,30 @@
 			<a href="${pageContext.request.contextPath}/clientType/create" title="<spring:message code="label.newClientType" />">
 				<i class="icon-group"></i>
 				<span><spring:message code="label.newClientType" /></span>
-			</a> <span class="triangle-button blue"></span>
+			</a> 
+			<span class="triangle-button green"><i class="icon-plus"></i></span>
 		</div>
 	</div>
 	<div class="row action-nav-row">
 		<div class="col-sm-6 action-nav-button">
 			<a href="${pageContext.request.contextPath}/mailingList/create" title="<spring:message code="label.newMailingList" />"> 
 				<i class="icon-list-alt"></i><span><spring:message code="label.newMailingList" /></span>
-			</a> <span class="label label-dark-red pull-right">5</span>
+			</a> 
+			<span class="triangle-button green"><i class="icon-plus"></i></span>
 		</div>
 		<div class="col-sm-6 action-nav-button">
-			<a href="#" title="<spring:message code="label.newCampaign"/>"> 
+			<a href="${pageContext.request.contextPath}/campaign/create" title="<spring:message code="label.newCampaign"/>"> 
 				<i class="icon-envelope-alt"></i> <span><spring:message code="label.newCampaign"/></span>
 			</a>
-			<span class="triangle-button green"><span class="inner">+3</span></span>
+			<span class="triangle-button green"><i class="icon-plus"></i></span>
 		</div>
 	</div>
 	<div class="row action-nav-row">
 		<div class="col-sm-6 action-nav-button">
 			<a href="${pageContext.request.contextPath}/store/create" title="<spring:message code="label.newStore" />"> 
 				<i class="icon-building"></i><span><spring:message code="label.newStore" /></span>
-			</a> <span class="label label-dark-red pull-right">3</span>
+			</a> 
+			<span class="triangle-button green"><i class="icon-plus"></i></span>
 		</div>
 		<div class="col-sm-6 action-nav-button">
 			<a href="#" title="<spring:message code="label.configurations"/>"> <i class="icon-wrench"></i>
