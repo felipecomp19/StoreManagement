@@ -1,8 +1,17 @@
 package com.textTI.storeManagement.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 @Entity
 @Table(name="tb_users")
 public class User extends BaseModel {
+
+	private static final long serialVersionUID = -5692288105690927661L;
 
 	@Column(name = "userName", nullable = false)
 	private String userName;

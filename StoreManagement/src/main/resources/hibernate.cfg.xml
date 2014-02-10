@@ -34,6 +34,9 @@
 		<mapping class="com.textTI.storeManagement.model.Address"/>
 		<mapping class="com.textTI.storeManagement.model.MailingList"/>
 		<mapping class="com.textTI.storeManagement.model.Campaign"/>
+		<mapping class="com.textTI.storeManagement.model.User"/>
+		<mapping class="com.textTI.storeManagement.model.UserRole"/>
+		<mapping class="com.textTI.storeManagement.model.Audit"/>
 						
 	</session-factory>
 </hibernate-configuration>

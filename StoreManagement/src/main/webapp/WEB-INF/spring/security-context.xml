@@ -6,14 +6,21 @@
            http://www.springframework.org/schema/security/spring-security.xsd">
 
 	<http pattern="/resources/**" security="none" />
+	
 	<http>
 		<intercept-url pattern="/login*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<intercept-url pattern="/**" access="ROLE_USER" />
-		<form-login login-page="/login"
-			authentication-success-handler-ref="/dashboard"
-			always-use-default-target="true" />
+		<form-login login-page="/login" default-target-url="/dashboard"
+			always-use-default-target="true" authentication-failure-url="/loginfailed" />
 		<logout />
 	</http>
+
+	<!--  
+	<beans:bean id="success"
+		class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler">
+		<beans:property name="defaultTargetUrl" value="/dashboard"></beans:property>
+	</beans:bean>
+	-->
 
 	<!-- <beans:bean name="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" 
 		/> <authentication-manager> <authentication-provider> <password-encoder ref="bcryptEncoder" 

@@ -3,7 +3,7 @@ package com.textTI.storeManagement.file;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import strategy.IReadFileStrategy;
+import com.textTI.storeManagement.file.strategy.IReadFileStrategy;
 
 public class CustomFileReader {
 
@@ -25,8 +25,8 @@ public class CustomFileReader {
 	 * @param folder
 	 * @throws FileNotFoundException
 	 * 
-	 *             Le o diretório passado de forma recursiva. Ou seja, se dentro
-	 *             do diretório tiver outros diretórios estes também serão lidos
+	 *             Le o diretï¿½rio passado de forma recursiva. Ou seja, se dentro
+	 *             do diretï¿½rio tiver outros diretï¿½rios estes tambï¿½m serï¿½o lidos
 	 * 
 	 */
 	private String readFilesForFolder(final File folder) {

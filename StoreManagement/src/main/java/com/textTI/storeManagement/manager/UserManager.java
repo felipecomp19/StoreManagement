@@ -1,10 +1,12 @@
 package com.textTI.storeManagement.manager;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.textTI.storeManagement.dao.UserDAO;
 import com.textTI.storeManagement.model.User;
 
+@Component
 public class UserManager {
 
 	@Autowired

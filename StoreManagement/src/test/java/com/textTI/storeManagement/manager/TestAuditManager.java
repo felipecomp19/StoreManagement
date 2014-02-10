@@ -21,15 +21,15 @@ public class TestAuditManager extends BaseManagerTestCase {
 	@Test
 	public void testInsertAudit()
 	{
-		UserRole role = this.roleManager.getAll().get(0);
-		User user = new User();
-		user.setUserName("felipecomp19");
-		user.setUserRole(role);
-		user.setPassword("123456");
+//		UserRole role = this.roleManager.getAll().get(0);
+//		User user = new User();
+//		user.setUserName("felipecomp19");
+//		user.setUserRole(role);
+//		user.setPassword("123456");
 		
-		this.userManager.insert(user);
+		//this.userManager.insert(user);
 		
-		this.auditManager.audit(MessageConstant.CREATED_A_CLIENT, user);
+		//this.auditManager.audit(MessageConstant.CREATED_A_CLIENT, user);
 		
 	}
 }

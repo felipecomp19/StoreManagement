@@ -2,6 +2,8 @@ package com.textTI.storeManagement.dao;
 
 import java.util.List;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
 import com.textTI.storeManagement.model.UserRole;

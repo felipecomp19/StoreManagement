@@ -16,4 +16,12 @@ public class AuthenticationController extends BaseController {
 		
 		return "login";
 	}
+	
+	@RequestMapping(value="/loginfailed", method = RequestMethod.GET)
+	public String loginerror(Model model) {
+ 
+		model.addAttribute("error", "true");
+		return "login";
+ 
+	}
 }
