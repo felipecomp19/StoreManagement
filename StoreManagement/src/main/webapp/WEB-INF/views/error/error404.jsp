@@ -14,8 +14,8 @@
   <!-- Use title if it's in the page YAML frontmatter -->
   <title>SM - Morana</title>
 
-  <link href="../../stylesheets/application.css" media="screen" rel="stylesheet" type="text/css" />
-  <script src="../../javascripts/application.js" type="text/javascript"></script>
+  <link href="${pageContext.request.contextPath}/resources/coreAdmin/stylesheets/application.css" media="screen" rel="stylesheet" type="text/css" />
+  <script src="${pageContext.request.contextPath}/resources/coreAdmin/javascripts/application.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -40,8 +40,8 @@
       <div class="message-small">You are not where you're supposed to be</div>
 
       <div style="margin-top: 50px">
-        <a class="btn btn-blue" href="dashboard">
-            <i class="icon-arrow-left"></i> Back to dashboard
+        <a class="btn btn-blue" href="/">
+            <i class="icon-arrow-left"></i> Back to home
         </a>
       </div>
     </div>

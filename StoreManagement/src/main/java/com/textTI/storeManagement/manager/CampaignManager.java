@@ -19,6 +19,13 @@ public class CampaignManager {
 	{
 		newCampaign.setCreatedOn(new Date());
 		this.campaignDAO.insert(newCampaign);
+		
+		String fileName = "emailTemplate" + newCampaign.getId() + ".html";
+		newCampaign.setEmailFileName(fileName);
+		
+		this.campaignDAO.update(newCampaign);
+		
+		//TODO write the file
 	}
 	
 	public void delete(Campaign campaign)
@@ -34,6 +41,8 @@ public class CampaignManager {
 	public void update(Campaign newCampaign) 
 	{
 		this.campaignDAO.update(newCampaign);
+
+		//TODO read the file
 	}
 	
 	public List<Campaign> getAll()

@@ -23,8 +23,10 @@ public class Campaign extends BaseModel {
 	@Column(name="createdOns")
 	private Date createdOn;
 	
-	@Column(name="emailContent")
 	private String emailContent;
+	
+	@Column(name="emailFileName")
+	private String emailFileName;
 	
 	@ManyToOne(optional=false, fetch= FetchType.EAGER)
 	private MailingList mailingList;
@@ -67,6 +69,14 @@ public class Campaign extends BaseModel {
 
 	public void setEmailContent(String emailContent) {
 		this.emailContent = emailContent;
+	}
+
+	public String getEmailFileName() {
+		return emailFileName;
+	}
+
+	public void setEmailFileName(String emailFileName) {
+		this.emailFileName = emailFileName;
 	}
 }
 
