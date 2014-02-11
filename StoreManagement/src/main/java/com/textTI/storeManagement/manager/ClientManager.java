@@ -55,9 +55,10 @@ public class ClientManager {
 	}
 
 	public List<Client> getClientsCreatedInAYear() {
-		
-		//List<Client> clientsYear = this.clientDAO.getClientsCreatedInAYear();
-				
 		return this.clientDAO.getClientsCreatedInAYear();
+	}
+
+	public Client getClientByCPF(String cpf) {
+		return this.clientDAO.getByCPF(cpf);
 	}	
 }

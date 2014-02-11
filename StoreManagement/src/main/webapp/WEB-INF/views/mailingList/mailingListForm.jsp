@@ -56,7 +56,7 @@
 							<tr>
 								<td>
 									<div>
-										<input type="checkbox" class="icheck" />
+										<input name="clientCB" type="checkbox" class="icheck" clientId="${client.id}" />
 									</div>		
 								</td>
 								<td>${client.name}</td>
@@ -84,7 +84,15 @@
 <script type="text/javascript">
     $(document).ready(function () {
     	$("#selectAll").click(function(){
-    		$('input:checkbox').prop('checked', this.checked);
+    		$('input[type=checkbox]').prop('checked', $(this).checked);
+    	});
+    	
+    	$('input[name=clientCB]').click(function(){
+    		var clientId = $(this).prop("clientId");
+    		if($(this).is(':checked'))
+    			alert("checked: " + clientId);
+    		else
+    			alert("not checked");
     	});
  	});
 </script>

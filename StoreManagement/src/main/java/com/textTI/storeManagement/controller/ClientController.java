@@ -121,6 +121,14 @@ public class ClientController extends BaseController{
 		return "redirect:/client/list";
 	}
 	
+	//produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE
+	@RequestMapping(value="/getClientByCPF/{cpf}" method = RequestMethod.GET)
+	public @ResponseBody Client get(@PathVariable("cpf") String cpf) {
+		Client cli = this.clientManager.getClientByCPF(cpf);
+		
+		return cli;
+	}
+	
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) throws Exception {
 		binder.registerCustomEditor(Set.class, "stores", new CustomCollectionEditor(Set.class) {

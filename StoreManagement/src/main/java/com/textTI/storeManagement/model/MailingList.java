@@ -98,4 +98,20 @@ public class MailingList extends BaseModel {
 	public int getClientsListSize(){
 		return this.clients.size();
 	}
+	
+	@Override
+    public int hashCode() {
+        return this.getId().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) 
+            return false;
+
+        if (! (obj instanceof MailingList)) 
+            return false;
+        
+        return this.getId() == ((MailingList)obj).getId();
+    }
 }

@@ -21,7 +21,7 @@
 			<ul class="padded separate-sections">
 				<li>
 					<label><spring:message code="label.selectMailingList" /> </label>
-					<form:select path="mailingList" items="${mailingLists}" itemValue="id" itemLabel="name" class="uniform"/>
+					<form:select id="mlSelect" path="mailingList" items="${mailingLists}" itemValue="id" itemLabel="name" class="uniform"/>
 				</li>
 			</ul>
 		</div>
@@ -49,5 +49,10 @@
     $(document).ready(function () {
     	$("#emailContent").cleditor();
     	
+    	$("#mlSelect").change(function(){
+    		var selectedId = $(this).value;
+    		
+    		
+    	});
  	});
  </script>

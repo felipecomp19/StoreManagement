@@ -25,7 +25,7 @@
 						</li>
 						<li class="input">
 							<label><spring:message code="label.selectClientType" /></label>
-							<form:select path="clientType" items="${clientTypes}" itemValue="id" itemLabel="nameWithDescription" />
+							<form:select path="clientType" items="${clientTypes}" itemValue="id" itemLabel="nameWithDescription" class="uniform"/>
 						</li>
 					</ul>
 				</div>
@@ -71,10 +71,21 @@
     	$("#storesCB").find("span").css("padding-right","25px");
     	
     	$("#cpf").focusout(function(){
-	   		
+	   		var cpf = this.value;
     		
-    		alert(this.value);
-	   		
+    		$.ajax({
+	   			url: "/client/getClientByCPF/" + cpf,
+	   			type:"GET",
+	   			dataType: "jason",
+	   			contentType: 'application/json',
+	   		    mimeType: 'application/json',
+	   		 	success: function(data) { 
+	   	        	alert(data.id + ":" + data.name);
+	   	    	},
+	   	    	error:function(data,status,er) { 
+	   	        	alert("error: "+data+" status: "+status+" er:"+er);
+	   	     	}
+	   		});
     	});
  	});
  </script>
