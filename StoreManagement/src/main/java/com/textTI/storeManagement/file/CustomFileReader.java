@@ -7,17 +7,21 @@ import com.textTI.storeManagement.file.strategy.IReadFileStrategy;
 
 public class CustomFileReader {
 
-	private File folder;
+	private File folderOrFile;
 	private IReadFileStrategy readStrategy;
 
-	public CustomFileReader(File folder, IReadFileStrategy readStrategy) {
+	public CustomFileReader(File fileOrfolder, IReadFileStrategy readStrategy) {
 		super();
-		this.folder = folder;
+		this.folderOrFile = fileOrfolder;
 		this.readStrategy = readStrategy;
 	}
 
 	public String readFiles() {
-		return this.readFilesForFolder(this.folder);
+		return this.readFilesForFolder(this.folderOrFile);
+	}
+	
+	public String readSingleFile() {
+		return this.readStrategy.read(this.folderOrFile);
 	}
 
 	/**

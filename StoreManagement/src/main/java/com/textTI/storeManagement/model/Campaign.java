@@ -1,5 +1,6 @@
 package com.textTI.storeManagement.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -7,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="tb_campaign")
@@ -23,6 +25,7 @@ public class Campaign extends BaseModel {
 	@Column(name="createdOns")
 	private Date createdOn;
 	
+	@Transient
 	private String emailContent;
 	
 	@Column(name="emailFileName")
@@ -49,6 +52,14 @@ public class Campaign extends BaseModel {
 	
 	public Date getCreatedOn() {
 		return createdOn;
+	}
+	
+	public String getFormatedCreatedOn() {
+		if(this.createdOn != null){
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+			return sdf.format(createdOn);
+		}
+		return "";
 	}
 
 	public void setCreatedOn(Date createdOn) {

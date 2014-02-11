@@ -1,7 +1,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<form:form class="fill-up" method="POST" modelAttribute="campaing" action="${pageContext.request.contextPath}/campaign/save">
+<form:form class="fill-up" method="POST" modelAttribute="campaign" action="${pageContext.request.contextPath}/campaign/save">
 	<div class="row">
 		<div class="col-md-6">
 			<ul class="padded separate-sections">
@@ -9,10 +9,11 @@
 					<label><spring:message code="label.fillTheCamapaingInformations" /></label>
 					<input type="hidden" name="id" value="${campaign.id}" /> 
 					<input type="hidden" name="createdOn" value="${campaign.createdOn}" />
+					<input type="hidden" name="emailFileName" value="${campaign.emailFileName}" />
 					<input type="text" name="name" placeholder="<spring:message code="label.campaignName"/>" value="${campaign.name}" />
 				</li>
 				<li>
-					<textarea name="description" rows="3" placeholder="<spring:message code="label.campaignDescription" />"></textarea>
+					<textarea name="description" rows="3" placeholder="<spring:message code="label.campaignDescription" />">${campaign.description}</textarea>
 				</li>
 			</ul>
 		</div>
@@ -32,7 +33,7 @@
 					<h4>Email</h4>
 				</li>
 				<li>
-					<textarea id="emailContent" name="emailContent"></textarea>
+					<textarea id="emailContent" name="emailContent" >${campaign.emailContent}</textarea>
 				</li>
 			</ul>
 		</div>

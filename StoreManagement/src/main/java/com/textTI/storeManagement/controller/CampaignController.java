@@ -31,7 +31,7 @@ public class CampaignController extends BaseController {
 	public String create(Model model)
 	{
 		Campaign campaign = new Campaign();
-		model.addAttribute("campaing", campaign);
+		model.addAttribute("campaign", campaign);
 		
 		return "campaign/create";
 	}
@@ -55,7 +55,7 @@ public class CampaignController extends BaseController {
 	public String edit(@PathVariable("id") long id, Model model)
 	{
 		Campaign campaign = this.campaignManager.getById(id);
-		model.addAttribute("campaing", campaign);
+		model.addAttribute("campaign", campaign);
 		
 		return "campaign/edit";
 	}

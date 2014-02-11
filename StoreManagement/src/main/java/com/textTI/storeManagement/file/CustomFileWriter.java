@@ -19,7 +19,7 @@ public class CustomFileWriter {
 			// if file doesnt exists, then create it
 			if (!this.fileToWrite.exists()) 
 				this.fileToWrite.createNewFile();
-			
+
 			FileWriter fw = new FileWriter(this.fileToWrite.getAbsoluteFile());
 			BufferedWriter bw = new BufferedWriter(fw);
 			bw.write(content);
