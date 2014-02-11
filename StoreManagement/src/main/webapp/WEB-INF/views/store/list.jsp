@@ -85,7 +85,7 @@
 												<td>${store.name}</td>
 												<td>${store.description}</td>
 												<td>${store.telephone}</td>
-												<td class="center">3</td>
+												<td class="center">${store.clientsSize}</td>
 												<td class="center"> 
 													<div class="btn-group">
 														<button class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">

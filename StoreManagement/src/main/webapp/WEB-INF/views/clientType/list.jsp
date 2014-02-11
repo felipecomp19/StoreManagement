@@ -64,7 +64,7 @@
 											<tr>
 												<td>${cliType.name}</td>
 												<td>${cliType.description}</td>
-												<td class="center">3</td>
+												<td class="center">${cliType.clientsSize}</td>
 												<td class="center"> 
 													<div class="btn-group">
 														<button class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">

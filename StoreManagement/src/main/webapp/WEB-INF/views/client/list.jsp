@@ -74,7 +74,7 @@
 												<td>${client.cpf}</td>
 												<td>${client.email}</td>
 												<td>${client.clientType.name}</td>
-												<td>${client.createdOn}</td>
+												<td>${client.formatedCreatedOn}</td>
 												<td class="center"> 
 													<div class="btn-group">
 														<button class="btn btn-xs btn-default dropdown-toggle"

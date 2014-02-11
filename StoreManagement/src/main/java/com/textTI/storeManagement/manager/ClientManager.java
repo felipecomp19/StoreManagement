@@ -52,5 +52,12 @@ public class ClientManager {
 
 	public List<Client> getAll() {
 		return this.clientDAO.getAll();
+	}
+
+	public List<Client> getClientsCreatedInAYear() {
+		
+		//List<Client> clientsYear = this.clientDAO.getClientsCreatedInAYear();
+				
+		return this.clientDAO.getClientsCreatedInAYear();
 	}	
 }

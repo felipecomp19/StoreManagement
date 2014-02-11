@@ -14,7 +14,7 @@
 							<i class="icon-dashboard"></i> Dashboard
 						</h3>
 						<h5>
-							<span> A subtitle can go here </span>
+							<span><spring:message code="subtitle.dashboard"/></span>
 						</h5>
 					</div>
 					<ul class="list-inline pull-right sparkline-box">
@@ -23,10 +23,11 @@
 								<span><spring:message code="label.clients"/></span>${clientsSize}
 							</h4>
 							<div class="sparkline big" data-color="blue">
+								<%-- ${clientsCountChart } --%>
 								<!--25,11,5,28,25,19,27,6,4,23,20,6-->
 							</div>
 						</li>
-						<li class="sparkline-row">
+						<%-- <li class="sparkline-row">
 							<h4 class="green">
 								<span><spring:message code="label.income" /></span> $43.330
 							</h4>
@@ -41,7 +42,7 @@
 							<div class="sparkline big">
 								<!--16,23,28,8,12,9,25,11,16,16,17,13-->
 							</div>
-						</li>
+						</li> --%>
 					</ul>
 				</div>
 			</div>

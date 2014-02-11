@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -22,7 +23,7 @@ public class Store extends BaseModel {
 	@Column(name = "telephone", length=30)
 	private String telephone;
 
-	@ManyToMany(mappedBy = "stores")
+	@ManyToMany(mappedBy = "stores", fetch=FetchType.EAGER)
 	private Set<Client> clients;
 	
 	public Store() {
@@ -65,4 +66,25 @@ public class Store extends BaseModel {
 	public void setClients(Set<Client> clients) {
 		this.clients = clients;
 	}
+	
+	public int getClientsSize()
+	{
+		return this.clients.size();
+	}
+	
+	@Override
+    public int hashCode() {
+        return this.getId().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) 
+            return false;
+
+        if (! (obj instanceof Store)) 
+            return false;
+        
+        return this.getId() == ((Store)obj).getId();
+    }
 }

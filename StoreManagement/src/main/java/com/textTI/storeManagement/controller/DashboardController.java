@@ -13,6 +13,7 @@ import com.textTI.storeManagement.manager.AuditManager;
 import com.textTI.storeManagement.manager.ClientManager;
 import com.textTI.storeManagement.model.Audit;
 import com.textTI.storeManagement.model.Client;
+import com.textTI.storeManagement.utils.ClientChartUtil;
 
 @Controller
 public class DashboardController extends BaseController{
@@ -28,6 +29,9 @@ public class DashboardController extends BaseController{
 		logger.info("Accessed the dashboard", locale);
 		
 		List<Client> clients = this.clienteManager.getAll();
+		ClientChartUtil ccUtil = new ClientChartUtil();
+		ccUtil.prepareClientChartData(model, clients, this.clienteManager);
+		
 		List<Audit> top50audit = this.auditManager.getTOP50(locale);
 		
 		model.addAttribute("clientsSize", clients.size());

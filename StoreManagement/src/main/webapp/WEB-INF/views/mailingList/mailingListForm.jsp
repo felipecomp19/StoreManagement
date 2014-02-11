@@ -35,42 +35,38 @@
 					</h4>
 				</li>
 			</ul>
-			<div class="box">
-				<div class="box-content">
-					<div id="dataTables">
-						<table class="dTable responsive">
-							<thead>
-								<tr>
-									<th style="width: 40px">
-										<div>
-											<input type="checkbox" class="icheck" id="selectAll" title="<spring:message code="label.selectAll" />">
-											<!-- <label for="selectAll" title=""><spring:message code="label.selectAll" /></label> -->
-										</div>
-									</th>
-									<th><spring:message code="label.name" /></th>
-									<th><spring:message code="label.email" /></th>
-									<th><spring:message code="label.clientType" /></th>
-									<th><spring:message code="label.clientSince" /></th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach var="client" items="${mailingList.clients}">
-									<tr>
-										<td>
-											<div>
-												<input type="checkbox" class="icheck" />
-											</div>		
-										</td>
-										<td>${client.name}</td>
-										<td>${client.email}</td>
-										<td>${client.clientType.name}</td>
-										<td>${client.createdOn}</td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-					</div>
-				</div>
+			<div id="dataTables">
+				<table class="dTable responsive">
+					<thead>
+						<tr>
+							<th style="width: 40px">
+								<div>
+									<input type="checkbox" class="icheck" id="selectAll" title="<spring:message code="label.selectAll" />">
+									<!-- <label for="selectAll" title=""><spring:message code="label.selectAll" /></label> -->
+								</div>
+							</th>
+							<th><spring:message code="label.name" /></th>
+							<th><spring:message code="label.email" /></th>
+							<th><spring:message code="label.clientType" /></th>
+							<th><spring:message code="label.clientSince" /></th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="client" items="${mailingList.clients}">
+							<tr>
+								<td>
+									<div>
+										<input type="checkbox" class="icheck" />
+									</div>		
+								</td>
+								<td>${client.name}</td>
+								<td>${client.email}</td>
+								<td>${client.clientType.name}</td>
+								<td>${client.createdOn}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>

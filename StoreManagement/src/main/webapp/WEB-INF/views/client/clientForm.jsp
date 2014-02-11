@@ -8,21 +8,16 @@
 				<div class="col-lg-6">
 					<ul class="padded separate-sections">
 						<li>
-							<%-- <c:forEach var="store" items="${stores}">
-								<div>
-								<input type="checkbox" name="stores" value="${store.id}" id="st${store.id}" class="icheck">
-								<label for="st${store.id}">${store.name}</label>
-								</div>
-							</c:forEach> --%>
-							<!-- <div class="icheckbox_flat-aero checked" style="position: relative;"> -->
+							<div id="storesCB">
 							<form:checkboxes id="stores" items="${stores}" path="stores" itemValue="idAsString" itemLabel="name" class="icheck"/>
-							<!-- </div> -->
+							</div>
 						</li>
 						<li class="input">
-							<input type="text" name="cpf" placeholder="<spring:message code="label.cpf"/>" value="${client.cpf}"/>
+							<input type="text" id="cpf" name="cpf" placeholder="<spring:message code="label.cpf"/>" value="${client.cpf}"/>
 						</li>
 						<li class="input">
 							<input type="hidden" name="id" value="${client.id}"/>
+							<input type="hidden" name="createdOn" value="${client.createdOn}"/>
 							<input type="text" name="name" placeholder="<spring:message code="label.name"/>" value="${client.name}"/>
 						</li>
 						<li class="input">
@@ -30,7 +25,7 @@
 						</li>
 						<li class="input">
 							<label><spring:message code="label.selectClientType" /></label>
-							<form:select path="clientType" items="${clientTypes}" itemValue="id" itemLabel="name" />
+							<form:select path="clientType" items="${clientTypes}" itemValue="id" itemLabel="nameWithDescription" />
 						</li>
 					</ul>
 				</div>
@@ -70,3 +65,16 @@
 		</form:form>
 	</div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+    	$("#storesCB").find("span").css("padding-right","25px");
+    	
+    	$("#cpf").focusout(function(){
+	   		
+    		
+    		alert(this.value);
+	   		
+    	});
+ 	});
+ </script>

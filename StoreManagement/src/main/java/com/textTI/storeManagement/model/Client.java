@@ -1,5 +1,6 @@
 package com.textTI.storeManagement.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 
@@ -13,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "tb_client")
@@ -45,6 +47,9 @@ public class Client extends BaseModel {
 	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name = "address")
 	private Address address;
+	
+	@Transient
+	private int count;
 
 	public Client() {
 		super();
@@ -101,8 +106,24 @@ public class Client extends BaseModel {
 	public Date getCreatedOn() {
 		return createdOn;
 	}
+	
+	public String getFormatedCreatedOn() {
+		if(this.createdOn != null){
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+			return sdf.format(createdOn);
+		}
+		return "";
+	}
 
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
 	}	
 }

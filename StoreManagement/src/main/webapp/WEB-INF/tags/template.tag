@@ -152,24 +152,6 @@
 			</li>
 			<!-- [END] Configurações -->
 		</ul>
-
-		<div class="hidden-sm hidden-xs">
-			<hr class="divider" style="margin-top: 500px">
-
-			<div class="sparkline-box side">
-
-				<div class="sparkline-row">
-					<h4 class="gray">
-						<span><spring:message code="label.clients"/></span> 847
-					</h4>
-					<div class="sparkline big" data-color="gray">
-						<!--16,7,23,13,12,11,15,4,19,18,4,24-->
-					</div>
-				</div>
-				<hr class="divider">
-				
-			</div>
-		</div>
 	</div>
 	<!--[END] side bar  -->
 	

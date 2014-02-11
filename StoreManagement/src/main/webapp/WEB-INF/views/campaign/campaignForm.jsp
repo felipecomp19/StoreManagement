@@ -50,13 +50,4 @@
     	$("#emailContent").cleditor();
     	
  	});
-    
-    /* function showValue()
-    {
-    	var v = $("#email").val();
-    	
-    	alert(v);
-    	
-    	return;
-    } */
  </script>

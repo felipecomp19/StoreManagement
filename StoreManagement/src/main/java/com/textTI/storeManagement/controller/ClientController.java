@@ -26,6 +26,7 @@ import com.textTI.storeManagement.manager.StoreManager;
 import com.textTI.storeManagement.model.Client;
 import com.textTI.storeManagement.model.ClientType;
 import com.textTI.storeManagement.model.Store;
+import com.textTI.storeManagement.utils.ClientChartUtil;
 
 @Controller
 @RequestMapping(value="/client")
@@ -53,18 +54,22 @@ public class ClientController extends BaseController{
 		logger.info("Accessed the clients list view", locale);
 		
 		List<Client> clients = this.clientManager.getAll();
+		ClientChartUtil ccUtil = new ClientChartUtil();
+		ccUtil.prepareClientChartData(model, clients, this.clientManager);
 
-		int totalOfClients = clients.size();
-		
-		model.addAttribute("totalOfClients", totalOfClients );
 		model.addAttribute("clients", clients);
 		
 		return "client/list";
 	}
-	
+
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public String create(Locale locale, Model model) {
 		logger.info("Accessed the create client view", locale);
+		
+		List<Client> clients = this.clientManager.getAll();
+
+		ClientChartUtil ccUtil = new ClientChartUtil();
+		ccUtil.prepareClientChartData(model, clients, this.clientManager);
 		
 		populateStores(model);
 		model.addAttribute("client", new Client());
@@ -96,6 +101,10 @@ public class ClientController extends BaseController{
 	public String edit(@PathVariable("id") long id, Model model)
 	{
 		Client client = this.clientManager.getById(id);
+		
+		List<Client> clients = this.clientManager.getAll();
+		ClientChartUtil ccUtil = new ClientChartUtil();
+		ccUtil.prepareClientChartData(model, clients, this.clientManager);
 		
 		populateStores(model);
 		model.addAttribute("client", client);
