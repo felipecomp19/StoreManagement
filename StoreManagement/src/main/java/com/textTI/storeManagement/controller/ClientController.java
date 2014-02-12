@@ -132,6 +132,34 @@ public class ClientController extends BaseController{
 		return cli;
 	}
 	
+	
+	@RequestMapping(value = "/upload", method = RequestMethod.GET)
+    public String upload() {
+        
+		return "/client/upload";
+    }
+	
+	
+	@RequestMapping(value = "/uploadClients", method = RequestMethod.POST)
+    public String uploadClients(@ModelAttribute("uploadForm") FileUploadForm uploadForm, Model model) {
+        List<MultipartFile> files = uploadForm.getFiles();
+ 
+        List<String> fileNames = new ArrayList<String>();
+         
+        if(null != files && files.size() > 0) {
+            for (MultipartFile multipartFile : files) {
+ 
+                String fileName = multipartFile.getOriginalFilename();
+                fileNames.add(fileName);
+                
+                //Handle file content - multipartFile.getInputStream()
+            }
+        }
+         
+        model.addAttribute("files", fileNames);
+        return "redirect:/client/list";
+    }
+	
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) throws Exception {
 		binder.registerCustomEditor(Set.class, "stores", new CustomCollectionEditor(Set.class) {
