@@ -12,12 +12,15 @@
 					<ul class="padded separate-sections">
 						<li class="input">
 							<input type="hidden" name="id" value="${store.id}"/>
+							<label><spring:message code="label.name" /></label>
 							<input type="text" name="name" placeholder="<spring:message code="label.name"/>" value="${store.name}"/>
 						</li>
 						<li class="input">
+							<label><spring:message code="label.description" /></label>
 							<input type="text" name="description" placeholder="<spring:message code="label.description"/>" value="${store.description}"/>
 						</li>
 						<li class="input">
+							<label><spring:message code="label.telephone" /></label>
 							<input type="text" name="telephone" placeholder="<spring:message code="label.telephone"/>" value="${store.telephone}"/>
 						</li>
 					</ul>

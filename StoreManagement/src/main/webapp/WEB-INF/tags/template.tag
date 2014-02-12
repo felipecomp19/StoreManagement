@@ -102,7 +102,7 @@
 						<a href="${pageContext.request.contextPath}/client/list"> <i class="icon-th-large"></i> <spring:message code="label.listAll"/> </a>
 					</li>
 					<li class="">
-						<a href="#"> <i class="icon-folder-open-alt"></i> <spring:message code="label.import" /> </a>
+						<a href="${pageContext.request.contextPath}/client/upload"> <i class="icon-folder-open-alt"></i> <spring:message code="label.import" /> </a>
 					</li>
 					<li class="">
 						<a href="${pageContext.request.contextPath}/clientType/list"> <i class="icon-user"></i> <spring:message code="label.clientTypes" /> </a>
