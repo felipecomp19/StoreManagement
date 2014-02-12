@@ -1,5 +1,6 @@
 package com.textTI.storeManagement.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -71,7 +72,8 @@ public class ClientController extends BaseController{
 		ClientChartUtil ccUtil = new ClientChartUtil();
 		ccUtil.prepareClientChartData(model, clients, this.clientManager);
 		
-		populateStores(model);
+		this.populateDayAndMonthSelectList(model);
+		this.populateStores(model);
 		model.addAttribute("client", new Client());
 		
 		return "client/create";
@@ -106,7 +108,8 @@ public class ClientController extends BaseController{
 		ClientChartUtil ccUtil = new ClientChartUtil();
 		ccUtil.prepareClientChartData(model, clients, this.clientManager);
 		
-		populateStores(model);
+		this.populateDayAndMonthSelectList(model);
+		this.populateStores(model);
 		model.addAttribute("client", client);
 		
 		return "client/edit";
@@ -155,5 +158,33 @@ public class ClientController extends BaseController{
 			this.storeCache.put(store.getIdAsString(), store);
 		}
 		model.addAttribute("stores", stores);
+	}
+	
+	
+	private void populateDayAndMonthSelectList(Model model)
+	{
+		this.populateWithSequencialNumber(model, "daysSL", 1, 31);
+		this.populateWithSequencialNumber(model, "monthSL", 1, 12);
+	}
+	
+	/***
+	 * Create a list starting in {initNumber}, ending in {finalNumber} and add 
+	 * this list as attribute of the {model} named {var}
+	 * 
+	 * @param model
+	 * @param var
+	 * @param initNumber
+	 * @param finalNumber
+	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private void populateWithSequencialNumber(Model model, String var, int initNumber, int finalNumber)
+	{
+		List numbers = new ArrayList();
+		for(int i = initNumber; i <= finalNumber; i++)
+		{
+			numbers.add(i);
+		}
+		
+		model.addAttribute(var, numbers);
 	}
 }
