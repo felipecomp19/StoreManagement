@@ -47,12 +47,13 @@
 							</th>
 							<th><spring:message code="label.name" /></th>
 							<th><spring:message code="label.email" /></th>
+							<th><spring:message code="label.birthday" /></th>
 							<th><spring:message code="label.clientType" /></th>
 							<th><spring:message code="label.clientSince" /></th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="client" items="${mailingList.clients}">
+						<c:forEach var="client" items="${clients}">
 							<tr>
 								<td>
 									<div>
@@ -61,6 +62,7 @@
 								</td>
 								<td>${client.name}</td>
 								<td>${client.email}</td>
+								<td>${client.formatedBirthday}</td>
 								<td>${client.clientType.name}</td>
 								<td>${client.createdOn}</td>
 							</tr>

@@ -34,6 +34,9 @@ public class Client extends BaseModel {
 	@Column(name = "createdOn")
 	private Date createdOn;
 	
+	@Column(name="birthday")
+	private Date birthday;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "clientType", nullable = false)
 	private ClientType clientType;
@@ -118,6 +121,22 @@ public class Client extends BaseModel {
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
+	
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+	
+	public String getFormatedBirthday() {
+		if(this.birthday != null){
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM");
+			return sdf.format(birthday);
+		}
+		return "";
+	}
 
 	public int getCount() {
 		return count;
@@ -125,5 +144,7 @@ public class Client extends BaseModel {
 
 	public void setCount(int count) {
 		this.count = count;
-	}	
+	}
+	
+	
 }

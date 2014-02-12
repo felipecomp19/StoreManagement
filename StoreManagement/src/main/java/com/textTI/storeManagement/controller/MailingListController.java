@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.textTI.storeManagement.manager.ClientManager;
 import com.textTI.storeManagement.manager.MailingListManager;
+import com.textTI.storeManagement.model.Client;
 import com.textTI.storeManagement.model.MailingList;
 
 @Controller
@@ -42,8 +43,11 @@ public class MailingListController extends BaseController {
 		logger.info("Accesses the create mailing list view");
 		
 		MailingList ml = new MailingList();
-		ml.setClients(this.cliManager.getAll());
+		List<Client> clientsList = this.cliManager.getAll();
+		
+//		ml.setClients(this.cliManager.getAll());
 		model.addAttribute("mailingList", ml);
+		model.addAttribute("clients", clientsList);
 		
 		return "mailingList/create";
 	}
@@ -64,7 +68,9 @@ public class MailingListController extends BaseController {
 	public String edit(@PathVariable("id") long id, Model model)
 	{
 		MailingList mailingList = this.mlManager.getById(id);
+		List<Client> clientsList = this.cliManager.getAll();
 		
+		model.addAttribute("clients", clientsList);
 		model.addAttribute("mailingList", mailingList);
 		
 		return "mailingList/edit";

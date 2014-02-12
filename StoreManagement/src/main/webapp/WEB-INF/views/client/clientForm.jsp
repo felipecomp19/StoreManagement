@@ -24,6 +24,9 @@
 							<input type="text" name="email" placeholder="<spring:message code="label.email"/>" value="${client.email}"/>
 						</li>
 						<li class="input">
+							<input type="text" id="birthday" name="birthday" class="datepicker fill-up" placeholder="<spring:message code="label.birthday"/>" value="${client.birthday}"/>
+						</li>
+						<li class="input">
 							<label><spring:message code="label.selectClientType" /></label>
 							<form:select path="clientType" items="${clientTypes}" itemValue="id" itemLabel="nameWithDescription" class="uniform"/>
 						</li>
@@ -70,20 +73,25 @@
     $(document).ready(function () {
     	$("#storesCB").find("span").css("padding-right","25px");
     	
+    	$("#birthday").change(function(){
+    		alert($(this).val());
+    		$(this).attr("value",$(this).val());
+    	});
+    	
     	$("#cpf").focusout(function(){
 	   		var cpf = this.value;
     		
     		$.ajax({
-	   			url: "/client/getClientByCPF/" + cpf,
+	   			url: "${pageContext.request.contextPath}/client/getClientByCPF/" + cpf,
 	   			type:"GET",
-	   			dataType: "jason",
+	   			dataType: "json",
 	   			contentType: 'application/json',
 	   		    mimeType: 'application/json',
 	   		 	success: function(data) { 
-	   	        	alert(data.id + ":" + data.name);
+	   	        	//alert(data.id + ":" + data.name);
 	   	    	},
 	   	    	error:function(data,status,er) { 
-	   	        	alert("error: "+data+" status: "+status+" er:"+er);
+	   	        	//alert("error: "+data+" status: "+status+" er:"+er);
 	   	     	}
 	   		});
     	});

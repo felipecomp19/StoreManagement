@@ -53,9 +53,16 @@
 											<th><div>
 													<spring:message code="label.cpf" />
 												</div></th>
-											<th><div>
+											<th>
+												<div>
 													<spring:message code="label.email" />
-												</div></th>
+												</div>
+											</th>
+											<th>
+												<div>
+													<spring:message code="label.birthday" />
+												</div>
+											</th>
 											<th>
 												<div><spring:message code="label.clientType" /></div>
 											</th>
@@ -73,6 +80,7 @@
 												<td>${client.name}</td>
 												<td>${client.cpf}</td>
 												<td>${client.email}</td>
+												<td>${client.formatedBirthday}</td>
 												<td>${client.clientType.name}</td>
 												<td>${client.formatedCreatedOn}</td>
 												<td class="center"> 

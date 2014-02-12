@@ -40,7 +40,7 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse navbar-collapse-top">
 			<div class="navbar-right">
-				<!-- user profile -->
+				<%-- <!-- user profile -->
 				<ul class="nav navbar-nav navbar-left">
 					<li class="dropdown">
 						<a href="#"	class="dropdown-toggle dropdown-avatar" data-toggle="dropdown">
@@ -50,6 +50,7 @@
 								<span class="badge badge-dark-red">5</span>
 							</span>
 						</a>
+						
 						<ul class="dropdown-menu">
 							<!-- the first element is the one with the big avatar, add a with-image class to it -->
 							<li class="with-image">
@@ -67,7 +68,7 @@
 						</ul>
 					</li>
 				</ul>
-				<!-- [END] user profile -->
+				<!-- [END] user profile --> --%>
 			</div>
 		</div>
 		<!-- /.navbar-collapse -->
@@ -136,6 +137,11 @@
 				</ul>
 			</li>
 			<!-- [END] Campanhas -->
+			
+			<li class="">
+				<span class="glow"></span> 
+				<a href="${pageContext.request.contextPath}/calendar"> <i class="icon-calendar icon-2x"></i> <span><spring:message code="label.calendar"></spring:message></span> </a>
+			</li>
 
 			<!-- Configurações  -->
 			<li class="dark-nav ">

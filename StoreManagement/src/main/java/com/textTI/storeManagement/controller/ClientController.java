@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomCollectionEditor;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.textTI.storeManagement.exception.ClientException;
 import com.textTI.storeManagement.manager.ClientManager;
@@ -122,7 +124,7 @@ public class ClientController extends BaseController{
 	}
 	
 	//produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE
-	@RequestMapping(value="/getClientByCPF/{cpf}" method = RequestMethod.GET)
+	@RequestMapping(value="/getClientByCPF/{cpf}", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Client get(@PathVariable("cpf") String cpf) {
 		Client cli = this.clientManager.getClientByCPF(cpf);
 		
