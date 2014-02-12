@@ -81,6 +81,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
     	$("#storesCB").find("span").css("padding-right","25px");
+    	$("#cpf").mask("999.999.999-99");
     	
     	$("#cpf").focusout(function(){
 	   		var cpf = this.value;
