@@ -78,12 +78,12 @@
 						</li> --%>
 						<li class="input">
 							<label><spring:message code="label.state"/></label>
-							<input type="text" id="state" name="address.state" placeholder="<spring:message code="label.state"/>" value="${client.address.state}"/>
+							<input type="text" id="state" name="address.state" value="${client.address.state}"/>
 							<%-- <select id="state" name="address.state" value="${client.address.state}" class="uniform"></select> --%>
 						</li>
 						<li class="input">
 							<label><spring:message code="label.city"/></label>
-							<input type="text" id="city" name="address.city" placeholder="<spring:message code="label.city"/>" value="${client.address.city}"/>
+							<input type="text" id="city" name="address.city" value="${client.address.city}"/>
 						</li>
 						<li class="input">
 							<label><spring:message code="label.neighbourhood"/></label>
@@ -162,6 +162,8 @@
 	   		});
     	});
     	
+    	
+    	//monta a select lista de cidade e estados
     	new dgCidadesEstados({
     	    estado: $('#state').get(0),
     	    cidade: $('#city').get(0)
