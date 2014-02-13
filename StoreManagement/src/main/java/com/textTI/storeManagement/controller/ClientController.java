@@ -128,7 +128,6 @@ public class ClientController extends BaseController{
 		return "redirect:/client/list";
 	}
 	
-	//produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE
 	@RequestMapping(value="/getClientByCPF/{cpf}", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Client get(@PathVariable("cpf") String cpf) {
 		Client cli = this.clientManager.getClientByCPF(cpf);

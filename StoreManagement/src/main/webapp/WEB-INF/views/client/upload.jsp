@@ -1,6 +1,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@page contentType="text/html;charset=UTF-8" language="java"%>
 
 <t:template>
@@ -42,6 +43,7 @@
 					<div class="box-content">
 						<form:form class="fill-up" method="post" action="${pageContext.request.contextPath}/client/uploadClients" modelAttribute="uploadForm" enctype="multipart/form-data">
 							<div class="row">
+								<div class="col-md-6">
 								<ul class="padded separate-sections">
 									<li class="input">
 										<label><spring:message code="label.uploadClientList"/></label>
@@ -51,8 +53,9 @@
 								   		<div class="note pull-right"><spring:message code="warning.pleaseSelectAnExcelFile" /></div>
 							   		</li>
 								</ul>
+								</div>
 							</div>
-							<!-- <input type="submit" value="Upload" /> -->
+							<input type="submit" value="Upload" />
 							<div class="form-actions">
 								<button type="submit" class="btn btn-blue"><spring:message code="label.upload" /></button>
 								<a href="${pageContext.request.contextPath}/client/list">
