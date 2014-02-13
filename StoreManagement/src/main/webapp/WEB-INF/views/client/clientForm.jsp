@@ -34,13 +34,13 @@
 						</li>
 						<li class="input">
 							<div class="col-md-6">
-								<label class="control-label col-md-2"><spring:message code="label.day"/></label>
+								<label class="control-label col-md-2"><spring:message code="label.day"></label>
 								<div class="col-md-4">
 									<form:select path="day_birthday" items="${daysSL}" class="uniform" />
 								</div>
 							</div>
 							<div class="col-md-6">
-								<label class="control-label col-md-2"><spring:message code="label.month"/></label>
+								<label class="control-label col-md-2"><spring:message code="label.month"></label>
 								<div class="col-md-4">
 									<form:select path="month_birthday" items="${monthSL}" class="uniform" />
 								</div>
@@ -126,8 +126,9 @@
 
     	
     	$("#cpf").focusout(function(){
-	   		var cpf = $(this).value;
-	   		$.ajax({
+	   		var cpf = this.value;
+    		
+    		$.ajax({
 	   			url: "${pageContext.request.contextPath}/client/getClientByCPF/" + cpf,
 	   			type:"GET",
 	   			dataType: "json",

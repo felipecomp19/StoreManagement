@@ -31,11 +31,17 @@ public class Client extends BaseModel {
 	@Column(name = "email", nullable = false)
 	private String email;
 	
+	@Column(name = "telephone")
+	private String telephone;
+		
 	@Column(name = "createdOn")
 	private Date createdOn;
 	
-	@Column(name="birthday")
-	private Date birthday;
+	@Column(name="month_birthday")
+	private int month_birthday;
+	
+	@Column(name="day_monthday")
+	private int day_birthday;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "clientType", nullable = false)
@@ -81,6 +87,14 @@ public class Client extends BaseModel {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
 
 	public ClientType getClientType() {
 		return clientType;
@@ -122,20 +136,20 @@ public class Client extends BaseModel {
 		this.createdOn = createdOn;
 	}
 	
-	public Date getBirthday() {
-		return birthday;
+	public int getMonth_birthday() {
+		return month_birthday;
 	}
 
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
+	public void setMonth_birthday(int month_birthday) {
+		this.month_birthday = month_birthday;
 	}
-	
-	public String getFormatedBirthday() {
-		if(this.birthday != null){
-			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM");
-			return sdf.format(birthday);
-		}
-		return "";
+
+	public int getDay_birthday() {
+		return day_birthday;
+	}
+
+	public void setDay_birthday(int day_birthday) {
+		this.day_birthday = day_birthday;
 	}
 
 	public int getCount() {
