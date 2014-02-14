@@ -14,7 +14,7 @@ public class Address extends BaseModel {
 	private String street;
 	
 	@Column(name = "number")
-	private int number;
+	private Integer number;
 	
 	@Column(name = "complement")
 	private String complement;
@@ -39,11 +39,11 @@ public class Address extends BaseModel {
 		this.street = street;
 	}
 
-	public int getNumber() {
+	public Integer getNumber() {
 		return number;
 	}
 
-	public void setNumber(int number) {
+	public void setNumber(Integer number) {
 		this.number = number;
 	}
 

@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomCollectionEditor;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -87,7 +86,7 @@ public class ClientController extends BaseController{
 	public String save(@ModelAttribute("client") Client client, HttpServletRequest request)
 	{
 		logger.info("Creating a client");
-
+		
 		//TODO validate Client 
 		try{
 		if(client.getId() != null)
@@ -128,9 +127,13 @@ public class ClientController extends BaseController{
 		return "redirect:/client/list";
 	}
 	
-	@RequestMapping(value="/getClientByCPF/{cpf}", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Client get(@PathVariable("cpf") String cpf) {
+	// method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE
+	@RequestMapping(value="/getClientByCPF/{cpf}")
+	public @ResponseBody Client getClientByCPF(@PathVariable("cpf") String cpf) {
 		Client cli = this.clientManager.getClientByCPF(cpf);
+		
+		if(cli == null)
+			cli = new Client();
 		
 		return cli;
 	}

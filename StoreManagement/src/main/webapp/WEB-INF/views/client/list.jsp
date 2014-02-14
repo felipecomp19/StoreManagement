@@ -78,7 +78,7 @@
 										<c:forEach var="client" items="${clients}">
 											<tr>
 												<td>${client.name}</td>
-												<td>${client.cpf}</td>
+												<td>${client.formatedCPF}</td>
 												<td>${client.email}</td>
 												<td>${client.formatedBirthday}</td>
 												<td>${client.clientType.name}</td>

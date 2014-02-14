@@ -8,6 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 @Entity
 @Table(name="tb_clientType")
 public class ClientType extends BaseModel {
@@ -21,6 +23,7 @@ public class ClientType extends BaseModel {
 	private String description;
 	
 	@OneToMany(mappedBy="clientType", fetch=FetchType.EAGER)
+	@JsonBackReference
 	private List<Client> clients;
 	
 	public ClientType() {

@@ -19,9 +19,15 @@ public class ClientManager {
 	
 	public void insert(Client newClient) throws ClientException 
 	{
-		this.validate(newClient);
+		//this.validate(newClient);
 		newClient.setCreatedOn(new Date());
+		this.parseCPF(newClient);
 		this.clientDAO.insert(newClient);
+	}
+
+	private void parseCPF(Client newClient) {
+		String cpf = newClient.getCpf().replace(".", "").replace("-",	"");
+		newClient.setCpf(cpf);
 	}
 	
 	public void delete(Client client)
@@ -36,6 +42,7 @@ public class ClientManager {
 
 	public void update(Client newClient) 
 	{
+		this.parseCPF(newClient);
 		this.clientDAO.update(newClient);
 	}
 	

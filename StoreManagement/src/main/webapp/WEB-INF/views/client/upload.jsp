@@ -41,7 +41,7 @@
 						<span class="title"><spring:message code="label.form" /></span>
 					</div>
 					<div class="box-content">
-						<form:form class="fill-up" method="post" action="${pageContext.request.contextPath}/client/uploadClients" modelAttribute="uploadForm" enctype="multipart/form-data">
+						<form:form class="fill-up" method="post" action="${pageContext.request.contextPath}/client/uploadClients" commandName="uploadForm" modelAttribute="uploadForm" enctype="multipart/form-data">
 							<div class="row">
 								<div class="col-md-6">
 								<ul class="padded separate-sections">

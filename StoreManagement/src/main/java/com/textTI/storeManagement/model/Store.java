@@ -8,6 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 @Entity
 @Table(name="tb_store")
 public class Store extends BaseModel {
@@ -24,6 +26,7 @@ public class Store extends BaseModel {
 	private String telephone;
 
 	@ManyToMany(mappedBy = "stores", fetch=FetchType.EAGER)
+	@JsonBackReference
 	private Set<Client> clients;
 	
 	public Store() {
@@ -70,6 +73,11 @@ public class Store extends BaseModel {
 	public int getClientsSize()
 	{
 		return this.clients.size();
+	}
+	
+	public String getNameWithDesc()
+	{
+		return this.name + " - " + this.description;
 	}
 	
 	@Override

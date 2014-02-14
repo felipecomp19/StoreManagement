@@ -1,5 +1,6 @@
 package com.textTI.storeManagement.model;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
@@ -15,6 +16,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.swing.text.MaskFormatter;
+
+import org.codehaus.jackson.annotate.JsonManagedReference;
 
 @Entity
 @Table(name = "tb_client")
@@ -40,17 +44,19 @@ public class Client extends BaseModel {
 	@Column(name="month_birthday")
 	private int month_birthday;
 	
-	@Column(name="day_monthday")
+	@Column(name="day_birthday")
 	private int day_birthday;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "clientType", nullable = false)
+	@JsonManagedReference
 	private ClientType clientType;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "tb_client_store", 
 				joinColumns = { @JoinColumn(name = "client_id", nullable = false, updatable = false) }, 
 				inverseJoinColumns = { @JoinColumn(name = "store_id", nullable = false, updatable = false) })
+	@JsonManagedReference
 	private Set<Store> stores;
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
@@ -151,7 +157,12 @@ public class Client extends BaseModel {
 	public void setDay_birthday(int day_birthday) {
 		this.day_birthday = day_birthday;
 	}
-
+	
+	public String getFormatedBirthday()
+	{
+		return this.day_birthday + "/" + this.getMonth_birthday();
+	}
+	
 	public int getCount() {
 		return count;
 	}
@@ -160,5 +171,21 @@ public class Client extends BaseModel {
 		this.count = count;
 	}
 	
+	public String getFormatedCPF()
+	{
+		try {
+			return formatarString(this.cpf, "###.###.###-##");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return this.cpf;
+	} 
+	
+	public String formatarString(String texto, String mascara) throws ParseException {  
+	    MaskFormatter mf = new MaskFormatter(mascara);  
+	    mf.setValueContainsLiteralCharacters(false);  
+	    return mf.valueToString(texto);  
+	}  
 	
 }

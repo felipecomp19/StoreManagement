@@ -18,7 +18,8 @@
 	<script src="${pageContext.request.contextPath}/resources/coreAdmin/javascripts/application.js" type="text/javascript"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.mask.min.js" type="text/javascript" ></script>
  	<script src="${pageContext.request.contextPath}/resources/cleditor/jquery.cleditor.min.js" type="text/javascript"></script>
- 	<script type="text/javascript" src="http://cidades-estados-js.googlecode.com/files/cidades-estados-1.2-utf8.js"></script> 
+ 	<script src="http://cidades-estados-js.googlecode.com/files/cidades-estados-1.2-utf8.js" type="text/javascript"></script> 
+ 	<script src="${pageContext.request.contextPath}/resources/js/jquery.blockUI.js" type="text/javascript"></script>
 </head>
 <body>
 	<!-- top bar -->
