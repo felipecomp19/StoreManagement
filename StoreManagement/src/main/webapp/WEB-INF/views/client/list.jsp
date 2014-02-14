@@ -36,7 +36,7 @@
 								<li>
 									<a href="${pageContext.request.contextPath}/client/create">
 									<button class="btn btn-green">
-										<i class="icon-building"></i>&nbsp&nbsp<spring:message code="label.newClient" />
+										<i class="icon-user"></i>&nbsp&nbsp<spring:message code="label.newClient" />
 									</button>
 									</a>
 								</li>

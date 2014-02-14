@@ -136,6 +136,9 @@
 					<li>
 						<a href="${pageContext.request.contextPath}/mailingList/list"> <i class="icon-list-alt"> </i><spring:message code="label.mailingLists" /> </a>
 					</li>
+					<li>
+						<a href="${pageContext.request.contextPath}/imagens/list"> <i class="icon-picture"> </i><spring:message code="label.imagens" /> </a>
+					</li>
 				</ul>
 			</li>
 			<!-- [END] Campanhas -->

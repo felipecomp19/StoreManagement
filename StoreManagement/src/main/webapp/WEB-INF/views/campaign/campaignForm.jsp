@@ -47,7 +47,9 @@
 </form:form>
 <script type="text/javascript">
     $(document).ready(function () {
-    	$("#emailContent").cleditor();
+    	$("#emailContent").cleditor({
+    		height: 700
+    	});
     	
     	$("#mlSelect").change(function(){
     		var selectedId = $(this).value;
