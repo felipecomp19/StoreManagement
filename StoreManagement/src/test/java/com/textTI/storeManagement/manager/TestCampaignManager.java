@@ -37,6 +37,7 @@ public class TestCampaignManager extends BaseManagerTestCase {
 		campaign.setName("Campanha teste");
 		campaign.setDescription("Uma campanha para teste");
 		campaign.setMailingList(this.mailingList);
+		campaign.setEmailContent("<h1>Hello world!!!</h1>");
 		
 		logger.info("Create Campaign...");
 		this.campaignManager.insert(campaign);

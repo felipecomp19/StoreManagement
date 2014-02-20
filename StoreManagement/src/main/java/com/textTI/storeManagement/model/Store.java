@@ -82,7 +82,9 @@ public class Store extends BaseModel {
 	
 	@Override
     public int hashCode() {
-        return this.getId().hashCode();
+		if(this.getId() != null)
+			return this.getId().hashCode();
+		return 0;
     }
 
     @Override

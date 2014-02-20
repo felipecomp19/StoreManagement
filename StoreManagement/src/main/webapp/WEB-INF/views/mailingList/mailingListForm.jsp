@@ -4,10 +4,8 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="row">
-			<div class="col-md-4">
-				<form:form class="fill-up" method="POST"
-					modelAttribute="mailingList" commandname="mailingList"
-					action="${pageContext.request.contextPath}/mailingList/save">
+			<form:form class="fill-up" method="POST" modelAttribute="mailingList" commandname="mailingList" action="${pageContext.request.contextPath}/mailingList/save">
+				<div class="col-md-4">
 					<ul class="padded separate-sections">
 						<li>
 							<h4>
@@ -36,7 +34,6 @@
 							placeholder="<spring:message code="label.defaultSubject"/>"
 							value="${mailingList.defaultSubject}" /></li>
 					</ul>
-					<input type="hidden" id="clients" name="clientsList"/>
 					<div class="form-actions">
 						<button type="submit" class="btn btn-blue">
 							<spring:message code="label.save" />
@@ -47,54 +44,53 @@
 							</button>
 						</a>
 					</div>
-				</form:form>
-			</div>
-
-
-			<!-- List of clients -->
-			<div class="col-md-8">
-				<ul class="padded separate-sections">
-					<li>
-						<h4>
-							<spring:message code="label.selectClients" />
-						</h4>
-					</li>
-				</ul>
-				<div id="dataTables">
-					<table class="dTable responsive">
-						<thead>
-							<tr>
-								<th style="width: 40px">
-									<div>
-										<input type="checkbox" id="selectAll"
-											title="<spring:message code="label.selectAll" />">
-									</div>
-								</th>
-								<th><spring:message code="label.name" /></th>
-								<th><spring:message code="label.email" /></th>
-								<th><spring:message code="label.clientType" /></th>
-								<th><spring:message code="label.clientSince" /></th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="client" items="${clients}">
-								<tr>
-									<td>
-										<div>
-											<input type="checkbox" name="clientCB" clientId="${client.id}" />
-										</div>
-									</td>
-									<td>${client.name}</td>
-									<td>${client.email}</td>
-									<td>${client.clientType.name}</td>
-									<td>${client.createdOn}</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
 				</div>
-			</div>
-			<!-- [END] List of clients -->
+				<div class="col-md-8">
+					<ul class="padded separate-sections">
+						<li>
+							<h4>
+								<spring:message code="label.selectClients" />
+							</h4>
+						</li>
+						<li>
+							<div id="dataTables">
+								<!-- <table class="dTable responsive"> -->
+								<table>
+									<thead>
+										<tr>
+											<th style="width: 40px">
+												<div>
+													<input type="checkbox" id="selectAll"
+														title="<spring:message code="label.selectAll" />">
+												</div>
+											</th>
+											<th><spring:message code="label.name" /></th>
+											<th><spring:message code="label.email" /></th>
+											<th><spring:message code="label.clientType" /></th>
+											<th><spring:message code="label.clientSince" /></th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach var="client" items="${clients}">
+											<tr>
+												<td>
+													<div>
+														<form:checkbox path="clients" value="${client.id}"/>
+													</div>
+												</td>
+												<td>${client.name}</td>
+												<td>${client.email}</td>
+												<td>${client.clientType.name}</td>
+												<td>${client.createdOn}</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</form:form>
 		</div>
 		<!-- row -->
 	</div>
@@ -103,22 +99,8 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#selectAll").click(function() {
-			
-			$('input[name=clientCB]').prop('checked', $(this).is(':checked'));
+			$('input[name=clients]').prop('checked', $(this).is(':checked'));
 		}); 
-
-		$("input[name=clientCB]").click(function() {
-			var clientId = $(this).attr("clientId");
-			
-			var currentClients = $("#clients").attr("value");
-			if ($(this).is(':checked')){
-				$("#clients").attr("value", clientId);
-				alert("checked: " + $("#clients").attr("value"));
-			}
-			
-			else
-				alert("not checked");
-		});
 	});
 </script>
 

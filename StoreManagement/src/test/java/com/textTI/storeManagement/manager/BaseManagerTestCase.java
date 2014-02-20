@@ -1,5 +1,6 @@
 package com.textTI.storeManagement.manager;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -131,7 +132,6 @@ public abstract class BaseManagerTestCase extends
 	public void deleteMailingList(MailingList mailingList) {
 		this.mailingListManager.delete(mailingList);
 	}
-
 	/*
 	 * protected transient final Log log = LogFactory.getLog(getClass());
 	 * private int smtpPort = 25250;

@@ -19,7 +19,7 @@ public class ClientManager {
 	
 	public void insert(Client newClient) throws ClientException 
 	{
-		//this.validate(newClient);
+		this.validate(newClient);
 		newClient.setCreatedOn(new Date());
 		this.parseCPF(newClient);
 		this.clientDAO.insert(newClient);

@@ -30,28 +30,35 @@
 							<span class="help-block note"><i class="icon-warning-sign"></i><spring:message code="warning.typeJustNumbers"/></span>
 						</li>
 						<li class="input">
-							<input type="hidden" name="id" value="${client.id}"/>
-							<input type="hidden" name="createdOn" value="${client.createdOn}"/>
+							<input id="id" type="hidden" name="id" value="${client.id}"/>
+							<input id="createdOn" type="hidden" name="createdOn" value="${client.createdOn}"/>
 							<label><spring:message code="label.name"/></label>
-							<input type="text" name="name" placeholder="<spring:message code="label.name"/>" value="${client.name}" class="validate[required]" data-prompt-position="topLeft"/>
+							<input id="name" type="text" name="name" placeholder="<spring:message code="label.name"/>" value="${client.name}" class="validate[required]" data-prompt-position="topLeft"/>
 						</li>
 						<li class="input">
 							<label><spring:message code="label.email"/></label>
-							<input type="text" name="email" placeholder="<spring:message code="label.email"/>" value="${client.email}" class="validate[required|email]" data-prompt-position="topLeft"/>
+							<input id="email" type="text" name="email" placeholder="<spring:message code="label.email"/>" value="${client.email}" class="validate[required|email]" data-prompt-position="topLeft"/>
 						</li>
 						<li class="input">
 							<label><spring:message code="label.telephone"/></label>
 							<input type="text" id="telephone" name="telephone" placeholder="<spring:message code="label.telephone"/>" value="${client.telephone}" />
 						</li>
 						<li class="input">
-							<label class="control-label"><spring:message code="label.day" /></label>
-							<form:select path="day_birthday" items="${daysSL}" class="uniform" />
-							<label class="control-label"><spring:message code="label.month" /></label>
-							<form:select path="month_birthday" items="${monthSL}" class="uniform" />
+							<label class="control-label"><spring:message code="label.birthday" /></label>
+							<div class="row action-nav-row">
+								<div class="col-md-2">
+									<label class="control-label"><spring:message code="label.day" /></label>
+									<form:select id="day_birthday" path="day_birthday" items="${daysSL}" class="uniform" />
+								</div>
+								<div class="col-md-2">
+									<label class="control-label"><spring:message code="label.month" /></label>
+									<form:select id="month_birthday" path="month_birthday" items="${monthSL}" class="uniform" />
+								</div>
+							</div>
 						</li>
 						<li class="input">
 							<label><spring:message code="label.selectClientType" /></label>
-							<form:select path="clientType" items="${clientTypes}" itemValue="id" itemLabel="nameWithDescription" class="uniform"/>
+							<form:select id="clientType" path="clientType" items="${clientTypes}" itemValue="id" itemLabel="nameWithDescription" class="uniform"/>
 						</li>
 					</ul>
 				</div>
@@ -69,15 +76,15 @@
 						</li>
 						<li class="input">
 							<label><spring:message code="label.number"/></label>
-							<input type="text" name="address.number" placeholder="<spring:message code="label.number"/>" value="${client.address.number}"/>
+							<input id="number" type="text" name="address.number" placeholder="<spring:message code="label.number"/>" value="${client.address.number}"/>
 						</li>
 						<li class="input">
 							<label><spring:message code="label.city"/></label>
-							<input type="text" id="city" name="address.city" placeholder="<spring:message code="label.city"/>" value="${client.address.city}"/>
+							<input id="city" type="text" name="address.city" placeholder="<spring:message code="label.city"/>" value="${client.address.city}"/>
 						</li>
 						<li class="input">
 							<label><spring:message code="label.state"/></label>
-							<input type="text" id="statee" name="address.state" placeholder="<spring:message code="label.state"/>" value="${client.address.state}"/>
+							<input id="statee" type="text"  name="address.state" placeholder="<spring:message code="label.state"/>" value="${client.address.state}"/>
 						</li> 
 						<li class="input">
 							<label><spring:message code="label.neighbourhood"/></label>
@@ -85,7 +92,7 @@
 						</li>
 						<li class="input">
 							<label><spring:message code="label.complement"/></label>
-							<input type="text" name="address.complement" placeholder="<spring:message code="label.complement"/>" value="${client.address.complement}"/>
+							<input id="complement" type="text" name="address.complement" placeholder="<spring:message code="label.complement"/>" value="${client.address.complement}"/>
 						</li>
 					</ul>
 				</div>
@@ -134,8 +141,33 @@
 		   			dataType: "json",
 		   			contentType: 'application/json',
 		   		    mimeType: 'application/json', 
-		   		 	success: function(data) { 
-		   	        	alert(data.id + ":" + data.name);
+		   		 	success: function(client) { 
+		   	        	if(client.id > 0){
+		   	        		window.location.replace("${pageContext.request.contextPath}/client/edit/" + client.id);
+			   	        	return Growl.info({
+		                        title:'Cliente já cadastrado!',
+		                        text: 'Atualizando informações'
+			   	        	});
+		   	        	}else{
+		   	        		$("#id").val('');
+			   	        	$("#createdOn").val('');
+			   	        	$("#name").val('');
+			   	        	$("#email").val('');
+			   	        	$("#telephone").val('');
+			   	        	
+			   	        	$("#cep").val('');
+			   	        	$("#street").val('');
+			   	        	$("#number").val('');
+			   	        	$("#city").val('');
+			   	        	$("#statee").val('');
+			   	        	$("#neighbourhood").val('');
+			   	        	$("#complement").val('');
+			   	        	
+			   	        	return Growl.info({
+		                        title:'Novo cliente',
+		                        text: 'Preencha o formulário'
+			   	        	});
+		   	        	}
 		   	    	},
 		   	    	error:function(data,status,er) { 
 		   	    		return Growl.error({
@@ -148,7 +180,6 @@
 	                }
 		   		});
 	   		}
-    		event.preventDefault();
     	});
     	
     	

@@ -22,7 +22,8 @@ public class CustomFileWriter {
 
 			FileWriter fw = new FileWriter(this.fileToWrite.getAbsoluteFile());
 			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write(content);
+			if(content != null)
+				bw.write(content);
 			bw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
