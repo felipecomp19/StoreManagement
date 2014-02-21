@@ -23,4 +23,12 @@ public class UserManager {
 		this.userDAO.update(user);
 	}
 
+	public User getById(Long id) {
+		return (User) this.userDAO.getById(id, User.class);
+	}
+
+	public void update(User user) {
+		this.userDAO.update(user);
+	}
+	
 }
