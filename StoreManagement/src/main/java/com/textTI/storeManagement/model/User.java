@@ -13,6 +13,9 @@ public class User extends BaseModel {
 
 	private static final long serialVersionUID = -5692288105690927661L;
 
+	@Column(name="name", nullable = false)
+	private String name;
+	
 	@Column(name = "userName", nullable = false)
 	private String userName;
 	
@@ -25,6 +28,14 @@ public class User extends BaseModel {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "userRole", nullable = false)
 	private UserRole userRole;
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public String getUserName() {
 		return userName;

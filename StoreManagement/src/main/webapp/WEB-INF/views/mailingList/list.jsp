@@ -45,6 +45,7 @@
 						<table cellpadding="0" cellspacing="0" border="0" class="dTable responsive">
 							<thead>
 								<tr>
+									<th style="width:50px;"></th>
 									<th>
 										<spring:message code="label.name" />
 									</th>
@@ -54,17 +55,12 @@
 									<th>
 										<spring:message code="label.subscribers" />
 									</th>
-									<th>
-										<spring:message code="label.actions" />
-									</th>
+									
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach var="ml" items="${mailingLists }">
 									<tr>
-										<td><a href="${pageContext.request.contextPath}/mailingList/edit/${ml.id}">${ml.name}</a></td>
-										<td>${ml.formatedCreatedOn}</td>
-										<td>${ml.clientsListSize}</td>
 										<td class="center"> 
 											<div class="btn-group">
 												<button class="btn btn-xs btn-default dropdown-toggle"
@@ -73,15 +69,18 @@
 												</button>
 												<ul class="dropdown-menu">
 													<li>
-														<a href="${pageContext.request.contextPath}/mailingList/edit/${ml.id}">Edit</a>
+														<a href="${pageContext.request.contextPath}/mailingList/edit/${ml.id}"><spring:message code="label.edit"/></a>
 													</li>
 													<li class="divider" />
 													<li>
-														<a href="${pageContext.request.contextPath}/mailingList/delete/${ml.id}">Delete</a>
+														<a href="${pageContext.request.contextPath}/mailingList/delete/${ml.id}"><spring:message code="label.delete"/></a>
 													</li>
 												</ul>
 											</div>
 										</td>
+										<td><a href="${pageContext.request.contextPath}/mailingList/edit/${ml.id}">${ml.name}</a></td>
+										<td>${ml.formatedCreatedOn}</td>
+										<td>${ml.clientsListSize}</td>
 									</tr>
 								</c:forEach>
 							</tbody>

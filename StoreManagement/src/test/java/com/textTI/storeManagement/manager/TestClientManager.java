@@ -1,6 +1,7 @@
 package com.textTI.storeManagement.manager;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import junit.framework.Assert;
@@ -149,11 +150,12 @@ public class TestClientManager extends BaseManagerTestCase {
 		{
 			Assert.assertEquals(ExceptionCode.EMAIL_INVALIDO, ce.getCode());
 		}catch (Exception e) {
+			Assert.fail(e.getMessage());
 			throw e;
 		}
 		logger.info("DONE!");
 	}
-
+	
 	private void createAndInsertClient(String cpf) throws ClientException {
 		this.client = createClient(cpf);
 		this.clientManager.insert(this.client);

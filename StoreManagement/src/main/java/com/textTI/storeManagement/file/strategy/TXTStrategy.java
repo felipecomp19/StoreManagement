@@ -6,8 +6,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class TXTStrategy implements IReadFileStrategy{
 
+	protected static final Logger logger = LoggerFactory.getLogger(TXTStrategy.class);
+	
 	@Override
 	public String read(File file) {
 		String content = "";
@@ -24,12 +29,13 @@ public class TXTStrategy implements IReadFileStrategy{
 			content = sb.toString();
 			br.close();
 			
-			System.out.println("####### reading file:  " + file.getName());
+			logger.debug("####### reading file:  " + file.getName());
 		}catch (FileNotFoundException e){
 			e.printStackTrace();
+			logger.error("FileNotFoundException ex:" + e.getMessage());
 		}
 		catch (IOException ex) {
-			System.out.println("IOException ex: " + ex.getMessage());
+			logger.error("IOException ex: " + ex.getMessage());
 		}
 		return content;
 	}

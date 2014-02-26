@@ -62,4 +62,16 @@ public class ClientDAO extends BaseDAO {
 
 		return clients;
 	}
+	
+	public List<?> getTotalOfClientByStore()
+	{
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		
+		Query q = session.createQuery("select cliStore.store_id, count(cliStore.store_id) as totalOfClients"
+				+ " from db_storeManager_dev.tb_client_store as cliStore"
+				+ " group by cliStore.store_id"); 
+		
+		return q.list();
+	}
 }

@@ -1,10 +1,17 @@
 package com.textTI.storeManagement.manager;
 
+import java.util.List;
+import java.util.Locale;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.textTI.storeManagement.dao.UserDAO;
 import com.textTI.storeManagement.model.User;
+import com.textTI.storeManagement.model.UserRole;
 
 @Component
 public class UserManager {
@@ -12,9 +19,14 @@ public class UserManager {
 	@Autowired
 	private UserDAO userDAO;
 	
+	@Autowired
+	private MessageSource msgSrc;
+	
 	public void insert(User user) {
 		user.setActive(true);
-		//TODO cypher!!!
+
+		this.encodePassword(user);
+		
 		this.userDAO.insert(user);
 	}
 
@@ -28,7 +40,25 @@ public class UserManager {
 	}
 
 	public void update(User user) {
+		
+		this.encodePassword(user);
+		
 		this.userDAO.update(user);
+	}
+
+	private void encodePassword(User user) {
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+	}
+
+	public List<User> getAll(Locale locale) {
+		List<User> users = this.userDAO.getAll();
+		
+		for (User user : users) {
+			user.getUserRole().setRole(msgSrc.getMessage(user.getUserRole().getRole(),null, locale));
+		}
+		
+		return users;
 	}
 	
 }

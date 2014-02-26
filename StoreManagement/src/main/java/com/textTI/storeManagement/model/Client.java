@@ -37,6 +37,9 @@ public class Client extends BaseModel {
 	
 	@Column(name = "telephone")
 	private String telephone;
+	
+	@Column(name = "cellPhone")
+	private String cellPhone;
 		
 	@Column(name = "createdOn")
 	private Date createdOn;
@@ -65,6 +68,9 @@ public class Client extends BaseModel {
 	
 	@Transient
 	private int count;
+	
+	@Transient
+	private boolean checked;
 
 	public Client() {
 		super();
@@ -100,6 +106,14 @@ public class Client extends BaseModel {
 
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
+	}
+	
+	public String getCellPhone() {
+		return cellPhone;
+	}
+
+	public void setCellPhone(String cellPhone) {
+		this.cellPhone = cellPhone;
 	}
 
 	public ClientType getClientType() {
@@ -171,6 +185,14 @@ public class Client extends BaseModel {
 		this.count = count;
 	}
 	
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
+
 	public String getFormatedCPF()
 	{
 		try {

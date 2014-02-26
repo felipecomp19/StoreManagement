@@ -39,7 +39,7 @@ public class TestUserManager extends BaseManagerTestCase {
 		this.userManager.update(_user);
 		
 		user = this.userManager.getById(_user.getId());
-		Assert.assertEquals(newRole.getId(), user.getId());
+		Assert.assertEquals(newRole.getId(), user.getUserRole().getId());
 		
 		
 		this.userManager.delete(user);

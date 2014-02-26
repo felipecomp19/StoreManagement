@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.textTI.storeManagement.manager.CampaignManager;
 import com.textTI.storeManagement.manager.MailingListManager;
@@ -37,7 +38,7 @@ public class CampaignController extends BaseController {
 	}
 	
 	@ModelAttribute("mailingLists")
-	public List<MailingList> populateClientTypes()
+	public List<MailingList> populateMailingLists()
 	{
 		return this.mailingListManager.getAll();
 	}
@@ -60,7 +61,7 @@ public class CampaignController extends BaseController {
 		return "campaign/edit";
 	}
 	
-	@RequestMapping(value = "/celete/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String delete(@PathVariable("id") long id)
 	{
 		Campaign campaign = this.campaignManager.getById(id);
@@ -78,5 +79,12 @@ public class CampaignController extends BaseController {
 			this.campaignManager.insert(campaign);
 		
 		return "redirect:/campaign/list";
+	}
+	
+	@RequestMapping(value = "/getMailingListById/{id}", method = RequestMethod.GET)
+	public @ResponseBody MailingList getMailingListById(@PathVariable("id") long id) {
+		MailingList mailingList = this.mailingListManager.getById(id);
+		
+		return mailingList;
 	}
 }

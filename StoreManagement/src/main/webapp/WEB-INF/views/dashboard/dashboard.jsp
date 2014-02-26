@@ -27,22 +27,6 @@
 								<!--25,11,5,28,25,19,27,6,4,23,20,6-->
 							</div>
 						</li>
-						<%-- <li class="sparkline-row">
-							<h4 class="green">
-								<span><spring:message code="label.income" /></span> $43.330
-							</h4>
-							<div class="sparkline big" data-color="green">
-								<!--28,26,13,18,8,6,24,19,3,6,19,6-->
-							</div>
-						</li>
-						<li class="sparkline-row">
-							<h4 class="red">
-								<span><spring:message code="label.sales" /></span> 7930
-							</h4>
-							<div class="sparkline big">
-								<!--16,23,28,8,12,9,25,11,16,16,17,13-->
-							</div>
-						</li> --%>
 					</ul>
 				</div>
 			</div>

@@ -127,7 +127,6 @@ public class ClientController extends BaseController{
 		return "redirect:/client/list";
 	}
 	
-	// method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE
 	@RequestMapping(value="/getClientByCPF/{cpf}")
 	public @ResponseBody Client getClientByCPF(@PathVariable("cpf") String cpf) {
 		Client cli = this.clientManager.getClientByCPF(cpf);
@@ -171,15 +170,15 @@ public class ClientController extends BaseController{
 		binder.registerCustomEditor(Set.class, "stores", new CustomCollectionEditor(Set.class) {
 			protected Object convertElement(Object element) {
 				if (element instanceof Store) {
-					System.out.println("Converting from store to store: " + element);
+					logger.debug("Converting from store to store: " + element);
 					return element;
 				}
 				if (element instanceof String) {
 					Store store = storeCache.get(element);
-					System.out.println("Looking up store for id " + element + ": " + store);
+					logger.debug("Looking up store for id " + element + ": " + store);
 					return store;
 				}
-				System.out.println("Don't know what to do with: " + element);
+				logger.debug("Don't know what to do with: " + element);
 				return null;
 			}
 		});

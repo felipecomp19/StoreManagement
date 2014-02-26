@@ -46,7 +46,9 @@
 							<div id="thumbs">
 								<c:forEach var="img" items="${imagens}">
 									<a hreaf="http://localhost:8080${pageContext.request.contextPath}${img}" style="background-image:url(http://localhost:8080/${pageContext.request.contextPath}${img})" title="Lion Rock"></a>
+									
 								</c:forEach>
+								<a hreaf="/sm/images/images.jpg" style="background-image:url('http://localhost:8080/sm/images/images.jpg')" title="Lion Rock"></a>
 							</div>
 						</div>
 					</div>

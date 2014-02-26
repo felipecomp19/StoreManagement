@@ -1,7 +1,9 @@
 package com.textTI.storeManagement.manager;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -67,5 +69,13 @@ public class ClientManager {
 
 	public Client getClientByCPF(String cpf) {
 		return this.clientDAO.getByCPF(cpf);
-	}	
+	}
+	
+	public Map<String, String> getTotalOfClientsByStore()
+	{
+		Map<String,String> result = new HashMap<String,String>();
+		
+		return result;
+		
+	}
 }

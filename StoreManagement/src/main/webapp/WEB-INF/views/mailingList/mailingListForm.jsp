@@ -4,7 +4,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="row">
-			<form:form class="fill-up" method="POST" modelAttribute="mailingList" commandname="mailingList" action="${pageContext.request.contextPath}/mailingList/save">
+			<form:form class="fill-up" method="POST" modelAttribute="mlForm" commandname="mlForm" action="${pageContext.request.contextPath}/mailingList/save">
 				<div class="col-md-4">
 					<ul class="padded separate-sections">
 						<li>
@@ -12,27 +12,21 @@
 								<spring:message code="label.createYourNewList" />
 							</h4>
 						</li>
-						<li class="input"><input type="hidden" name="id"
-							value="${mailingList.id}" /> <input type="hidden"
-							name="createdOn" value="${mailingList.createdOn}" /> <label><spring:message
-									code="label.listName" /></label> <input type="text" name="name"
-							placeholder="<spring:message code="label.listName"/>"
-							value="${mailingList.name}" /></li>
-						<li class="input"><label><spring:message
-									code="label.defaultFromName" /></label> <input type="text"
-							name="defaultFromName"
-							placeholder="<spring:message code="label.defaultFromName"/>"
-							value="${mailingList.defaultFromName}" /></li>
-						<li class="input"><label><spring:message
-									code="label.defaultFromEmail" /></label> <input type="text"
-							name="defaultFromEmail"
-							placeholder="<spring:message code="label.defaultFromEmail"/>"
-							value="${mailingList.defaultFromEmail}" /></li>
-						<li class="input"><label><spring:message
-									code="label.defaultSubject" /></label> <input type="text"
-							name="defaultSubject"
-							placeholder="<spring:message code="label.defaultSubject"/>"
-							value="${mailingList.defaultSubject}" /></li>
+						<li class="input">
+							<input type="hidden" name="mailingList.id" value="${mlForm.mailingList.id}" /> 
+							<input type="hidden" name="mailingList.createdOn" value="${mlForm.mailingList.createdOn}" />
+							<label><spring:message code="label.listName" /></label> 
+							<input type="text" name="mailingList.name" placeholder="<spring:message code="label.listName"/>" value="${mlForm.mailingList.name}" /></li>
+						<li class="input">
+							<label><spring:message code="label.defaultFromName" /></label> 
+							<input type="text" name="mailingList.defaultFromName" placeholder="<spring:message code="label.defaultFromName"/>"
+							value="${mlForm.mailingList.defaultFromName}" /></li>
+						<li class="input">
+							<label><spring:message code="label.defaultFromEmail" /></label> 
+							<input type="text" name="mailingList.defaultFromEmail" placeholder="<spring:message code="label.defaultFromEmail"/>" value="${mlForm.mailingList.defaultFromEmail}" /></li>
+						<li class="input">
+							<label><spring:message code="label.defaultSubject" /></label> 
+							<input type="text" name="mailingList.defaultSubject" placeholder="<spring:message code="label.defaultSubject"/>" value="${mlForm.mailingList.defaultSubject}" /></li>
 					</ul>
 					<div class="form-actions">
 						<button type="submit" class="btn btn-blue">
@@ -48,46 +42,51 @@
 				<div class="col-md-8">
 					<ul class="padded separate-sections">
 						<li>
-							<h4>
-								<spring:message code="label.selectClients" />
-							</h4>
-						</li>
-						<li>
-							<div id="dataTables">
-								<!-- <table class="dTable responsive"> -->
-								<table>
-									<thead>
-										<tr>
-											<th style="width: 40px">
-												<div>
-													<input type="checkbox" id="selectAll"
-														title="<spring:message code="label.selectAll" />">
-												</div>
-											</th>
-											<th><spring:message code="label.name" /></th>
-											<th><spring:message code="label.email" /></th>
-											<th><spring:message code="label.clientType" /></th>
-											<th><spring:message code="label.clientSince" /></th>
-										</tr>
-									</thead>
-									<tbody>
-										<c:forEach var="client" items="${clients}">
+							<div class="box">
+								<div class="box-header">
+							    	<span class="title"><spring:message code="label.selectClients" /></span>
+							    	<ul class="box-toolbar">
+							      	<li><span class="label label-green">Filtros</span></li>
+							    	</ul>
+							  	</div>
+							  	<div class="box-content">
+							  		<table class="table table-normal">
+							  			<thead>
 											<tr>
-												<td>
+												<td style="width: 40px">
 													<div>
-														<form:checkbox path="clients" value="${client.id}"/>
+														<input type="checkbox" id="selectAll"
+															title="<spring:message code="label.selectAll" />">
 													</div>
 												</td>
-												<td>${client.name}</td>
-												<td>${client.email}</td>
-												<td>${client.clientType.name}</td>
-												<td>${client.createdOn}</td>
+												<td><spring:message code="label.name" /></td>
+												<td><spring:message code="label.email" /></td>
+												<td><spring:message code="label.clientType" /></td>
+												<td><spring:message code="label.birthday" /></td>
+												<td><spring:message code="label.clientSince" /></td>
 											</tr>
-										</c:forEach>
-									</tbody>
-								</table>
-							</div>
-						</li>
+										</thead>
+										<tbody>
+											<c:forEach var="client" items="${mlForm.allClients}" varStatus="status">
+												<tr>
+													<td>
+														<div>
+															<form:checkbox path="allClients[${status.index}].checked" aux="clientsCB"/>
+															<form:hidden path="allClients[${status.index}].id"/>
+														</div>
+													</td>
+													<td>${client.name}</td>
+													<td>${client.email}</td>
+													<td>${client.clientType.name}</td>
+													<td>${client.formatedBirthday}</td>
+													<td>${client.formatedCreatedOn}</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+						  			</table>
+				  				</div>
+  							</div>
+  						</li>
 					</ul>
 				</div>
 			</form:form>
@@ -99,7 +98,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#selectAll").click(function() {
-			$('input[name=clients]').prop('checked', $(this).is(':checked'));
+			$('input[aux=clientsCB]').prop('checked', $(this).is(':checked'));
 		}); 
 	});
 </script>

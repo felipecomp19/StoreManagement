@@ -11,15 +11,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.textTI.storeManagement.manager.AuditManager;
 import com.textTI.storeManagement.manager.ClientManager;
+import com.textTI.storeManagement.manager.StoreManager;
 import com.textTI.storeManagement.model.Audit;
 import com.textTI.storeManagement.model.Client;
-import com.textTI.storeManagement.utils.ClientChartUtil;
+import com.textTI.storeManagement.model.Store;
 
 @Controller
 public class DashboardController extends BaseController{
 	
 	@Autowired
 	private ClientManager clienteManager;
+	
+	@Autowired
+	private StoreManager storeManager;
 	
 	@Autowired
 	private AuditManager auditManager;
@@ -29,12 +33,15 @@ public class DashboardController extends BaseController{
 		logger.info("Accessed the dashboard", locale);
 		
 		List<Client> clients = this.clienteManager.getAll();
-		ClientChartUtil ccUtil = new ClientChartUtil();
-		ccUtil.prepareClientChartData(model, clients, this.clienteManager);
+		List<Store>	stores = this.storeManager.getAll();
+		
+		//ClientChartUtil ccUtil = new ClientChartUtil();
+		//ccUtil.prepareClientChartData(model, clients, this.clienteManager);
 		
 		List<Audit> top50audit = this.auditManager.getTOP50(locale);
 		
 		model.addAttribute("clientsSize", clients.size());
+		model.addAttribute("stores", stores);
 		model.addAttribute("audits", top50audit);
 		
 		return "dashboard/dashboard";

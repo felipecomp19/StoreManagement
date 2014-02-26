@@ -1,12 +1,16 @@
 package com.textTI.storeManagement.manager;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import junit.framework.Assert;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.textTI.storeManagement.model.Client;
+import com.textTI.storeManagement.model.ClientType;
 import com.textTI.storeManagement.model.Store;
 
 public class TestStoreManager extends BaseManagerTestCase{
@@ -44,6 +48,62 @@ public class TestStoreManager extends BaseManagerTestCase{
 		List<Store> stores = this.storeManager.getAll();
 		Assert.assertNotNull(stores);
 		Assert.assertEquals(2, stores.size());
+	}
+	
+	@Test
+	public void testGetTotalOfClientsBySotre()
+	{
+		Client cli1 = null;
+		Client cli2 = null;
+		Client cli3 = null;
+		Client cli4 = null;
+		Client cli5 = null;
+		Client cli6 = null;
+		Client cli7 = null;
+		Client cli8 = null;
+		Set<Store> stores = new HashSet<Store>();
+		ClientType cliType = this.createAndInsertClientType();
+		try{
+			stores = new HashSet<Store>();
+			Store store1 = this.createAndInsertStore("Morana 1");
+			stores.add(store1);
+			
+			cli1 = this.createAndInsertOneClient("1", stores, cliType);
+			cli2 = this.createAndInsertOneClient("2", stores, cliType);
+			cli3 = this.createAndInsertOneClient("3", stores, cliType);
+			cli4 = this.createAndInsertOneClient("4", stores, cliType);
+			cli5 = this.createAndInsertOneClient("5", stores, cliType);
+			
+			stores = new HashSet<Store>();
+			Store store2 = this.createAndInsertStore("Morana 2"); 
+			stores.add(store2);
+			cli6 = this.createAndInsertOneClient("6", stores, cliType);
+			cli7 = this.createAndInsertOneClient("7", stores, cliType);
+			cli8 = this.createAndInsertOneClient("8", stores, cliType);
+			
+			List<Store> _stores = this.storeManager.getAll();
+			for (Store store : _stores ) {
+				if(store.getId() == store1.getId())
+					Assert.assertEquals(5, store.getClientsSize());
+				if(store.getId() == store2.getId())
+					Assert.assertEquals(3, store.getClientsSize());
+			}
+			
+		}catch(Exception e){
+			Assert.fail();
+		}finally
+		{
+			this.deleteClient(cli1);
+			this.deleteClient(cli2);
+			this.deleteClient(cli3);
+			this.deleteClient(cli4);
+			this.deleteClient(cli5);
+			this.deleteClient(cli6);
+			this.deleteClient(cli7);
+			this.deleteClient(cli8);
+			this.deleteClientType(cliType);
+			this.deleteStores(stores);
+		}
 	}
 	
 	private Store createStore(String name, String description) {

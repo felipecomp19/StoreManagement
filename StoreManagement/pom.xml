@@ -6,7 +6,7 @@
 	<artifactId>storeManagement</artifactId>
 	<name>StoreManagement</name>
 	<packaging>war</packaging>
-	<version>1.0.0-BUILD-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<properties>
 		<java-version>1.7</java-version>
 		<org.springframework-version>4.0.0.RELEASE</org.springframework-version>
@@ -222,12 +222,13 @@
 			<scope>test</scope>
 		</dependency>
 
+<!-- --> 
 		<dependency>
 			<groupId>javax.transaction</groupId>
 			<artifactId>jta</artifactId>
 			<version>1.1</version>
 		</dependency>
-
+ 
 
 		<dependency>
 			<groupId>mysql</groupId>
@@ -279,13 +280,36 @@
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
+			<!-- RUN JBOSS RUN -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jboss-maven-plugin</artifactId>
+				<version>1.5.0</version>
+				<configuration>
+					<jbossHome>/home/felipe/app/jboss-6.1.0.Final</jbossHome>
+					<serverName>default</serverName>
+					<finalName>StoreManager</finalName>
+				</configuration>
+				<executions>
+					<execution>
+						<id>redeploy-and-restart-server</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>hard-deploy</goal>
+							<!-- <goal>start</goal>  -->
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- FIM -->
 		</plugins>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
 				<excludes>
-					<exclude>hibernate.cfg.xml</exclude>
+					<exclude>applicationContext-resources.xml</exclude>
+					<exclude>jdbc.properties</exclude>
 				</excludes>
 			</resource>
 		</resources>

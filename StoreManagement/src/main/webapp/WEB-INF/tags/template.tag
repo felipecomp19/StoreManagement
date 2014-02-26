@@ -157,7 +157,7 @@
 
 				<ul id="WLGsdJPav9" class="collapse ">
 					<li class="">
-						<a href="#"> <i class="icon-user"></i> <spring:message code="label.users"></spring:message></a>
+						<a href="${pageContext.request.contextPath}/user/list"> <i class="icon-user"></i> <spring:message code="label.users"></spring:message></a>
 					</li>
 				</ul>
 			</li>

@@ -47,43 +47,31 @@
 								<table cellpadding="0" cellspacing="0" border="0" class="dTable responsive">
 									<thead>
 										<tr>
-											<th><div>
-													<spring:message code="label.name" />
-												</div></th>
-											<th><div>
-													<spring:message code="label.cpf" />
-												</div></th>
+											<th style="width:50px;"></th>
 											<th>
-												<div>
-													<spring:message code="label.email" />
-												</div>
+												<spring:message code="label.name" />
 											</th>
 											<th>
-												<div>
-													<spring:message code="label.birthday" />
-												</div>
+												<spring:message code="label.cpf" />
 											</th>
 											<th>
-												<div><spring:message code="label.clientType" /></div>
+												<spring:message code="label.email" />
 											</th>
 											<th>
-												<div><spring:message code="label.createdOn" /></div>
+												<spring:message code="label.birthday" />
 											</th>
 											<th>
-												<div><spring:message code="label.actions" /></div>
+												<spring:message code="label.clientType" />
+											</th>
+											<th>
+												<spring:message code="label.createdOn" />
 											</th>
 										</tr>
 									</thead>
 									<tbody>
 										<c:forEach var="client" items="${clients}">
 											<tr>
-												<td>${client.name}</td>
-												<td>${client.formatedCPF}</td>
-												<td>${client.email}</td>
-												<td>${client.formatedBirthday}</td>
-												<td>${client.clientType.name}</td>
-												<td>${client.formatedCreatedOn}</td>
-												<td class="center"> 
+											<td class="center"> 
 													<div class="btn-group">
 														<button class="btn btn-xs btn-default dropdown-toggle"
 															data-toggle="dropdown">
@@ -91,15 +79,22 @@
 														</button>
 														<ul class="dropdown-menu">
 															<li>
-																<a href="edit/${client.id}">Edit</a>
+																<a href="edit/${client.id}"><spring:message code="label.edit"/></a>
 															</li>
 															<li class="divider" />
 															<li>
-																<a href="delete/${client.id}">Delete</a>
+																<a href="delete/${client.id}"><spring:message code="label.delete"/></a>
 															</li>
 														</ul>
 													</div>
 												</td>
+												<td>${client.name}</td>
+												<td>${client.formatedCPF}</td>
+												<td>${client.email}</td>
+												<td>${client.formatedBirthday}</td>
+												<td>${client.clientType.name}</td>
+												<td>${client.formatedCreatedOn}</td>
+												
 											</tr>
 										</c:forEach>
 									</tbody>

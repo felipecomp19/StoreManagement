@@ -45,6 +45,8 @@
 						<table cellpadding="0" cellspacing="0" border="0" class="dTable responsive">
 							<thead>
 								<tr>
+									<th style="width:50px;">
+									</th>
 									<th>
 										<spring:message code="label.name" />
 									</th>
@@ -54,17 +56,12 @@
 									<th>
 										<spring:message code="label.createdOn" />
 									</th>
-									<th>
-										<spring:message code="label.actions" />
-									</th>
+									
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach var="campaign" items="${campaigns}">
 									<tr>
-										<td><a href="${pageContext.request.contextPath}/campaign/edit/${campaign.id}">${campaign.name}</a></td>
-										<td>${campaign.description}</td>
-										<td>${campaign.formatedCreatedOn}</td>
 										<td class="center"> 
 											<div class="btn-group">
 												<button class="btn btn-xs btn-default dropdown-toggle"
@@ -82,6 +79,9 @@
 												</ul>
 											</div>
 										</td>
+										<td><a href="${pageContext.request.contextPath}/campaign/edit/${campaign.id}">${campaign.name}</a></td>
+										<td>${campaign.description}</td>
+										<td>${campaign.formatedCreatedOn}</td>
 									</tr>
 								</c:forEach>
 							</tbody>

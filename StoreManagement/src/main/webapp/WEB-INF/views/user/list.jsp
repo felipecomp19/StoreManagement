@@ -6,30 +6,7 @@
 	<jsp:body>
 		
 		<!-- top main content -->
-		<div class="container">
-			<div class="row">
-				<div class="area-top clearfix">
-					<div class="pull-left header">
-						<h3 class="title">
-							<i class="icon-building"></i> <spring:message code="label.stores" />
-						</h3>
-						<h5>
-							<span> A subtitle can go here </span>
-						</h5>
-					</div>
-					<ul class="list-inline pull-right sparkline-box">
-						<li class="sparkline-row">
-							<h4 class="blue">
-								<span><spring:message code="label.totalOfStores"/></span> ${totalOfStores}
-							</h4>
-							<div class="sparkline big" data-color="blue">
-								<!--1,11,5,28,25,19,27,6,4,23,20,6-->
-							</div>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
+		<%@include file="topMainContent.jsp"%>
 		<!-- [END] top main content -->
 		
 		<!-- Breadcrumb -->		
@@ -37,12 +14,11 @@
 			<div class="row">
 				<div id="breadcrumbs">
 					<div class="breadcrumb-button blue">
-						<span class="breadcrumb-label"><i class="icon-home"></i>
-							Home</span> <span class="breadcrumb-arrow"><span></span></span>
+						<span class="breadcrumb-label"><i class="icon-home"></i>Home</span> 
+						<span class="breadcrumb-arrow"><span></span></span>
 					</div>
 					<div class="breadcrumb-button">
-						<span class="breadcrumb-label"> <i class="icon-building"></i>
-							<spring:message code="label.stores" />
+						<span class="breadcrumb-label"> <i class="icon-user"></i> <spring:message code="label.users" />
 						</span> <span class="breadcrumb-arrow"><span></span></span>
 					</div>
 				</div>
@@ -53,15 +29,15 @@
 		<!-- main content -->
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-md-6">
 					<div class="box">
 						<div class="box-header">
-							<span class="title"><spring:message code="label.stores" /></span>
+							<span class="title"><spring:message code="label.users" /></span>
 							<ul class="box-toolbar">
 								<li>
-									<a href="${pageContext.request.contextPath}/store/create">
+									<a href="${pageContext.request.contextPath}/user/create">
 									<button class="btn btn-green">
-										<i class="icon-building"></i>&nbsp&nbsp<spring:message code="label.newStore" />
+										<i class="icon-user"></i>&nbsp&nbsp<spring:message code="label.newUser" />
 									</button>
 									</a>
 								</li>
@@ -74,13 +50,13 @@
 										<tr>
 											<th style="width:50px;"></th>
 											<th><div><spring:message code="label.name" /></div></th>
-											<th><div><spring:message code="label.description"/></div></th>
-											<th><div><spring:message code="label.telephone"/></div></th>
-											<th><div><spring:message code="label.numberOfClients" /></div></th>
+											<th><div><spring:message code="label.userName"/></div></th>
+											<th><div><spring:message code="label.role"/></div></th>
+											<%-- <th><div><spring:message code="label.store" /></div></th> --%>
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="store" items="${stores}">
+										<c:forEach var="user" items="${users}">
 											<tr>
 												<td class="center"> 
 													<div class="btn-group">
@@ -89,19 +65,19 @@
 														</button>
 														<ul class="dropdown-menu">
 															<li>
-																<a href="edit/${store.id}"><spring:message code="label.edit"/></a>
+																<a href="edit/${user.id}"><spring:message code="label.edit"/></a>
 															</li>
 															<li class="divider"/>
 															<li>
-																<a href="delete/${store.id}"><spring:message code="label.delete"/></a>
+																<a href="delete/${user.id}"><spring:message code="label.delete"/></a>
 															</li>
 														</ul>
 													</div>
 												</td>
-												<td>${store.name}</td>
-												<td>${store.description}</td>
-												<td>${store.telephone}</td>
-												<td class="center">${store.clientsSize}</td>
+												<td>${user.name}</td>
+												<td>${user.userName}</td>
+												<td>${user.userRole.role}</td>
+												<%-- <td class="center">${user.store.name}</td> --%>
 											</tr>
 										</c:forEach>
 									</tbody>

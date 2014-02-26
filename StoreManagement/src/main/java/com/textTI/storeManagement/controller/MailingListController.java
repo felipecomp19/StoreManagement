@@ -1,5 +1,6 @@
 package com.textTI.storeManagement.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.textTI.storeManagement.form.MailingListForm;
 import com.textTI.storeManagement.manager.ClientManager;
 import com.textTI.storeManagement.manager.MailingListManager;
 import com.textTI.storeManagement.model.Client;
@@ -45,16 +47,25 @@ public class MailingListController extends BaseController {
 		MailingList ml = new MailingList();
 		List<Client> clientsList = this.cliManager.getAll();
 		
-//		ml.setClients(this.cliManager.getAll());
-		model.addAttribute("mailingList", ml);
-		model.addAttribute("clients", clientsList);
+		MailingListForm mlForm = new MailingListForm();
+		mlForm.setAllClients(clientsList);
+		mlForm.setMailingList(ml);
+		
+		model.addAttribute("mlForm", mlForm);
 		
 		return "mailingList/create";
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String save(@ModelAttribute("mailingList") MailingList mailingList)
+	public String save(@ModelAttribute("mlForm") MailingListForm mlForm, Model model)
 	{
+		MailingList mailingList = mlForm.getMailingList();
+		mailingList.setClients(new ArrayList<Client>());
+		for (Client client : mlForm.getAllClients()) {
+			if(client.isChecked())
+				mailingList.getClients().add(client);
+		}
+		
 		logger.info("Create mailing list");
 		if(mailingList.getId() != null)
 			this.mlManager.update(mailingList);
@@ -70,8 +81,21 @@ public class MailingListController extends BaseController {
 		MailingList mailingList = this.mlManager.getById(id);
 		List<Client> clientsList = this.cliManager.getAll();
 		
-		model.addAttribute("clients", clientsList);
-		model.addAttribute("mailingList", mailingList);
+		for (Client mlClient : mailingList.getClients()) {
+			for (Client client : clientsList) {
+				if(client.getId() == mlClient.getId())
+				{
+					client.setChecked(true);
+					break;
+				}
+			}
+		}
+		
+		MailingListForm mlForm = new MailingListForm();
+		mlForm.setAllClients(clientsList);
+		mlForm.setMailingList(mailingList);
+		
+		model.addAttribute("mlForm", mlForm);
 		
 		return "mailingList/edit";
 	}

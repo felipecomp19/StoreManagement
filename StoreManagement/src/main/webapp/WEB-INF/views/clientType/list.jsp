@@ -53,18 +53,15 @@
 								<table cellpadding="0" cellspacing="0" border="0" class="dTable responsive">
 									<thead>
 										<tr>
+											<th style="width:50px;"></th>
 											<th><div><spring:message code="label.name" /></div></th>
 											<th><div><spring:message code="label.description"/></div></th>
 											<th><div><spring:message code="label.numberOfClients" /></div></th>
-											<th><div><spring:message code="label.actions" /></div></th>
 										</tr>
 									</thead>
 									<tbody>
 										<c:forEach var="cliType" items="${cliTypes}">
 											<tr>
-												<td>${cliType.name}</td>
-												<td>${cliType.description}</td>
-												<td class="center">${cliType.clientsSize}</td>
 												<td class="center"> 
 													<div class="btn-group">
 														<button class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
@@ -72,15 +69,18 @@
 														</button>
 														<ul class="dropdown-menu">
 															<li>
-																<a href="edit/${cliType.id}">Edit</a>
+																<a href="edit/${cliType.id}"><spring:message code="label.edit"/></a>
 															</li>
 															<li class="divider"/>
 															<li>
-																<a href="delete/${cliType.id}">Delete</a>
+																<a href="delete/${cliType.id}"><spring:message code="label.delete"/></a>
 															</li>
 														</ul>
 													</div>
 												</td>
+												<td>${cliType.name}</td>
+												<td>${cliType.description}</td>
+												<td class="center">${cliType.clientsSize}</td>
 											</tr>
 										</c:forEach>
 									</tbody>

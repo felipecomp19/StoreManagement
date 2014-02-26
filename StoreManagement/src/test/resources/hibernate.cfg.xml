@@ -20,9 +20,9 @@
 
 		<property name="format_sql">true</property>
 		<property name="hbm2ddl.auto">create</property>
-		<!-- 
-		<property name="hibernate.hbm2ddl.import_files">db_update/update_tables.sql</property>
-	 	-->
+		 
+		<property name="hibernate.hbm2ddl.import_files">sql/update_tables.sql</property>
+	 	
 
 		<!-- JDBC connection pool (use the built-in) -->
 		<property name="connection.pool_size">1</property>

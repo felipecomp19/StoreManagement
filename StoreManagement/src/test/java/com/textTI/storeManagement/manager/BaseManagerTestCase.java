@@ -1,6 +1,5 @@
 package com.textTI.storeManagement.manager;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -62,6 +61,14 @@ public abstract class BaseManagerTestCase extends
 		stores.add(st);
 		this.storeManager.insert(st);
 		return stores;
+	}
+	
+	public Store createAndInsertStore(String name)
+	{
+		Store st = new Store();
+		st.setName(name);
+		this.storeManager.insert(st);
+		return st;
 	}
 
 	public void deleteStores(Set<Store> stores) {
