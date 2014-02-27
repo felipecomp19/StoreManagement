@@ -1,5 +1,6 @@
 <!doctype html>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 	<meta charset="utf-8">
@@ -42,8 +43,14 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse navbar-collapse-top">
 			<div class="navbar-right">
-				<%-- <!-- user profile -->
+				
 				<ul class="nav navbar-nav navbar-left">
+					<li>
+						<c:url value="/j_spring_security_logout" var="logoutUrl" />
+						<a href="${logoutUrl}">Log Out</a>
+					</li>
+				</ul>
+				<%-- <!-- user profile -->
 					<li class="dropdown">
 						<a href="#"	class="dropdown-toggle dropdown-avatar" data-toggle="dropdown">
 							<span> 

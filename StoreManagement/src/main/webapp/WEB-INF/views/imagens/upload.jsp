@@ -41,10 +41,14 @@
 						<span class="title"><spring:message code="label.form" /></span>
 					</div>
 					<div class="box-content">
-						<form:form class="fill-up" method="post" action="${pageContext.request.contextPath}/imagens/uploadImagens" commandName="uploadForm" modelAttribute="uploadForm" enctype="multipart/form-data">
+						<form:form class="fill-up validatable" method="post" action="${pageContext.request.contextPath}/imagens/uploadImagens" commandName="uploadForm" modelAttribute="uploadForm" enctype="multipart/form-data">
 							<div class="row">
 								<div class="col-md-6">
 								<ul class="padded separate-sections">
+									<li class="input">
+										<label><spring:message code="label.name"/></label>
+										<input type="text" name="name" class="validate[required]">
+									</li>
 									<li class="input">
 										<label><spring:message code="label.uploadClientList"/></label>
 										<input name="files[0]" type="file" />

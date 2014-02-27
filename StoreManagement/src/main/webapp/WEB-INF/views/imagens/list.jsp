@@ -45,10 +45,10 @@
 						<div class="box-content">
 							<div id="thumbs">
 								<c:forEach var="img" items="${imagens}">
-									<a hreaf="http://localhost:8080${pageContext.request.contextPath}${img}" style="background-image:url(http://localhost:8080/${pageContext.request.contextPath}${img})" title="Lion Rock"></a>
-									
+										<a href="${img.fileName}" style="background-image:url(${img.fileName})" title="${img.name}"></a>
+										<button id="copyURL" url="http://localhost:8080${img.fileName}" class="btn btn-xs btn-green">Copiar</button>
+										<button class="btn btn-xs btn-red"><spring:message code="label.delete" /></button>
 								</c:forEach>
-								<a hreaf="/sm/images/images.jpg" style="background-image:url('http://localhost:8080/sm/images/images.jpg')" title="Lion Rock"></a>
 							</div>
 						</div>
 					</div>

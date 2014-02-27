@@ -1,5 +1,7 @@
 package com.textTI.storeManagement.manager;
 
+import java.util.Locale;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.textTI.storeManagement.model.User;
 import com.textTI.storeManagement.model.UserRole;
 
-public class TestUserManager extends BaseManagerTestCase {
+public class TestUserManager extends BaseManagerTestCase{
 	
 	@Autowired
 	private UserManager userManager;
@@ -19,7 +21,7 @@ public class TestUserManager extends BaseManagerTestCase {
 	public void testCreateUser()
 	{
 		//the database should have two roles ROLE_ADMIN e ROLE_USER
-		UserRole role = this.userRoleManager.getAll().get(0);
+		UserRole role = this.userRoleManager.getAll(Locale.ENGLISH).get(0);
 		
 		User user = new User();
 		user.setUserName("felipecomp19");
@@ -34,7 +36,7 @@ public class TestUserManager extends BaseManagerTestCase {
 		Assert.assertNotNull(_user);
 		
 		//Update
-		UserRole newRole = this.userRoleManager.getAll().get(1);
+		UserRole newRole = this.userRoleManager.getAll(Locale.ENGLISH).get(1);
 		_user.setUserRole(newRole);
 		this.userManager.update(_user);
 		
