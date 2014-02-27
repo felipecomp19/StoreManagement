@@ -47,7 +47,7 @@
 				<ul class="nav navbar-nav navbar-left">
 					<li>
 						<c:url value="/j_spring_security_logout" var="logoutUrl" />
-						<a href="${logoutUrl}">Log Out</a>
+						<a href="${logoutUrl}"><spring:message code="label.logout"/></a>
 					</li>
 				</ul>
 				<%-- <!-- user profile -->
@@ -104,9 +104,11 @@
 				</a>
 
 				<ul id="yJ6h3Npe7C" class="collapse ">
+					<!-- 
 					<li class="">
 						<a href="${pageContext.request.contextPath}/client/create"> <i	class="icon-plus-sign-alt"> </i><spring:message code="label.new" /> </a>
 					</li>
+					 -->
 					<li class="">
 						<a href="${pageContext.request.contextPath}/client/list"> <i class="icon-th-large"></i> <spring:message code="label.listAll"/> </a>
 					</li>
@@ -134,9 +136,11 @@
 					 <i class="icon-envelope-alt icon-2x"></i><span><spring:message code="label.campaigns" /><i class="icon-caret-down"></i></span>
 				</a>
 				<ul id="campaigns" class="collapse ">
+					<!-- 
 					<li>
 						<a href="${pageContext.request.contextPath}/campaign/create"> <i class="icon-plus-sign-alt"> </i><spring:message code="label.newCampaign" /> </a>
 					</li>
+					 -->
 					<li>
 						<a href="${pageContext.request.contextPath}/campaign/list"> <i class="icon-th-large"> </i><spring:message code="label.listAllCampaigns" /> </a>
 					</li>
@@ -150,10 +154,12 @@
 			</li>
 			<!-- [END] Campanhas -->
 			
+			<!-- 
 			<li class="">
 				<span class="glow"></span> 
 				<a href="${pageContext.request.contextPath}/calendar"> <i class="icon-calendar icon-2x"></i> <span><spring:message code="label.calendar"></spring:message></span> </a>
 			</li>
+			 -->
 
 			<!-- Configurações  -->
 			<li class="dark-nav ">

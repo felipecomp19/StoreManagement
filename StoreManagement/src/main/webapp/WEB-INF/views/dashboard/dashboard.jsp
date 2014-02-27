@@ -75,7 +75,8 @@
 				</div>
 				<!-- [END] charts -->
 			</div>
-			<div class="row">
+			
+			<%-- <div class="row">
 			  <!-- calendar -->
 			  <div class="col-md-6">
 			    <div class="box">
@@ -101,7 +102,7 @@
 			    </div>
 			  </div>
 			  <!-- [END] activities -->
-  			</div>
+  			</div> --%>
 		</div>
 		<!-- [END] main content -->
 	</jsp:body>

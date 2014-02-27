@@ -43,7 +43,7 @@
           						<span class="input-group-addon" href="#">
             						<i class="icon-key"></i>
           						</span>
-								<input type="password" name="confirmPassword" class="validate[required]" placeholder="<spring:message code="label.confirmPassword"/>" value=""/>
+								<input type="password" name="confirmPassword" id="confirmPassword" class="validate[required]" placeholder="<spring:message code="label.confirmPassword"/>" value=""/>
 							</div>
 						</li>
 					</ul>
@@ -58,9 +58,27 @@
 		</form:form>
 	</div>
 </div>
-<!-- <script type="text/javascript">
+<script type="text/javascript">
 	$(document).ready(function () {
-		
+		$("form").validate({
+            rules : {
+            	password : {
+                    minlength : 5
+                },
+                confirmPassword : {
+                    minlength : 5,
+                    equalTo : "#password"
+                },
+                messages: {
+                	password: {
+                        minlength: "Your password must be at least 5 characters long"
+                    },
+                    pass2: {
+                        minlength: "Your password must be at least 5 characters long",
+                        equalTo: "Please enter the same password as above"
+                    }
+                }
+            }
+		});
 	});
-</script> -->
- 
+</script>
