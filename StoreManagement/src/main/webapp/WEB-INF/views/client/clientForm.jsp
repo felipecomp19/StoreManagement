@@ -71,8 +71,16 @@
 							</div>
 						</li>
 						<li class="input">
-							<label><spring:message code="label.selectClientType" /></label>
-							<form:select id="clientType" path="clientType" items="${clientTypes}" itemValue="id" itemLabel="nameWithDescription" class="uniform"/>
+							<div class="row action-nav-row">
+								<div class="col-md-6">
+									<label><spring:message code="label.selectClientType" /></label>
+									<form:select id="clientType" path="clientType" items="${clientTypes}" itemValue="id" itemLabel="nameWithDescription" class="uniform"/>
+								</div>
+								<div class="col-md-6">
+									<label><spring:message code="label.especialActions" /></label>
+									<input type="text" name="especialActions" value="${especialActions}" />
+								</div>
+							</div>
 						</li>
 					</ul>
 				</div>
