@@ -45,8 +45,8 @@
 						<div class="box-content">
 							<div id="thumbs">
 								<c:forEach var="img" items="${imagens}">
-										<a href="${img.fileName}" style="background-image:url(${img.fileName})" title="${img.name}"></a>
-										<button id="copyURL" url="http://localhost:8080${img.fileName}" class="btn btn-xs btn-green">Copiar</button>
+										<a href="${relativePath}${img.fileName}" style="background-image:url(${relativePath}${img.fileName})" title="${img.name}"></a>
+										<button id="copyURL" url="http://localhost:8080${relativePath}${img.fileName}" class="btn btn-xs btn-green"><spring:message code="label.copy" /></button>
 										<button class="btn btn-xs btn-red"><spring:message code="label.delete" /></button>
 								</c:forEach>
 							</div>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.textTI.storeManagement.manager.ImagensManager;
+import com.textTI.storeManagement.model.Campaign;
 import com.textTI.storeManagement.model.FileUpload;
 import com.textTI.storeManagement.model.Imagen;
 
@@ -30,6 +31,7 @@ public class ImagensController extends BaseController {
 	{
 		List<Imagen> imagens = this.imgManager.getAllImagens();
         model.addAttribute("imagens", imagens);
+        model.addAttribute("relativePath",this.relativePath);
 		
 		return "/imagens/list";
 	}
@@ -61,7 +63,17 @@ public class ImagensController extends BaseController {
         
         List<Imagen> imagens = this.imgManager.getAllImagens();
         model.addAttribute("imagens", imagens);
+        model.addAttribute("relativePath",this.relativePath);
         
         return "/imagens/list";
     }
+	
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+	public String delete(@PathVariable("id") long id)
+	{
+		Imagen img = this.imgManager.getById(id);
+		this.imgManager.delete(img, this.filePath);
+		
+		return "redirect:/imagens/list";
+	}
 }

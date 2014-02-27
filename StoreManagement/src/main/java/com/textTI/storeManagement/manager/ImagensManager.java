@@ -32,22 +32,26 @@ public class ImagensManager {
 		for (MultipartFile multipartFile : files) {
 			this.imagenDAO.insert(img);
 			
-			String extension = this.getExtension(multipartFile.getOriginalFilename());
-			String name = img.getName().replace(" ", "").trim();
-			String fileName = img.getId() + name + "." + extension;
+			String fileName = generateFileName(img, multipartFile);
+			
 			file = new File(filePath + fileName.trim());
 
 			multipartFile.transferTo(file);
 			
-			String fileRelativePath = relativePath + fileName;
-			img.setFileName(fileRelativePath);
+			//String fileRelativePath = relativePath + fileName;
+			img.setFileName(fileName);
 			this.imagenDAO.update(img);
 		}
 	}
+
+	private String generateFileName(Imagen img, MultipartFile multipartFile) {
+		String extension = this.getExtension(multipartFile.getOriginalFilename());
+		String name = img.getName().replace(" ", "").trim(); //troca espaço por branco (o trim() não estava funcioando)
+		String fileName = img.getId() + name + "." + extension;
+		return fileName;
+	}
 	
 	private String getExtension(String originalFilename) {
-		String[] split = originalFilename.split(".");
-		
 		String extension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1, originalFilename.length());
 
 		return extension;
@@ -55,5 +59,17 @@ public class ImagensManager {
 
 	public List<Imagen> getAllImagens(){
 		return this.imagenDAO.getAll();
+	}
+
+	public Imagen getById(long id) {
+		return (Imagen) this.imagenDAO.getById(id, Imagen.class);
+	}
+
+	public void delete(Imagen img, String filePath) {
+		File imagenFile = new File(filePath + img.getFileName());
+		
+		if(imagenFile.exists())
+			imagenFile.delete();
+		this.imagenDAO.delete(img);
 	}
 }
