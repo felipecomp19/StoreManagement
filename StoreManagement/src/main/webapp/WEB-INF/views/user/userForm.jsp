@@ -71,11 +71,11 @@
                 },
                 messages: {
                 	password: {
-                        minlength: "Your password must be at least 5 characters long"
+                        minlength: "Sua senha deve ter pelo menos 5 caracteres"
                     },
                     confirmPassword: {
-                        minlength: "Your password must be at least 5 characters long",
-                        equalTo: "Please enter the same password as above"
+                        minlength: "Sua senha deve ter pelo menos 5 caracteres",
+                        equalTo: "Senha e confirmação de senha não conferem."
                     }
                 }
             }
