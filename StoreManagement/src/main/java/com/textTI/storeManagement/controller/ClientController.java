@@ -89,10 +89,10 @@ public class ClientController extends BaseController{
 		
 		//TODO validate Client 
 		try{
-		if(client.getId() != null)
-			this.clientManager.update(client);
-		else
-			this.clientManager.insert(client);
+			if(client.getId() != null)
+				this.clientManager.update(client);
+			else
+				this.clientManager.insert(client);
 		}catch(ClientException ce)
 		{
 			//TODO create a validator

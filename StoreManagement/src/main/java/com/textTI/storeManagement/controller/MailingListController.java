@@ -3,6 +3,8 @@ package com.textTI.storeManagement.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,9 +15,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.textTI.storeManagement.form.MailingListForm;
 import com.textTI.storeManagement.manager.ClientManager;
+import com.textTI.storeManagement.manager.ClientTypeManager;
 import com.textTI.storeManagement.manager.MailingListManager;
+import com.textTI.storeManagement.manager.StoreManager;
 import com.textTI.storeManagement.model.Client;
+import com.textTI.storeManagement.model.ClientType;
 import com.textTI.storeManagement.model.MailingList;
+import com.textTI.storeManagement.model.Store;
 
 @Controller
 @RequestMapping(value="/mailingList")
@@ -26,6 +32,24 @@ public class MailingListController extends BaseController {
 	
 	@Autowired
 	private ClientManager cliManager;
+	
+	@Autowired
+	private ClientTypeManager cliTypeManager;
+	
+	@Autowired
+	private StoreManager storeManager;
+	
+	@ModelAttribute("clientTypes")
+	public List<ClientType> populateClientTypes()
+	{
+		return this.cliTypeManager.getAll();
+	}
+	
+	@ModelAttribute("stores")
+	public List<Store> populateStores()
+	{
+		return this.storeManager.getAll();
+	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model)
@@ -44,12 +68,9 @@ public class MailingListController extends BaseController {
 	{
 		logger.info("Accesses the create mailing list view");
 		
-		MailingList ml = new MailingList();
 		List<Client> clientsList = this.cliManager.getAll();
 		
-		MailingListForm mlForm = new MailingListForm();
-		mlForm.setAllClients(clientsList);
-		mlForm.setMailingList(ml);
+		MailingListForm mlForm = createMailingListFormModel(clientsList);
 		
 		model.addAttribute("mlForm", mlForm);
 		
@@ -67,7 +88,7 @@ public class MailingListController extends BaseController {
 		}
 		
 		logger.info("Create mailing list");
-		if(mailingList.getId() != null)
+		if(mailingList.getId() != null && mailingList.getId() > 0)
 			this.mlManager.update(mailingList);
 		else
 			this.mlManager.insert(mailingList);
@@ -107,5 +128,63 @@ public class MailingListController extends BaseController {
 		this.mlManager.delete(mailingList);
 		
 		return "redirect:/mailingList/list";
+	}
+	
+	@RequestMapping(value = "/filterByClientType", method = RequestMethod.POST)
+	public String filterByClientType(@ModelAttribute MailingList mailingList, Model model,HttpServletRequest request)
+	{
+		long cliTypeId = Long.parseLong(request.getParameter("cliTypeSL"));
+		
+		List<Client> clientsList = this.cliManager.getByClientTypeId(cliTypeId);
+		
+		MailingListForm mlForm = createMailingListFormModel(clientsList, mailingList);
+		
+		model.addAttribute("mlForm", mlForm);
+		
+		return "/mailingList/create";
+	}
+	
+	@RequestMapping(value = "/filterByBirthdayMonth", method = RequestMethod.POST)
+	public String filterByBirthdayMonth(@ModelAttribute MailingList mailingList, Model model,HttpServletRequest request)
+	{
+		int month = Integer.parseInt(request.getParameter("monthSL"));
+		
+		List<Client> clientsList = this.cliManager.getByClientBirthdayMonth(month);
+		
+		MailingListForm mlForm = createMailingListFormModel(clientsList, mailingList);
+		
+		model.addAttribute("mlForm", mlForm);
+		
+		return "/mailingList/create";
+	}
+	
+	@RequestMapping(value = "/filterByStore", method = RequestMethod.POST)
+	public String filterByStore(@ModelAttribute MailingList mailingList,Model model,HttpServletRequest request)
+	{
+		long storeId = Long.parseLong(request.getParameter("storeSL"));
+		
+		List<Client> clientsList = this.cliManager.getByClientsByStoreId(storeId);
+		
+		MailingListForm mlForm = createMailingListFormModel(clientsList, mailingList);
+		
+		model.addAttribute("mlForm", mlForm);
+		
+		return "/mailingList/create";
+	}
+	
+	private MailingListForm createMailingListFormModel(
+			List<Client> clientsList, MailingList mailingList) {
+		MailingListForm mlf = this.createMailingListFormModel(clientsList);
+		mlf.setMailingList(mailingList);
+		
+		return mlf;
+	}
+
+	private MailingListForm createMailingListFormModel(List<Client> clientsList) {
+		MailingList ml = new MailingList();
+		MailingListForm mlForm = new MailingListForm();
+		mlForm.setAllClients(clientsList);
+		mlForm.setMailingList(ml);
+		return mlForm;
 	}
 }

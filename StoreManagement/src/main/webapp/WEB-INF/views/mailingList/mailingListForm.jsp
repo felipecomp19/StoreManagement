@@ -14,7 +14,7 @@
 						</li>
 						<li class="input">
 							<input type="hidden" name="mailingList.id" value="${mlForm.mailingList.id}" /> 
-							<input type="hidden" name="mailingList.createdOn" value="${mlForm.mailingList.createdOn}" />
+							<%-- <input type="hidden" name="mailingList.createdOn" value="${mlForm.mailingList.createdOn}" /> --%>
 							<label><spring:message code="label.listName" /></label> 
 							<input type="text" name="mailingList.name" placeholder="<spring:message code="label.listName"/>" value="${mlForm.mailingList.name}" /></li>
 						<li class="input">
@@ -46,7 +46,30 @@
 								<div class="box-header">
 							    	<span class="title"><spring:message code="label.selectClients" /></span>
 							    	<ul class="box-toolbar">
-							      	<li><span class="label label-green">Filtros</span></li>
+							      		<li>
+							      			<div class="btn-group">
+                								<%-- <button class="btn btn-green btn-xs"><spring:message code="label.filters" /></button>
+              									<button class="btn btn-green btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button> --%>	
+                 								<button class="btn btn-green btn-xs dropdown-toggle" data-toggle="dropdown"><spring:message code="label.filters" />
+                 									<span class="caret"></span>
+               									</button>
+							                    <ul class="dropdown-menu">
+							                    	<li><a data-toggle="modal" href="#modal-birthday-form"><spring:message code="label.birthday" /></a></li>
+							                        <li><a data-toggle="modal" href="#modal-clientType-form"><spring:message code="label.clientType" /></a></li>
+							                        <li><a data-toggle="modal" href="#modal-store-form"><spring:message code="label.store" /></a></li>
+							                        <li class="divider"></li>
+							                        <c:choose>
+							                        	<c:when test="${mlForm.mailingList.id > 0}">
+							                        		<li><a href="${pageContext.request.contextPath}/mailingList/edit/${mlForm.mailingList.id}"><spring:message code="label.cleanFilters" /></a></li>
+							                        	</c:when>
+							                        	<c:otherwise>
+							                        		<li><a href="${pageContext.request.contextPath}/mailingList/create"><spring:message code="label.cleanFilters" /></a></li>
+							                        	</c:otherwise>
+							                        </c:choose>
+							                        
+							                    </ul>
+						                    </div>
+						      			</li>
 							    	</ul>
 							  	</div>
 							  	<div class="box-content">
@@ -93,6 +116,119 @@
 		</div>
 		<!-- row -->
 	</div>
+	
+	<!-- MODAL FORMS -->
+	<div id="modal-birthday-form" class="modal fade">
+  		<div class="modal-dialog">
+    		<div class="modal-content">
+      			<div class="modal-header">
+        			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        			<h6 id="modal-formLabel"><spring:message code="label.birthday" /></h6>
+      			</div>
+      			<div class="modal-body">
+        			<form:form commandName="mailingList" modelAttribute="mailingList" class="form-horizontal fill-up separate-sections" action="${pageContext.request.contextPath}/mailingList/filterByBirthdayMonth" method="POST">
+        				<input type="hidden" name="id" value="${mlForm.mailingList.id}" /> 
+						<input type="hidden" name="name" value="${mlForm.mailingList.name}" />
+						<input type="hidden" name="defaultFromName" value="${mlForm.mailingList.defaultFromName}" />
+						<input type="hidden" name="defaultFromEmail" value="${mlForm.mailingList.defaultFromEmail}" />
+						<input type="hidden" name="defaultSubject" value="${mlForm.mailingList.defaultSubject}" />
+        				<div class="row">
+            				<div class="col-md-12">
+              					<label><spring:message code="label.selectMonth"/></label>
+              					<select id="monthSL" class="chzn-select" name="monthSL">
+									<option value="1"><spring:message code="month.jan"/></option>
+									<option value="2"><spring:message code="month.feb"/></option>
+									<option value="3"><spring:message code="month.mar"/></option>
+									<option value="4"><spring:message code="month.apr"/></option>
+									<option value="5"><spring:message code="month.may"/></option>
+									<option value="6"><spring:message code="month.jun"/></option>
+									<option value="7"><spring:message code="month.jul"/></option>
+									<option value="8"><spring:message code="month.ago"/></option>
+									<option value="9"><spring:message code="month.set"/></option>
+									<option value="10"><spring:message code="month.oct"/></option>
+									<option value="11"><spring:message code="month.nov"/></option>
+									<option value="12"><spring:message code="month.dez"/></option>
+								</select>
+           					</div>
+      					</div>
+      					<div class="modal-footer">
+        					<button class="btn btn-default" data-dismiss="modal"><spring:message code="label.cancel" /></button>
+        					<button class="btn btn-blue"><spring:message code="label.filter" /></button>
+      					</div>
+        			</form:form>
+        		</div>
+        	</div>
+        </div>
+    </div>
+    
+    <div id="modal-clientType-form" class="modal fade">
+  		<div class="modal-dialog">
+    		<div class="modal-content">
+      			<div class="modal-header">
+        			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        			<h6 id="modal-formLabel"><spring:message code="label.clientTypes" /></h6>
+      			</div>
+      			<div class="modal-body">
+        			<form:form commandName="mailingList" modelAttribute="mailingList" class="form-horizontal fill-up separate-sections" action="${pageContext.request.contextPath}/mailingList/filterByClientType" method="POST">
+        				<input type="hidden" name="id" value="${mlForm.mailingList.id}" /> 
+						<input type="hidden" name="name" value="${mlForm.mailingList.name}" />
+						<input type="hidden" name="defaultFromName" value="${mlForm.mailingList.defaultFromName}" />
+						<input type="hidden" name="defaultFromEmail" value="${mlForm.mailingList.defaultFromEmail}" />
+						<input type="hidden" name="defaultSubject" value="${mlForm.mailingList.defaultSubject}" />
+        				<div class="row">
+            				<div class="col-md-12">
+              					<label><spring:message code="label.selectDisiredClientType"/></label>
+              					<select id="cliTypeSL" class="chzn-select" name="cliTypeSL">
+									<c:forEach items="${clientTypes}" var="cliType">
+										<option value="${cliType.id}">${cliType.nameWithDescription}</option>
+									</c:forEach>
+								</select>
+           					</div>
+      					</div>
+      					<div class="modal-footer">
+        					<button class="btn btn-default" data-dismiss="modal"><spring:message code="label.cancel" /></button>
+        					<button class="btn btn-blue" type="submit"><spring:message code="label.filter" /></button>
+      					</div>
+        			</form:form>
+        		</div>
+        	</div>
+        </div>
+    </div>
+    
+    <div id="modal-store-form" class="modal fade">
+  		<div class="modal-dialog">
+    		<div class="modal-content">
+      			<div class="modal-header">
+        			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        			<h6 id="modal-formLabel"><spring:message code="label.stores" /></h6>
+      			</div>
+      			<div class="modal-body">
+        			<form:form commandName="mailingList" modelAttribute="mailingList" class="form-horizontal fill-up separate-sections" action="${pageContext.request.contextPath}/mailingList/filterByStore" method="POST">
+        				<input type="hidden" name="id" value="${mlForm.mailingList.id}" /> 
+						<input type="hidden" name="name" value="${mlForm.mailingList.name}" />
+						<input type="hidden" name="defaultFromName" value="${mlForm.mailingList.defaultFromName}" />
+						<input type="hidden" name="defaultFromEmail" value="${mlForm.mailingList.defaultFromEmail}" />
+						<input type="hidden" name="defaultSubject" value="${mlForm.mailingList.defaultSubject}" />
+        				<div class="row">
+            				<div class="col-md-12">
+              					<label><spring:message code="label.selectDisiredStore"/></label>
+              					<select id="storeSL" class="chzn-select" name="storeSL">
+									<c:forEach items="${stores}" var="store">
+										<option value="${store.id}">${store.nameWithDesc}</option>
+									</c:forEach>
+								</select>
+           					</div>
+      					</div>
+      					<div class="modal-footer">
+        					<button class="btn btn-default" data-dismiss="modal"><spring:message code="label.cancel" /></button>
+        					<button class="btn btn-blue" type="submit"><spring:message code="label.filter" /></button>
+      					</div>
+        			</form:form>
+        		</div>
+        	</div>
+        </div>
+    </div>
+	<!-- [END] MODAL FORMS -->
 
 </div>
 <script type="text/javascript">

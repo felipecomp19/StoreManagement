@@ -59,13 +59,13 @@
 								<div class="col-md-1" align="right">
 									<label class="control-label"><spring:message code="label.day" /></label>
 								</div>
-								<div class="col-md-2">
+								<div class="col-md-3">
 									<form:select id="day_birthday" path="day_birthday" items="${daysSL}" class="uniform" />
 								</div>
 								<div class="col-md-1" align="right" style="vertical-align: bottom;">
 									<label class="control-label"><spring:message code="label.month" /></label>
 								</div>
-								<div class="col-md-2">
+								<div class="col-md-3">
 									<form:select id="month_birthday" path="month_birthday" items="${monthSL}" class="uniform" />
 								</div>
 							</div>
@@ -78,7 +78,7 @@
 								</div>
 								<div class="col-md-6">
 									<label><spring:message code="label.especialActions" /></label>
-									<input type="text" name="especialActions" value="${especialActions}" />
+									<input type="text" name="especialActions" placeholder="<spring:message code="label.especialActions" />" value="${client.especialActions}" />
 								</div>
 							</div>
 						</li>

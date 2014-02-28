@@ -1,14 +1,17 @@
 package com.textTI.storeManagement.manager;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.textTI.storeManagement.dao.ClientDAO;
+import com.textTI.storeManagement.dao.StoreDAO;
 import com.textTI.storeManagement.exception.ClientException;
 import com.textTI.storeManagement.exception.ExceptionCode;
 import com.textTI.storeManagement.model.Client;
@@ -18,6 +21,9 @@ public class ClientManager {
 
 	@Autowired
 	private ClientDAO clientDAO;
+	
+	@Autowired
+	private StoreDAO storeDAO;
 	
 	public void insert(Client newClient) throws ClientException 
 	{
@@ -77,5 +83,20 @@ public class ClientManager {
 		
 		return result;
 		
+	}
+
+	public List<Client> getByClientTypeId(long cliTypeId) {
+		return this.clientDAO.getByClientTypeId(cliTypeId);
+	}
+
+	public List<Client> getByClientBirthdayMonth(int month) {
+		return this.clientDAO.getByClientBirthdayMonth(month);
+	}
+
+	public List<Client> getByClientsByStoreId(long storeId) {
+		
+		Set<Client> clients = this.storeDAO.getById(storeId).getClients(); 
+		
+		return new ArrayList<Client>(clients); 
 	}
 }

@@ -77,7 +77,7 @@ public class Client extends BaseModel {
 
 	public Client() {
 		super();
-	};
+	}
 
 	public String getName() {
 		return name;
@@ -191,7 +191,7 @@ public class Client extends BaseModel {
 	public boolean isChecked() {
 		return checked;
 	}
-
+	
 	public void setChecked(boolean checked) {
 		this.checked = checked;
 	}

@@ -10,6 +10,8 @@ public class MailingListForm {
 	private List<Client> allClients;
 	
 	private MailingList mailingList;
+	
+	public MailingListForm(){ }
 
 	public List<Client> getAllClients() {
 		return allClients;

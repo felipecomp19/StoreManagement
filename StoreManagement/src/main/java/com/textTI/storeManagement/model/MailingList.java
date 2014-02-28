@@ -21,7 +21,7 @@ public class MailingList extends BaseModel {
 	@Column(name = "name")
 	private String name;
 	
-	@Column(name = "createdOn")
+	@Column(name = "createdOn", updatable = false)
 	private Date createdOn;
 	
 	@Column(name = "defaultFromName")

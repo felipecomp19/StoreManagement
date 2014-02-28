@@ -2,7 +2,6 @@ package com.textTI.storeManagement.manager;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +45,7 @@ public class ImagensManager {
 
 	private String generateFileName(Imagen img, MultipartFile multipartFile) {
 		String extension = this.getExtension(multipartFile.getOriginalFilename());
-		String name = img.getName().replace(" ", "").trim(); //troca espaço por branco (o trim() não estava funcioando)
+		String name = img.getName().replace(" ", "").trim(); //troca espaï¿½o por branco (o trim() nï¿½o estava funcioando)
 		String fileName = img.getId() + name + "." + extension;
 		return fileName;
 	}

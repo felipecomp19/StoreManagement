@@ -46895,7 +46895,7 @@ $(document).ready(function() {
                 "required": { // Add your regex rules here, you can take telephone as an example
                     "regex": "none",
                     "alertText": "* Campo obrigatório",
-                    "alertTextCheckboxMultiple": "* Please select an option",
+                    "alertTextCheckboxMultiple": "* Por favor, selecione uma opção",
                     "alertTextCheckboxe": "* This checkbox is required",
                     "alertTextDateRange": "* Both date range fields are required"
                 },

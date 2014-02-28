@@ -14,7 +14,6 @@ import com.textTI.storeManagement.utils.HibernateUtil;
 public class ClientDAO extends BaseDAO {
 
 	public Client getById(Long id) {
-
 		return (Client) this.getById(id, Client.class);
 	}
 
@@ -72,6 +71,46 @@ public class ClientDAO extends BaseDAO {
 				+ " from db_storeManager_dev.tb_client_store as cliStore"
 				+ " group by cliStore.store_id"); 
 		
-		return q.list();
+		List<?> result = q.list();
+		
+		session.close();
+		
+		return result;
+	}
+
+	public List<Client> getByClientTypeId(long cliTypeId) {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		
+//		String hql = "SELECT c.name, c.cpf, c.email, c.telephone, c.cellPhone, c.createdOn, c.month_birthday"
+//				+ " FROM Client c INNER JOIN c.clientType as ct WHERE ct.id= :cliTypeId)";
+		String hql = "FROM Client c WHERE c.clientType.id = :cliTypeId)";
+		Query query = session.createQuery(hql);
+		query.setParameter("cliTypeId", cliTypeId);
+		
+		@SuppressWarnings("unchecked")
+		List<Client> clients = query.list();
+		
+		session.close();
+		
+		return clients;
+	}
+
+	public List<Client> getByClientBirthdayMonth(int month) {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		
+		String hql = "FROM Client c WHERE c.month_birthday = :month)";
+		Query query = session.createQuery(hql);
+
+		query.setParameter("month", month);
+		
+		@SuppressWarnings("unchecked")
+		List<Client> clients = query.list();
+		
+		
+		session.close();
+		
+		return clients;
 	}
 }

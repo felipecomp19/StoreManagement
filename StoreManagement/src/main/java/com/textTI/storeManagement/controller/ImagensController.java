@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.textTI.storeManagement.manager.ImagensManager;
-import com.textTI.storeManagement.model.Campaign;
 import com.textTI.storeManagement.model.FileUpload;
 import com.textTI.storeManagement.model.Imagen;
 
@@ -65,7 +65,7 @@ public class ImagensController extends BaseController {
         model.addAttribute("imagens", imagens);
         model.addAttribute("relativePath",this.relativePath);
         
-        return "/imagens/list";
+        return "redirect:/imagens/list";
     }
 	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)

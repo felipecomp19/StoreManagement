@@ -62,7 +62,7 @@
 							<!-- <input type="submit" value="Upload" /> -->
 							<div class="form-actions">
 								<button type="submit" class="btn btn-blue"><spring:message code="label.upload" /></button>
-								<a href="${pageContext.request.contextPath}/client/list">
+								<a href="${pageContext.request.contextPath}/imagens/list">
 									<button type="button" class="btn btn-default"><spring:message code="label.cancel" /></button>
 								</a>
 							</div>
