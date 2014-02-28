@@ -73,7 +73,7 @@
                 	password: {
                         minlength: "Your password must be at least 5 characters long"
                     },
-                    pass2: {
+                    confirmPassword: {
                         minlength: "Your password must be at least 5 characters long",
                         equalTo: "Please enter the same password as above"
                     }
