@@ -23,7 +23,7 @@ public class User extends BaseModel {
 	private String password;
 	
 	@Column(name = "isActive", nullable = false)
-	private boolean isActive;
+	private boolean active;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "userRole", nullable = false)
@@ -54,11 +54,11 @@ public class User extends BaseModel {
 	}
 
 	public boolean isActive() {
-		return isActive;
+		return active;
 	}
 
 	public void setActive(boolean isActive) {
-		this.isActive = isActive;
+		this.active = isActive;
 	}
 
 	public UserRole getUserRole() {

@@ -6,18 +6,22 @@
 
 <div class="row">
 	<div class="col-md-6">
-		<form:form class="fill-up validatable" method="POST" commandName="user" action="${pageContext.request.contextPath}/user/save" >
+		<form:form id="userForm" class="fill-up validatable" method="POST" commandName="user" action="${pageContext.request.contextPath}/user/save" >
 			<div class="row">
 				<div class="col-md-6">
 					<ul class="padded separate-sections">
 						<li class="input">
 							<input type="hidden" name="id" value="${user.id}"/>
 							<label><spring:message code="label.role" /></label>
-							<form:select path="userRole" items="${roles}" itemValue="id" itemLabel="role" class="uniform validate[required]"/>
+							<form:select path="userRole" items="${roles}" itemValue="id" itemLabel="roleTranslated" class="uniform validate[required]"/>
 						</li>
 						<li class="input">
 							<label><spring:message code="label.name" /></label>
 							<input type="text" name="name" class="validate[required]" placeholder="<spring:message code="label.name"/>" value="${user.name}"/>
+						</li>
+						<li class="input">
+							<form:checkbox path="active" class="icheck" id="active"/>
+							<label for="active"><spring:message code="label.enabled" /></label>
 						</li>
 						<li class="input">
 							<label><spring:message code="label.userName" /></label>
@@ -34,7 +38,7 @@
 				          		<span class="input-group-addon" href="#">
 						        	<i class="icon-key"></i>
 						        </span>
-								<input type="password" name="password" id="password" autocomplete="off" class="validate[required]" placeholder="<spring:message code="label.password"/>" value=""/>
+								<input type="password" name="password" id="password" autocomplete="off" placeholder="<spring:message code="label.password"/>" value=""/>
 							</div>
 						</li>
 						<li class="input">
@@ -43,7 +47,7 @@
           						<span class="input-group-addon" href="#">
             						<i class="icon-key"></i>
           						</span>
-								<input type="password" name="confirmPassword" id="confirmPassword" class="validate[required]" placeholder="<spring:message code="label.confirmPassword"/>" value=""/>
+								<input type="password" name="confirmPassword" id="confirmPassword" placeholder="<spring:message code="label.confirmPassword"/>" value=""/>
 							</div>
 						</li>
 					</ul>
@@ -60,7 +64,8 @@
 </div>
 <script type="text/javascript">
 	$(document).ready(function () {
-		$("form").validate({
+		$("#userForm").validate({
+			errorPlacement: function(error, element) { },
             rules : {
             	password : {
                     minlength : 5
@@ -68,15 +73,27 @@
                 confirmPassword : {
                     minlength : 5,
                     equalTo : "#password"
+                }
+            },
+            messages: {
+            	password: {
+                    minlength: function(){ return Growl.error({
+                        						title:'Erro!',
+                        						text: 'Sua senha deve ter pelo menos 5 caracteres'
+                   							});
+                    			}
                 },
-                messages: {
-                	password: {
-                        minlength: "Sua senha deve ter pelo menos 5 caracteres"
-                    },
-                    confirmPassword: {
-                        minlength: "Sua senha deve ter pelo menos 5 caracteres",
-                        equalTo: "Senha e confirmação de senha não conferem."
-                    }
+                confirmPassword: {
+                    minlength: function(){ return Growl.error({
+												title:'Erro!',
+												text: 'Sua senha deve ter pelo menos 5 caracteres'
+										 	});
+					},
+                    equalTo: function(){ return Growl.error({
+												title:'Erro!',
+												text: 'Senha e confirmação de senha não conferem.'
+				 							});
+                 	}
                 }
             }
 		});

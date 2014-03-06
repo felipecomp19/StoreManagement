@@ -56,7 +56,12 @@
 									<th>
 										<spring:message code="label.createdOn" />
 									</th>
-									
+									<th>
+										<spring:message code="label.status" />
+									</th>
+									<th>
+										<spring:message code="label.submittedOn" />
+									</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -82,6 +87,17 @@
 										<td><a href="${pageContext.request.contextPath}/campaign/edit/${campaign.id}">${campaign.name}</a></td>
 										<td>${campaign.description}</td>
 										<td>${campaign.formatedCreatedOn}</td>
+										<td>
+											<c:choose>
+												<c:when test="${campaign.submitted}">
+													<spring:message code="status.submitted"/>
+												</c:when>
+												<c:otherwise>
+													<spring:message code="status.NotSubmitted"/>
+												</c:otherwise>
+											</c:choose>
+										</td>
+										<td>${campaign.formatedSubmittedDate}</td>
 									</tr>
 								</c:forEach>
 							</tbody>

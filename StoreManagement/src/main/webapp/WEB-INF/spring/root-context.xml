@@ -31,9 +31,12 @@
 	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/db_storeManager_dev" />
+		<!-- <property name="url" value="jdbc:mysql://localhost:3306/db_storeManager_dev" />
 		<property name="username" value="root" />
-		<property name="password" value="123456" />
+		<property name="password" value="123456" /> -->
+		<property name="url" value="jdbc:mysql://localhost:3306/db_storeManager_morana_prod" /> <!-- prod -->
+		<property name="username" value="root" /><!-- prod -->
+		<property name="password" value="Fl0r1p4.20" /><!-- prod -->
    </bean>
 	
 </beans>

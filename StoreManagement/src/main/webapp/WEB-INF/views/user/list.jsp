@@ -76,7 +76,7 @@
 												</td>
 												<td>${user.name}</td>
 												<td>${user.userName}</td>
-												<td>${user.userRole.role}</td>
+												<td>${user.userRole.roleTranslated}</td>
 												<%-- <td class="center">${user.store.name}</td> --%>
 											</tr>
 										</c:forEach>

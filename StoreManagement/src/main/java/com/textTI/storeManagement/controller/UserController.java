@@ -42,8 +42,9 @@ public class UserController extends BaseController {
 	public String create(Locale locale,Model model)
 	{
 		List<UserRole> roles = this.roleManager.getAll(locale); 
-		
-		model.addAttribute("user", new User());
+		User user = new User();
+		user.setActive(true);
+		model.addAttribute("user", user);
 		model.addAttribute("roles", roles);
 		
 		return "/user/create";

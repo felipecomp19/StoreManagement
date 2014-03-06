@@ -3,6 +3,7 @@ package com.textTI.storeManagement.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="tb_user_roles")
@@ -12,6 +13,9 @@ public class UserRole extends BaseModel {
 
 	@Column(name="role")
 	private String role;
+	
+	@Transient
+	private String roleTranslated;
 
 	public String getRole() {
 		return role;
@@ -19,5 +23,13 @@ public class UserRole extends BaseModel {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public String getRoleTranslated() {
+		return roleTranslated;
+	}
+
+	public void setRoleTranslated(String roleTranslated) {
+		this.roleTranslated = roleTranslated;
 	}
 }

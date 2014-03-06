@@ -38,8 +38,8 @@ public class TestMailManager extends BaseManagerTestCase{
 
 	private MailingList createMailingList() {
 		MailingList ml = new MailingList();
-		ml.setDefaultFromEmail("morana@morana.com.br");
-		ml.setDefaultFromName("Morana");
+		ml.setDefaultFromEmail("morana@moranavale.com.br");
+		ml.setDefaultFromName("Morana@moranavale.com.br");
 		ml.setDefaultSubject("Teste send mail");
 		
 		List<Client> clients = new ArrayList<Client>();

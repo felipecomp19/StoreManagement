@@ -2,146 +2,94 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="box-content padded">
 	<div class="row">
-		<div class="col-md-4 separate-sections" style="margin-top: 5px;">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="dashboard-stats">
-						<ul class="list-inline">
-							<li class="glyph"><i class="icon-group icon-2x"></i></li>
-							<li class="count">${clientsSize}</li>
-						</ul>
-
-						<div class="progress">
-							<div class="progress-bar progress-blue tip" title="100%"
-								data-percent="100"></div>
-						</div>
-
-						<div class="stats-label"><spring:message code="label.totalOfClients"/></div>
+		<div class="col-md-12">
+			<div class="sine-chart" id="storeChart">
+				<c:forEach items="${totalClientsByMontList}" var="tcbm">
+					<div name="storeLine" storeName="${tcbm.storeNameWithDesc}">
+						<input type="hidden" name="storeChartData" month="01.<spring:message code="month.jan" />" count="${tcbm.countClientsJan}" />
+						<input type="hidden" name="storeChartData" month="02.<spring:message code="month.feb" />" count="${tcbm.countClientsFeb}" />
+						<input type="hidden" name="storeChartData" month="03.<spring:message code="month.mar" />" count="${tcbm.countClientsMar}" />
+						<input type="hidden" name="storeChartData" month="04.<spring:message code="month.apr" />" count="${tcbm.countClientsApr}" />
+						<input type="hidden" name="storeChartData" month="05.<spring:message code="month.may" />" count="${tcbm.countClientsMay}" />
+						<input type="hidden" name="storeChartData" month="06.<spring:message code="month.jun" />" count="${tcbm.countClientsJun}" />
+						<input type="hidden" name="storeChartData" month="07.<spring:message code="month.jul" />" count="${tcbm.countClientsJul}" />
+						<input type="hidden" name="storeChartData" month="08.<spring:message code="month.ago" />" count="${tcbm.countClientsAug}" />
+						<input type="hidden" name="storeChartData" month="09.<spring:message code="month.set" />" count="${tcbm.countClientsSet}" />
+						<input type="hidden" name="storeChartData" month="10.<spring:message code="month.oct" />" count="${tcbm.countClientsOct}" />
+						<input type="hidden" name="storeChartData" month="11.<spring:message code="month.nov" />" count="${tcbm.countClientsNov}" />
+						<input type="hidden" name="storeChartData" month="12.<spring:message code="month.dez" />" count="${tcbm.countClientsDez}" />
 					</div>
-				</div>
-			</div>
-
-			<div class="row" style="margin-top: 30px;">
-				<% int countSt = 1; %>				
-				<c:forEach var="store" items="${stores}" >
-					<% if(countSt <= 2) { %>
-						<div class="col-md-6">
-							<div class="dashboard-stats small">
-								<ul class="list-inline">
-									<li class="glyph"><i class="icon-building"></i></li>
-									<li class="count">${store.clientsSize}</li>
-								</ul>
-								<div class="progress">
-									<div class="progress-bar progress-blue tip" title="${(store.clientsSize/clientsSize)*100}%" data-percent="${(store.clientsSize/clientsSize)*100}"> </div>
-								</div>
-								<div class="stats-label">${store.nameWithDesc}</div>
-							</div>
-						</div>
-					<%}else{ %>
-						<div class="col-md-6" hidden="true">
-							<div class="dashboard-stats small">
-								<ul class="list-inline">
-									<li class="glyph"><i class="icon-building"></i></li>
-									<li class="count">${store.clientsSize}</li>
-								</ul>
-								<div class="progress">
-									<div class="progress-bar progress-blue tip" title="80%"
-										data-percent="80"></div>
-								</div>
-								<div class="stats-label">${store.nameWithDesc}</div>
-							</div>
-						</div>	
-					<%} countSt++;%>
 				</c:forEach>
 			</div>
-
-		</div>
-		<div class="col-md-8">
-			<!-- <div class="sine-chart" id="xchart-sine"></div> -->
-			<div class="sine-chart" id="storeChart"></div>
+			<div id="storeChart_legend" style="text-align: center;">
+				<!-- js will populate with legend based on the chart -->
+			</div>
 		</div>
 	</div>
 </div>
 <script type="text/javascript">
 	$(document).ready(function() {
-		var data = [{
-            "xScale":"ordinal",
-            "comp":[],
-            "main":[
-                {
-                    "className":".main.l1",
-                    "data":[
-                        {"y":12,"x":"2012-11-19T00:00:00"},
-                        {"y":18,"x":"2012-11-20T00:00:00"},
-                        {"y":8,"x":"2012-11-21T00:00:00"},
-                        {"y":7,"x":"2012-11-22T00:00:00"},
-                        {"y":6,"x":"2012-11-23T00:00:00"},
-                        {"y":12,"x":"2012-11-24T00:00:00"},
-                        {"y":8,"x":"2012-11-25T00:00:00"}
-                    ]
-                }
-            ],
-            "type":"bar",
-            "yScale":"linear"
-        },{
-            "xScale":"ordinal",
-            "comp":[],
-            "main":[
-                {
-                    "className":".main.l1",
-                    "data":[
-                        {"y":12,"x":"2012-11-19T00:00:00"},
-                        {"y":18,"x":"2012-11-20T00:00:00"},
-                        {"y":8,"x":"2012-11-21T00:00:00"},
-                        {"y":7,"x":"2012-11-22T00:00:00"},
-                        {"y":6,"x":"2012-11-23T00:00:00"},
-                        {"y":12,"x":"2012-11-24T00:00:00"},
-                        {"y":8,"x":"2012-11-25T00:00:00"}
-                    ]
-                },{
-                    "className":".main.l2",
-                    "data":[
-                        {"y":29,"x":"2012-11-19T00:00:00"},
-                        {"y":33,"x":"2012-11-20T00:00:00"},
-                        {"y":13,"x":"2012-11-21T00:00:00"},
-                        {"y":16,"x":"2012-11-22T00:00:00"},
-                        {"y":7,"x":"2012-11-23T00:00:00"},
-                        {"y":18,"x":"2012-11-24T00:00:00"},
-                        {"y":8,"x":"2012-11-25T00:00:00"}
-                    ]
-                }
-            ],
-            "type":"cumulative",
-            "yScale":"linear"
-        }];
 		
-		var order = [0, 1],
-        i = 0,
-        xFormat = d3.time.format('%A'),
-        rotateTimer,
-        chart,
-        t = 3500;
+		var tt = document.createElement('div'),leftOffset = -(~~$('html').css('padding-left').replace('px', '') + ~~$('body').css('margin-left').replace('px', '')),topOffset = -32;
+		tt.className = 'ex-tooltip';
+		document.body.appendChild(tt);
 		
-		if ($("#storeChart").length > 0) {
-	        chart = new xChart('bar', data[order[i]], '#storeChart', {
-	            axisPaddingTop: 5,
-	            paddingLeft: 30,
-	            dataFormatX: function (x) { return new Date(x); },
-	            tickFormatX: function (x) { return d3.time.format('%a')(x); }
+		if($("#storeChart").length > 0) {
+	        var myChart = new xChart('line-dotted', getData(), '#storeChart', {
+	        	axisPaddingTop: 5, 
+	        	paddingLeft: 50,
+	        	tickFormatX: function (x) { 
+	        			var month = x.split(".")[1];
+	        			return month; 
+	        		},
+	        	mouseover: function (d, i) {
+	            	var pos = $(this).offset();
+	            	$(tt).text(d.y).css({top: topOffset + pos.top, left: pos.left + leftOffset}).show();
+	          	},
+	          	mouseout: function (x) { $(tt).hide(); }
 	        });
-
-	        rotateTimer = setTimeout(rotateChart, t);
 	    }
+		
+		function getData(){
+	        var data = {
+	        	 "xScale":"ordinal",
+	             "comp":[],
+	             "yScale":"linear",
+	             "type":"cumulative"
+	        };
 
-	    function updateChart(i) {
-	        chart.setData(data[i]);
-	    }
-
-	    function rotateChart() {
-	        i += 1;
-	        i = (i >= order.length) ? 0 : i;
-	        updateChart(order[i]);
-	        rotateTimer = setTimeout(rotateChart, t);
-	    }
+	        data.main = [];
+	        
+	        var stores = $("div[name='storeLine']");
+	        var graphData= [];
+	        var l = 1;
+	        var c = 0; //utilizada para obter a cor da legenda
+	        var classe = ".main.l";
+	        var className = "";
+	        stores.each(function(){
+				var linhas = $(this).find("input[name='storeChartData']");
+				linhas.each(function(){
+					graphData.push({
+	                    "x": $(this).attr("month"),
+	                    "y": (($(this).attr("count") - 1) + 1)
+	                });	
+				});
+				className = classe + l;
+				data.main.push({
+	                "className": className,
+	                "data": graphData
+	            });
+				graphData = [];
+				l++;
+	        
+				var storeName = $(this).attr("storeName");
+				var color = "color" + c;
+				$("#storeChart_legend").append("<span class='legend " + color + "'>" + storeName + "</span>");
+				c++;
+	        });
+	        
+	        
+	        return data;
+		}
 	});
 </script>

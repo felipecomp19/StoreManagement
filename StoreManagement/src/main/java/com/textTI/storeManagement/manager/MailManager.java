@@ -8,7 +8,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import com.textTI.storeManagement.model.Campaign;
 import com.textTI.storeManagement.model.Client;
@@ -35,11 +34,11 @@ public class MailManager {
 	
 	public void sendHTMLMail(Campaign campaign) throws MessagingException
 	{
-		
 		MimeMessage mimeMessage = this.mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage,false, "utf-8");
 		
 		helper.setFrom(campaign.getMailingList().getDefaultFromName());
+		//helper.setFrom("Morana@moranavale.com.br");
 		helper.setSubject(campaign.getName());
 		helper.setText(campaign.getEmailContent(), true);
 		
