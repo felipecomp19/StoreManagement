@@ -164,6 +164,11 @@
 				<a href="${pageContext.request.contextPath}/calendar"> <i class="icon-calendar icon-2x"></i> <span><spring:message code="label.calendar"></spring:message></span> </a>
 			</li>
 			 -->
+			<li class="">
+				<span class="glow"></span> 
+				<a href="${pageContext.request.contextPath}/employee/list"> <i class="icon-sitemap icon-2x"></i> <span><spring:message code="label.employees" /></span> </a>
+			</li> 
+			 
 
 			<!-- Configurações  -->
 			<li class="dark-nav ">

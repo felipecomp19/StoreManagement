@@ -38,6 +38,7 @@
 		<mapping class="com.textTI.storeManagement.model.UserRole"/>
 		<mapping class="com.textTI.storeManagement.model.Audit"/>
 		<mapping class="com.textTI.storeManagement.model.Imagen"/>
+		<mapping class="com.textTI.storeManagement.model.Employee"/>
 						
 	</session-factory>
 </hibernate-configuration>

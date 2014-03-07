@@ -72,4 +72,16 @@ public class UserController extends BaseController {
 		
 		return "redirect:/user/list";
 	}
+	
+	
+	@RequestMapping(value= "/delete/{id}" , method = RequestMethod.GET)
+	public String delete(@PathVariable("id") long id, Model model, Locale locale)
+	{
+		User user = this.userManager.getById(id);
+		user.setEnabled(false);
+		
+		this.userManager.delete(user);
+		
+		return "redirect:/user/list";
+	}
 }

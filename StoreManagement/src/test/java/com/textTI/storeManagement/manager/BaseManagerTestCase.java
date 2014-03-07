@@ -67,6 +67,7 @@ public abstract class BaseManagerTestCase extends
 	{
 		Store st = new Store();
 		st.setName(name);
+		st.setEnabled(true);
 		this.storeManager.insert(st);
 		return st;
 	}

@@ -1,11 +1,13 @@
 package com.textTI.storeManagement.model;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
@@ -28,6 +30,10 @@ public class Store extends BaseModel {
 	@ManyToMany(mappedBy = "stores", fetch=FetchType.EAGER)
 	@JsonBackReference
 	private Set<Client> clients;
+	
+	@OneToMany(mappedBy="store", fetch=FetchType.EAGER)
+	@JsonBackReference
+	private List<Employee> emploees;
 	
 	public Store() {
 		super();

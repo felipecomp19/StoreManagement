@@ -31,6 +31,7 @@
 	      <beans:bean class="com.textTI.storeManagement.converter.DateConverter"/>
 	      <beans:bean class="com.textTI.storeManagement.converter.MailingListConverter"/>
 	      <beans:bean class="com.textTI.storeManagement.converter.UserRoleConverter"/>
+	      <beans:bean class="com.textTI.storeManagement.converter.StoreConverter"/>
 	    </beans:list>
 	  </beans:property>
 	</beans:bean>
