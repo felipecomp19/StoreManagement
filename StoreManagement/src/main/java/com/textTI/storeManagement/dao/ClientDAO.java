@@ -82,8 +82,6 @@ public class ClientDAO extends BaseDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		
-//		String hql = "SELECT c.name, c.cpf, c.email, c.telephone, c.cellPhone, c.createdOn, c.month_birthday"
-//				+ " FROM Client c INNER JOIN c.clientType as ct WHERE ct.id= :cliTypeId)";
 		String hql = "FROM Client c WHERE c.clientType.id = :cliTypeId)";
 		Query query = session.createQuery(hql);
 		query.setParameter("cliTypeId", cliTypeId);

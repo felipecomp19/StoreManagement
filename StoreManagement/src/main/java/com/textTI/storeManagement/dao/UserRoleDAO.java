@@ -24,4 +24,8 @@ public class UserRoleDAO extends BaseDAO {
 		return roles;
 	}
 
+	public UserRole getById(Long id) {
+		return (UserRole) this.getById(id, UserRole.class);
+	}
+
 }

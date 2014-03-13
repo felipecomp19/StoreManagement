@@ -12043,6 +12043,42 @@ disabled look for disabled choices in the results dropdown
 /* line 34, /home/andrei/core-admin-release/core-admin/source/stylesheets/xcharts.scss */
 .xchart .color9.comp circle, .xchart .color9.comp .pointer {
   fill: #2477ab; }
+  
+.legend{
+	font-weight: bold;
+	margin-right: 30px;	
+}
+
+span.color0{
+	color: #3880aa; 
+ }
+span.color1{
+	color: #4da944;
+}
+span.color2{
+	color: #f26522; 
+}
+span.color3{
+	color: #c6080d; 
+ }
+span.color4{
+	color: #672d8b; 
+}
+span.color5{
+	color: #ce1797; 
+}
+span.color6{
+	color: #d9ce00; 
+}
+span.color7{
+	color: #754c24; 
+}
+span.color8{
+	color: #2eb9b4; 
+}
+span.color9{
+	color: #0e2e42; 
+}  
 
 /* line 76, /home/andrei/core-admin-release/core-admin/source/stylesheets/xcharts.scss */
 .ex-tooltip {

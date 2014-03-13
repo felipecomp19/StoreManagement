@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.Date;
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +18,11 @@ import com.textTI.storeManagement.model.Campaign;
 @Component
 public class CampaignManager {
 	
-	private final String filePath = "/home/felipe/workspace/StoreManagement/StoreManagement/src/main/webapp/upload/emailTemplate/";
+	//private final String filePath = "/home/felipe/app/jboss-6.1.0.Final/server/default/deploy/ROOT.war/sm/morana/emailTemplate/"; //desenv
+	private final String filePath = "/usr/share/jboss-6.1.0.Final/server/default/deploy/ROOT.war/sm/morana/emailTemplate/"; //production
+	
+	@Autowired
+	private MailManager mailManager;
 	
 	@Autowired
 	private CampaignDAO campaignDAO;
@@ -67,5 +73,16 @@ public class CampaignManager {
 	public List<Campaign> getAll()
 	{
 		return this.campaignDAO.getAll();
+	}
+
+	public void submit(Campaign campaign) throws MessagingException {
+		campaign.setSubmitted(true);
+		campaign.setSubmittedDate(new Date());
+		campaign.getMailingList().setDefaultFromEmail("morana@moranavale.com.br");
+		campaign.getMailingList().setDefaultFromName("Morana@moranavale.com.br");
+		
+		this.mailManager.sendHTMLMail(campaign);
+		
+		this.update(campaign);
 	}
 }

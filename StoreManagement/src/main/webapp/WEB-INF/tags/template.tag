@@ -16,11 +16,14 @@
 
 	<link href="${pageContext.request.contextPath}/resources/coreAdmin/stylesheets/application.css" media="screen" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/cleditor/jquery.cleditor.css" />
+	
 	<script src="${pageContext.request.contextPath}/resources/coreAdmin/javascripts/application.js" type="text/javascript"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.mask.min.js" type="text/javascript" ></script>
  	<script src="${pageContext.request.contextPath}/resources/cleditor/jquery.cleditor.min.js" type="text/javascript"></script>
- 	<script src="http://cidades-estados-js.googlecode.com/files/cidades-estados-1.2-utf8.js" type="text/javascript"></script> 
+<!--  	<script src="http://cidades-estados-js.googlecode.com/files/cidades-estados-1.2-utf8.js" type="text/javascript"></script> --> 
  	<script src="${pageContext.request.contextPath}/resources/js/jquery.blockUI.js" type="text/javascript"></script>
+ 	<script src="${pageContext.request.contextPath}/resources/js/jquery.validate.min.js" type="text/javascript"></script>
+ 	<script src="${pageContext.request.contextPath}/resources/js/jquery.maskMoney.min.js" type="text/javascript"></script>
 </head>
 <body>
 	<!-- top bar -->
@@ -112,9 +115,11 @@
 					<li class="">
 						<a href="${pageContext.request.contextPath}/client/list"> <i class="icon-th-large"></i> <spring:message code="label.listAll"/> </a>
 					</li>
+					<!-- 
 					<li class="">
 						<a href="${pageContext.request.contextPath}/client/upload"> <i class="icon-folder-open-alt"></i> <spring:message code="label.import" /> </a>
 					</li>
+					 -->
 					<li class="">
 						<a href="${pageContext.request.contextPath}/clientType/list"> <i class="icon-user"></i> <spring:message code="label.clientTypes" /> </a>
 					</li>
@@ -160,6 +165,15 @@
 				<a href="${pageContext.request.contextPath}/calendar"> <i class="icon-calendar icon-2x"></i> <span><spring:message code="label.calendar"></spring:message></span> </a>
 			</li>
 			 -->
+			<li class="">
+				<span class="glow"></span> 
+				<a href="${pageContext.request.contextPath}/employee/list"> <i class="icon-sitemap icon-2x"></i> <span><spring:message code="label.employees" /></span> </a>
+			</li>
+			<li class="">
+				<span class="glow"></span> 
+				<a href="${pageContext.request.contextPath}/indicator/list"> <i class="icon-book icon-2x"></i> <span><spring:message code="label.indicators" /></span> </a>
+			</li>  
+			 
 
 			<!-- Configurações  -->
 			<li class="dark-nav ">

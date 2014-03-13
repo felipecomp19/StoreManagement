@@ -2,11 +2,14 @@ package com.textTI.storeManagement.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
 
 import com.textTI.storeManagement.model.Store;
+import com.textTI.storeManagement.model.chart.TotalClientsByMonth;
 import com.textTI.storeManagement.utils.HibernateUtil;
 
 @Repository
@@ -22,11 +25,28 @@ public class StoreDAO extends BaseDAO {
 
 		@SuppressWarnings("unchecked")
 		List<Store> stores = session.createQuery("from Store").list();
-		
-		//TODO return the clients
 
 		session.close();
 
 		return stores;
+	}
+
+	public List<TotalClientsByMonth> getTotalClientsByMonthInAYear(int year) {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+
+		Query query = session.createSQLQuery(
+				"CALL getTotalClientsByMonthInAYear(:year)")
+				.setResultTransformer(
+						Transformers.aliasToBean(TotalClientsByMonth.class));
+		
+		query.setParameter("year", year);
+
+		@SuppressWarnings("unchecked")
+		List<TotalClientsByMonth> proc_result = query.list();
+
+		session.close();
+
+		return proc_result;
 	}
 }

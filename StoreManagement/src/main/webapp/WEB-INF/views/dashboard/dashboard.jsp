@@ -60,13 +60,30 @@
 				</div>
 				<!--[END] big normal buttons-->
 				
-				<!-- charts -->				
 				<div class="col-md-9">
 					<div class="box">
 						<div class="box-header">
 			        		<div class="title">
-			        			<spring:message code="label.charts"/>
+			        			<spring:message code="label.chartTotalOfClientsByStore"/>
 		        			</div>
+		      			</div>
+		      			<div class="box-content">
+		      				<%@include file="chartTotalOfClients.jsp" %>
+		      			</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<!-- charts -->				
+				<div class="col-md-12">
+					<div class="box">
+						<div class="box-header">
+			        		<div class="title">
+			        			<spring:message code="label.chartTotalOfClientsByStore"/>
+		        			</div>
+		        			<ul class="box-toolbar">
+		        				<li>${filterYear}</li>
+		        			</ul>
 		      			</div>
 		      			<div class="box-content">
 		      				<%@include file="charts.jsp" %>

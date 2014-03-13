@@ -2,6 +2,7 @@ package com.textTI.storeManagement.controller;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.textTI.storeManagement.manager.CampaignManager;
+import com.textTI.storeManagement.manager.MailManager;
 import com.textTI.storeManagement.manager.MailingListManager;
 import com.textTI.storeManagement.model.Campaign;
 import com.textTI.storeManagement.model.MailingList;
@@ -24,6 +26,9 @@ public class CampaignController extends BaseController {
 	
 	@Autowired
 	private CampaignManager campaignManager;
+	
+	@Autowired
+	private MailManager mailManager;
 	
 	@Autowired
 	private MailingListManager mailingListManager;
@@ -86,5 +91,21 @@ public class CampaignController extends BaseController {
 		MailingList mailingList = this.mailingListManager.getById(id);
 		
 		return mailingList;
+	}
+	
+	@RequestMapping(value = "/sendEmails", method = RequestMethod.POST)
+	public String sendEmails(@ModelAttribute("campaign") Campaign campaign, HttpServletRequest request) throws MessagingException
+	{
+		long selectedMLId = campaign.getMailingList().getId();
+		if(campaign.getId() != null){
+			campaign = this.campaignManager.getById(campaign.getId());
+			if(selectedMLId != campaign.getMailingList().getId()){
+				campaign.setMailingList(this.mailingListManager.getById(selectedMLId));
+			}
+			this.campaignManager.submit(campaign);
+			//this.mailManager.sendHTMLMail(campaign);
+		}
+		
+		return "redirect:/campaign/list";
 	}
 }

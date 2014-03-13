@@ -34,6 +34,12 @@ public class Campaign extends BaseModel {
 	@ManyToOne(optional=false, fetch= FetchType.EAGER)
 	private MailingList mailingList;
 	
+	@Column(name = "submitted")
+	private boolean submitted;
+	
+	@Column(name = "submittedDate")
+	private Date submittedDate;
+	
 	public String getName() {
 		return name;
 	}
@@ -88,6 +94,31 @@ public class Campaign extends BaseModel {
 
 	public void setEmailFileName(String emailFileName) {
 		this.emailFileName = emailFileName;
+	}
+
+	public boolean isSubmitted() {
+		return submitted;
+	}
+
+	public void setSubmitted(boolean submitted) {
+		this.submitted = submitted;
+	}
+
+	public Date getSubmittedDate() {
+		return submittedDate;
+	}
+	
+	public String getFormatedSubmittedDate() {
+		if(this.submittedDate != null){
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+			return sdf.format(submittedDate);
+		}
+		return "";
+	}
+
+	
+	public void setSubmittedDate(Date submittedDate) {
+		this.submittedDate = submittedDate;
 	}
 }
 

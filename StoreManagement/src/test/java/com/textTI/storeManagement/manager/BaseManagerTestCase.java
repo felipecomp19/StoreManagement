@@ -17,16 +17,10 @@ import com.textTI.storeManagement.exception.ClientException;
 import com.textTI.storeManagement.model.Address;
 import com.textTI.storeManagement.model.Client;
 import com.textTI.storeManagement.model.ClientType;
+import com.textTI.storeManagement.model.Employee;
 import com.textTI.storeManagement.model.MailingList;
 import com.textTI.storeManagement.model.Store;
 
-/*@ContextConfiguration(
- locations = {"classpath:/applicationContext-resources.xml",
- "classpath:/applicationContext-dao.xml",
- "classpath:/applicationContext-service.xml",
- "classpath*:/applicationContext.xml", // for modular archetypes
- "/WEB-INF/applicationContext*.xml",
- "/WEB-INF/dispatcher-servlet.xml"})*/
 @ContextConfiguration(locations = {
 		"classpath:/applicationContext-resources.xml",
 		"/WEB-INF/spring/appServlet/servlet-context.xml" })
@@ -47,6 +41,9 @@ public abstract class BaseManagerTestCase extends
 	
 	@Autowired
 	private MailingListManager mailingListManager;
+	
+	@Autowired
+	private EmployeeManager employeeManager;
 
 	@Autowired
 	@Qualifier("dataSource")
@@ -67,6 +64,7 @@ public abstract class BaseManagerTestCase extends
 	{
 		Store st = new Store();
 		st.setName(name);
+		st.setEnabled(true);
 		this.storeManager.insert(st);
 		return st;
 	}
@@ -82,6 +80,15 @@ public abstract class BaseManagerTestCase extends
 		client.setDescription("Pessoa Física");
 		this.clientTypeManager.insert(client);
 		return client;
+	}
+	
+	public Employee createAndInsertEmployee(Store st) {
+		Employee emp = new Employee();
+		emp.setName("emp 1");
+		emp.setEnabled(true);
+		emp.setStore(st);
+		this.employeeManager.insert(emp);
+		return emp;
 	}
 
 	public void deleteClientType(ClientType clientType) {

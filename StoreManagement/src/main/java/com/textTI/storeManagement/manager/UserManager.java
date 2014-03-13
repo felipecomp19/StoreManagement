@@ -10,14 +10,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.textTI.storeManagement.dao.UserDAO;
+import com.textTI.storeManagement.dao.UserRoleDAO;
 import com.textTI.storeManagement.model.User;
-import com.textTI.storeManagement.model.UserRole;
 
 @Component
 public class UserManager {
 
 	@Autowired
 	private UserDAO userDAO;
+	
+	@Autowired
+	private UserRoleDAO roleDAO;
 	
 	@Autowired
 	private MessageSource msgSrc;
@@ -55,7 +58,7 @@ public class UserManager {
 		List<User> users = this.userDAO.getAll();
 		
 		for (User user : users) {
-			user.getUserRole().setRole(msgSrc.getMessage(user.getUserRole().getRole(),null, locale));
+			user.getUserRole().setRoleTranslated(msgSrc.getMessage(user.getUserRole().getRole(),null, locale));
 		}
 		
 		return users;

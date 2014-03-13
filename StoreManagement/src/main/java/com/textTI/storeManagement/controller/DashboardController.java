@@ -15,6 +15,7 @@ import com.textTI.storeManagement.manager.StoreManager;
 import com.textTI.storeManagement.model.Audit;
 import com.textTI.storeManagement.model.Client;
 import com.textTI.storeManagement.model.Store;
+import com.textTI.storeManagement.model.chart.TotalClientsByMonth;
 
 @Controller
 public class DashboardController extends BaseController{
@@ -34,6 +35,7 @@ public class DashboardController extends BaseController{
 		
 		List<Client> clients = this.clienteManager.getAll();
 		List<Store>	stores = this.storeManager.getAll();
+		List<TotalClientsByMonth> totalClientsByMonth = this.storeManager.getTotalClientsByMonthInAYear(2014);
 		
 		//ClientChartUtil ccUtil = new ClientChartUtil();
 		//ccUtil.prepareClientChartData(model, clients, this.clienteManager);
@@ -43,6 +45,8 @@ public class DashboardController extends BaseController{
 		model.addAttribute("clientsSize", clients.size());
 		model.addAttribute("stores", stores);
 		model.addAttribute("audits", top50audit);
+		model.addAttribute("totalClientsByMontList", totalClientsByMonth);
+		model.addAttribute("filterYear", "2014");
 		
 		return "dashboard/dashboard";
 	}

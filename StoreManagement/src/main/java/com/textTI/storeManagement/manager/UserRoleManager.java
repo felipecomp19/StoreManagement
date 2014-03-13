@@ -23,7 +23,8 @@ public class UserRoleManager {
 		List<UserRole> roles = this.userRoleDAO.getAll();
 		
 		for (UserRole userRole : roles) {
-			userRole.setRole(msgSrc.getMessage(userRole.getRole(),null, locale));
+			//userRole.setRole(msgSrc.getMessage(userRole.getRole(),null, locale));
+			userRole.setRoleTranslated(msgSrc.getMessage(userRole.getRole(),null, locale));
 		}
 		
 		return roles;

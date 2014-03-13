@@ -1,0 +1,4 @@
+<jboss-web>
+	<context-root>/morana</context-root>
+	<!-- <virtual-host>morana.stmanager.com.br</virtual-host> -->
+</jboss-web>

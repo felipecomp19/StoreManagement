@@ -23,8 +23,10 @@ public class ImagensController extends BaseController {
 	@Autowired
 	private ImagensManager imgManager;
 	
-	private final String filePath = "/home/felipe/app/jboss-6.1.0.Final/server/default/deploy/ROOT.war/sm/images/";
-	private final String relativePath = "/sm/images/";
+	//private final String filePath = "/home/felipe/app/jboss-6.1.0.Final/server/default/deploy/ROOT.war/sm/images/"; //desenv
+	private final String filePath = "/usr/share/jboss-6.1.0.Final/server/default/deploy/ROOT.war/sm/morana/images/"; //production
+	
+	private final String relativePath = "/sm/morana/images/";
 	
 	@RequestMapping(value="/list",  method = RequestMethod.GET)
 	public String imagens(Model model)
