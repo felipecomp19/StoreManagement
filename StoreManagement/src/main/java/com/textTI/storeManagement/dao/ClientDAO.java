@@ -111,4 +111,21 @@ public class ClientDAO extends BaseDAO {
 		
 		return clients;
 	}
+
+	public List<Client> getAllByUser(List<Long> storesId) {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		
+		String hql = "SELECT DISTINCT c FROM Client c JOIN c.stores cs WHERE cs.id IN (:storesId)";
+		Query query = session.createQuery(hql);
+
+		query.setParameterList("storesId", storesId);
+		
+		@SuppressWarnings("unchecked")
+		List<Client> clients = query.list();
+		
+		session.close();
+		
+		return clients;
+	}
 }

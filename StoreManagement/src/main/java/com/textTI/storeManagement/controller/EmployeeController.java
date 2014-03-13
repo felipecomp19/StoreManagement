@@ -29,9 +29,9 @@ public class EmployeeController extends BaseController {
 	private StoreManager storeManager;
 	
 	@RequestMapping(value= "/list")
-	public String list(Locale locale, Model model)
+	public String list(HttpServletRequest request, Locale locale, Model model)
 	{
-		List<Employee> employees = this.employeeManager.getAll();
+		List<Employee> employees = this.employeeManager.getAllByUser(this.getLoggedUser(request));
 		
 		model.addAttribute("employees", employees);
 		
@@ -39,9 +39,10 @@ public class EmployeeController extends BaseController {
 	}
 	
 	@RequestMapping(value= "/create", method = RequestMethod.GET)
-	public String create(Locale locale,Model model)
+	public String create(HttpServletRequest request, Locale locale,Model model)
 	{
-		List<Store> stores = this.storeManager.getAll(); 
+		List<Store> stores = this.storeManager.getAllByUser(this.getLoggedUser(request)); 
+		
 		Employee employee = new Employee();
 		employee.setEnabled(true);
 		
@@ -52,10 +53,10 @@ public class EmployeeController extends BaseController {
 	}
 	
 	@RequestMapping(value= "/edit/{id}" , method = RequestMethod.GET)
-	public String edit(@PathVariable("id") long id, Model model, Locale locale)
+	public String edit(@PathVariable("id") long id,HttpServletRequest request, Model model, Locale locale)
 	{
 		Employee employee = this.employeeManager.getById(id);
-		List<Store> stores = this.storeManager.getAll();
+		List<Store> stores = this.storeManager.getAllByUser(this.getLoggedUser(request));
 		
 		model.addAttribute("employee", employee);
 		model.addAttribute("stores",stores);

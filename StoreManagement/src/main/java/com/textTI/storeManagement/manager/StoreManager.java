@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.textTI.storeManagement.dao.StoreDAO;
 import com.textTI.storeManagement.model.Store;
+import com.textTI.storeManagement.model.User;
 import com.textTI.storeManagement.model.chart.TotalClientsByMonth;
 
 @Component
@@ -51,5 +52,9 @@ public class StoreManager {
 			result = new ArrayList<TotalClientsByMonth>(); //avoiding nullPointers =)
 		
 		return result;
+	}
+
+	public List<Store> getAllByUser(User loggedUser) {
+		return this.storeDAO.getAllByUser(loggedUser.getStoresId());
 	}
 }

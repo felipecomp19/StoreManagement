@@ -5,7 +5,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-md-12">
 		<form:form id="userForm" class="fill-up validatable" method="POST" commandName="user" action="${pageContext.request.contextPath}/user/save" >
 			<div class="row">
 				<div class="col-md-3">

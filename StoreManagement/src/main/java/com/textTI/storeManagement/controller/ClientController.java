@@ -54,32 +54,36 @@ public class ClientController extends BaseController{
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Locale locale, Model model) {
+	public String list(HttpServletRequest request, Locale locale, Model model) {
 		logger.info("Accessed the clients list view", locale);
 		
-		List<Client> clients = this.clientManager.getAll();
-		ClientChartUtil ccUtil = new ClientChartUtil();
-		ccUtil.prepareClientChartData(model, clients, this.clientManager);
-
+		List<Client> clients = this.clientManager.getAllByUser(this.getLoggedUser(request));
+		
+		this.prepareChartData(model, clients);
+		
 		model.addAttribute("clients", clients);
 		
 		return "client/list";
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public String create(Locale locale, Model model) {
+	public String create(HttpServletRequest request, Locale locale, Model model) {
 		logger.info("Accessed the create client view", locale);
 		
-		List<Client> clients = this.clientManager.getAll();
+		List<Client> clients = this.clientManager.getAllByUser(this.getLoggedUser(request));
 
-		ClientChartUtil ccUtil = new ClientChartUtil();
-		ccUtil.prepareClientChartData(model, clients, this.clientManager);
-		
+		this.prepareChartData(model, clients);
 		this.populateDayAndMonthSelectList(model);
-		this.populateStores(model);
+		this.populateStores(request, model);
+		
 		model.addAttribute("client", new Client());
 		
 		return "client/create";
+	}
+
+	private void prepareChartData(Model model, List<Client> clients) {
+		ClientChartUtil ccUtil = new ClientChartUtil();
+		ccUtil.prepareClientChartData(model, clients, this.clientManager);
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
@@ -103,16 +107,15 @@ public class ClientController extends BaseController{
 	}
 	
 	@RequestMapping(value="/edit/{id}", method = RequestMethod.GET)
-	public String edit(@PathVariable("id") long id, Model model)
+	public String edit(@PathVariable("id") long id, HttpServletRequest request, Model model)
 	{
 		Client client = this.clientManager.getById(id);
-		
 		List<Client> clients = this.clientManager.getAll();
-		ClientChartUtil ccUtil = new ClientChartUtil();
-		ccUtil.prepareClientChartData(model, clients, this.clientManager);
-		
+
+		this.prepareChartData(model, clients);
 		this.populateDayAndMonthSelectList(model);
-		this.populateStores(model);
+		this.populateStores(request, model);
+		
 		model.addAttribute("client", client);
 		
 		return "client/edit";
@@ -184,8 +187,8 @@ public class ClientController extends BaseController{
 		});
 	}
 	
-	private void populateStores(Model model) {
-		List<Store> stores = this.storeManager.getAll();
+	private void populateStores(HttpServletRequest request, Model model) {
+		List<Store> stores = this.storeManager.getAllByUser(this.getLoggedUser(request));
 		this.storeCache = new HashMap<String,Store>();
 		for (Store store : stores) {
 			this.storeCache.put(store.getIdAsString(), store);

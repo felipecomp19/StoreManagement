@@ -67,13 +67,15 @@
 		</beans:property>
 	</beans:bean> -->
 	
-   	<beans:bean id="handlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+   	<!-- <beans:bean id="handlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
         <beans:property name="interceptors">
             <beans:list>
                 <beans:ref bean="baseController"/>
             </beans:list>
         </beans:property>
    	</beans:bean>
-   	<beans:bean id="baseController" class="com.textTI.storeManagement.controller.BaseController" />
+   	<beans:bean id="baseController" class="com.textTI.storeManagement.controller.BaseController" >
+   		
+   	</beans:bean> -->
 	
 </beans:beans>

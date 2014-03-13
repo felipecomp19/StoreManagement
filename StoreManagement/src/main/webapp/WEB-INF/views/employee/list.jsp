@@ -66,11 +66,11 @@
 														</button>
 														<ul class="dropdown-menu">
 															<li>
-																<a href="/employee/edit/${employee.id}"><spring:message code="label.edit"/></a>
+																<a href="${pageContext.request.contextPath}/employee/edit/${employee.id}"><spring:message code="label.edit"/></a>
 															</li>
 															<li class="divider"/>
 															<li>
-																<a href="/employee/delete/${employee.id}"><spring:message code="label.delete"/></a>
+																<a href="${pageContext.request.contextPath}/employee/delete/${employee.id}"><spring:message code="label.delete"/></a>
 															</li>
 														</ul>
 													</div>

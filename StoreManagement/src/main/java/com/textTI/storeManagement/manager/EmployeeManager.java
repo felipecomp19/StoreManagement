@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.textTI.storeManagement.dao.EmployeeDAO;
 import com.textTI.storeManagement.model.Employee;
+import com.textTI.storeManagement.model.User;
 
 @Component
 public class EmployeeManager {
@@ -34,5 +35,9 @@ public class EmployeeManager {
 
 	public void delete(Employee emp) {
 		this.employeeDAO.delete(emp);
+	}
+
+	public List<Employee> getAllByUser(User loggedUser) {
+		return this.employeeDAO.getAllByUser(loggedUser.getStoresId());
 	}
 }

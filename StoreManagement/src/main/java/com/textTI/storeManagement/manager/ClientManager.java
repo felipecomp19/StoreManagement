@@ -15,6 +15,7 @@ import com.textTI.storeManagement.dao.StoreDAO;
 import com.textTI.storeManagement.exception.ClientException;
 import com.textTI.storeManagement.exception.ExceptionCode;
 import com.textTI.storeManagement.model.Client;
+import com.textTI.storeManagement.model.User;
 
 @Component
 public class ClientManager {
@@ -98,5 +99,10 @@ public class ClientManager {
 		Set<Client> clients = this.storeDAO.getById(storeId).getClients(); 
 		
 		return new ArrayList<Client>(clients); 
+	}
+
+	public List<Client> getAllByUser(User loggedUser) {
+
+		return this.clientDAO.getAllByUser(loggedUser.getStoresId());
 	}
 }

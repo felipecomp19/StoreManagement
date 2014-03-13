@@ -49,4 +49,21 @@ public class StoreDAO extends BaseDAO {
 
 		return proc_result;
 	}
+
+	public List<Store> getAllByUser(List<Long> storesId) {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		
+		String hql = "SELECT DISTINCT s FROM Store s WHERE s.id IN (:storesId)";
+		Query query = session.createQuery(hql);
+
+		query.setParameterList("storesId", storesId);
+		
+		@SuppressWarnings("unchecked")
+		List<Store> stores = query.list();
+		
+		session.close();
+		
+		return stores;
+	}
 }

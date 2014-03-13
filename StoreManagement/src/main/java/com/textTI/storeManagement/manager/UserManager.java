@@ -63,5 +63,9 @@ public class UserManager {
 		
 		return users;
 	}
+
+	public User getByUserName(String userName) {
+		return this.userDAO.getByUserName(userName);
+	}
 	
 }

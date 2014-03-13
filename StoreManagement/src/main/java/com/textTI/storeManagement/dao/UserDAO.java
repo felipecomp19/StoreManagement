@@ -23,4 +23,16 @@ public class UserDAO extends BaseDAO {
 
 		return users;
 	}
+
+	public User getByUserName(String userName) {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+
+		@SuppressWarnings("unchecked")
+		User user = (User) session.createQuery("from User u where u.userName = :userName ").setParameter("userName", userName).uniqueResult();
+
+		session.close();
+
+		return user;
+	}
 }

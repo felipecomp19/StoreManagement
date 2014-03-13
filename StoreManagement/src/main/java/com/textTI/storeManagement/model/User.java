@@ -1,11 +1,14 @@
 package com.textTI.storeManagement.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -87,4 +90,15 @@ public class User extends BaseModel {
 	public void setStores(List<Store> stores) {
 		this.stores = stores;
 	}
+	
+	public List<Long> getStoresId()
+	{
+		List<Long> result = new ArrayList<Long>();
+		for (Store st : this.stores) {
+			result.add(st.getId());
+		}
+		
+		return result;
+	}
+	
 }
