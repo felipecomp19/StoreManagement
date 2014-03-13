@@ -8,7 +8,19 @@
 	<div class="col-md-6">
 		<form:form id="userForm" class="fill-up validatable" method="POST" commandName="user" action="${pageContext.request.contextPath}/user/save" >
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-3">
+					<ul class="padded separate-sections">
+						<li><h4><spring:message code="label.stores"/></h4></li>
+						<li>
+							<div id="storesCB">
+								<ul  class="padded separate-sections">
+									<form:checkboxes id="stores" items="${stores}" path="stores" itemValue="idAsString" itemLabel="nameWithDesc" class="icheck break-word validate[required]" element="li" />
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-4">
 					<ul class="padded separate-sections">
 						<li class="input">
 							<input type="hidden" name="id" value="${user.id}"/>

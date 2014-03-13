@@ -1,5 +1,7 @@
 package com.textTI.storeManagement.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,6 +30,12 @@ public class User extends BaseModel {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "userRole", nullable = false)
 	private UserRole userRole;
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "tb_user_store", 
+				joinColumns = { @JoinColumn(name = "user_id", nullable = false, updatable = false) }, 
+				inverseJoinColumns = { @JoinColumn(name = "store_id", nullable = false, updatable = false) })
+	private List<Store> stores;
 	
 	public String getName() {
 		return name;
@@ -67,5 +75,16 @@ public class User extends BaseModel {
 
 	public void setUserRole(UserRole userRole) {
 		this.userRole = userRole;
+	}
+
+	/**
+	 * @return the list of stores that this user can see the data
+	 */
+	public List<Store> getStores() {
+		return stores;
+	}
+
+	public void setStores(List<Store> stores) {
+		this.stores = stores;
 	}
 }

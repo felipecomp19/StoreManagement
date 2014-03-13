@@ -34,8 +34,6 @@
 	      <beans:bean class="com.textTI.storeManagement.converter.StoreConverter"/>
 	      <beans:bean class="com.textTI.storeManagement.converter.EmployeeConverter"/>
 	      <beans:bean class="com.textTI.storeManagement.converter.BigDecimalConverter"/>
-	      <!-- <beans:bean class="com.textTI.storeManagement.converter.IntConverter"/> -->
-	      
 	    </beans:list>
 	  </beans:property>
 	</beans:bean>
@@ -68,5 +66,14 @@
 	       	   </beans:props>
 		</beans:property>
 	</beans:bean> -->
+	
+   	<beans:bean id="handlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+        <beans:property name="interceptors">
+            <beans:list>
+                <beans:ref bean="baseController"/>
+            </beans:list>
+        </beans:property>
+   	</beans:bean>
+   	<beans:bean id="baseController" class="com.textTI.storeManagement.controller.BaseController" />
 	
 </beans:beans>
