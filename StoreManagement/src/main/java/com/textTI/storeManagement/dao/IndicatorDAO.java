@@ -2,6 +2,7 @@ package com.textTI.storeManagement.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
@@ -21,6 +22,23 @@ public class IndicatorDAO extends BaseDAO {
 
 		session.close();
 
+		return indicators;
+	}
+
+	public List<Indicator> getAllByUser(List<Long> storesId) {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		
+		String hql = "SELECT DISTINCT i FROM Indicator i WHERE i.employee.store.id IN (:storesId)";
+		Query query = session.createQuery(hql);
+
+		query.setParameterList("storesId", storesId);
+		
+		@SuppressWarnings("unchecked")
+		List<Indicator> indicators = query.list();
+		
+		session.close();
+		
 		return indicators;
 	}
 

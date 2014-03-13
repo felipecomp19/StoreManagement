@@ -3,7 +3,6 @@ package com.textTI.storeManagement.controller;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -36,9 +35,9 @@ public class IndicatorController extends BaseController {
 	private EmployeeManager employeeManager;
 	
 	@RequestMapping(value= "/list")
-	public String list(Locale locale, Model model)
+	public String list(HttpServletRequest request, Model model)
 	{
-		List<Indicator> indicators = this.indicatorManager.getAll();
+		List<Indicator> indicators = this.indicatorManager.getAllByUser(this.getLoggedUser(request));
 		
 		model.addAttribute("indicators", indicators);
 		
@@ -46,9 +45,9 @@ public class IndicatorController extends BaseController {
 	}
 	
 	@RequestMapping(value= "/create", method = RequestMethod.GET)
-	public String create(Locale locale,Model model)
+	public String create(HttpServletRequest request, Model model)
 	{
-		populateStoreAndEmployeeList(model);
+		populateStoreAndEmployeeList(request,model);
 		
 		Indicator indicator = new Indicator();
 		indicator.setEnabled(true);
@@ -61,9 +60,9 @@ public class IndicatorController extends BaseController {
 	}
 	
 	@RequestMapping(value= "/edit/{id}" , method = RequestMethod.GET)
-	public String edit(@PathVariable("id") long id, Model model, Locale locale)
+	public String edit(@PathVariable("id") long id,HttpServletRequest request, Model model)
 	{
-		populateStoreAndEmployeeList(model);
+		populateStoreAndEmployeeList(request,model);
 		
 		Indicator indicator = this.indicatorManager.getById(id);
 		
@@ -93,9 +92,9 @@ public class IndicatorController extends BaseController {
 		return "redirect:/indicator/list";
 	}
 	
-	private void populateStoreAndEmployeeList(Model model) {
-		List<Store> stores = this.storeManager.getAll();
-		List<Employee> employees = this.employeeManager.getAll();
+	private void populateStoreAndEmployeeList(HttpServletRequest request, Model model) {
+		List<Store> stores = this.storeManager.getAllByUser(this.getLoggedUser(request));
+		List<Employee> employees = this.employeeManager.getAllByUser(this.getLoggedUser(request));
 		List<Integer> years = new ArrayList<Integer>(5);
 		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 		years.add(currentYear - 2);

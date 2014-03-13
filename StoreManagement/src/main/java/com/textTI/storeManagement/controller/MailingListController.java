@@ -22,6 +22,7 @@ import com.textTI.storeManagement.model.Client;
 import com.textTI.storeManagement.model.ClientType;
 import com.textTI.storeManagement.model.MailingList;
 import com.textTI.storeManagement.model.Store;
+import com.textTI.storeManagement.utils.SelectListUtils;
 
 @Controller
 @RequestMapping(value="/mailingList")
@@ -46,9 +47,15 @@ public class MailingListController extends BaseController {
 	}
 	
 	@ModelAttribute("stores")
-	public List<Store> populateStores()
+	public List<Store> populateStores(HttpServletRequest request)
 	{
-		return this.storeManager.getAll();
+		return this.storeManager.getAllByUser(this.getLoggedUser(request));
+	}
+	
+	@ModelAttribute("days")
+	public List<Long> populateDays()
+	{
+		return SelectListUtils.populateWithSequencialNumber(1, 31);
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -64,11 +71,11 @@ public class MailingListController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public String create(Model model)
+	public String create(HttpServletRequest request,Model model)
 	{
 		logger.info("Accesses the create mailing list view");
 		
-		List<Client> clientsList = this.cliManager.getAll();
+		List<Client> clientsList = this.cliManager.getAllByUser(this.getLoggedUser(request));
 		
 		MailingListForm mlForm = createMailingListFormModel(clientsList);
 		
@@ -135,7 +142,7 @@ public class MailingListController extends BaseController {
 	{
 		long cliTypeId = Long.parseLong(request.getParameter("cliTypeSL"));
 		
-		List<Client> clientsList = this.cliManager.getByClientTypeId(cliTypeId);
+		List<Client> clientsList = this.cliManager.getByClientTypeId(cliTypeId, this.getLoggedUser(request));
 		
 		MailingListForm mlForm = createMailingListFormModel(clientsList, mailingList);
 		
@@ -148,8 +155,10 @@ public class MailingListController extends BaseController {
 	public String filterByBirthdayMonth(@ModelAttribute MailingList mailingList, Model model,HttpServletRequest request)
 	{
 		int month = Integer.parseInt(request.getParameter("monthSL"));
+		int dayFrom = Integer.parseInt(request.getParameter("dayFromSL"));
+		int dayTo = Integer.parseInt(request.getParameter("dayToSL"));
 		
-		List<Client> clientsList = this.cliManager.getByClientBirthdayMonth(month);
+		List<Client> clientsList = this.cliManager.getByClientBirthdayMonth(month, dayFrom, dayTo, this.getLoggedUser(request));
 		
 		MailingListForm mlForm = createMailingListFormModel(clientsList, mailingList);
 		

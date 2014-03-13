@@ -31,6 +31,7 @@ import com.textTI.storeManagement.model.ClientType;
 import com.textTI.storeManagement.model.FileUpload;
 import com.textTI.storeManagement.model.Store;
 import com.textTI.storeManagement.utils.ClientChartUtil;
+import com.textTI.storeManagement.utils.SelectListUtils;
 
 @Controller
 @RequestMapping(value="/client")
@@ -199,8 +200,9 @@ public class ClientController extends BaseController{
 	
 	private void populateDayAndMonthSelectList(Model model)
 	{
-		this.populateWithSequencialNumber(model, "daysSL", 1, 31);
-		this.populateWithSequencialNumber(model, "monthSL", 1, 12);
+		SelectListUtils.populateWithSequencialNumber(model, "daysSL", 1, 31);
+		//this.populateWithSequencialNumber(model, "daysSL", 1, 31);
+		//this.populateWithSequencialNumber(model, "monthSL", 1, 12);
 	}
 	
 	/***

@@ -78,13 +78,18 @@ public class ClientDAO extends BaseDAO {
 		return result;
 	}
 
-	public List<Client> getByClientTypeId(long cliTypeId) {
+	public List<Client> getByClientTypeId(long cliTypeId, List<Long> storesId) {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		
-		String hql = "FROM Client c WHERE c.clientType.id = :cliTypeId)";
+		String hql = "SELECT DISTINCT c "
+				+ "FROM Client c JOIN c.stores cs "
+				+ "WHERE cs.id IN (:storesId) "
+				+ "AND c.clientType.id = :cliTypeId)";
+		
 		Query query = session.createQuery(hql);
 		query.setParameter("cliTypeId", cliTypeId);
+		query.setParameterList("storesId", storesId);
 		
 		@SuppressWarnings("unchecked")
 		List<Client> clients = query.list();
@@ -94,14 +99,22 @@ public class ClientDAO extends BaseDAO {
 		return clients;
 	}
 
-	public List<Client> getByClientBirthdayMonth(int month) {
+	public List<Client> getByClientBirthdayMonth(int month, int dayFrom, int dayTo, List<Long> storesId) {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		
-		String hql = "FROM Client c WHERE c.month_birthday = :month)";
+		String hql = "SELECT DISTINCT c "
+				+ "FROM Client c JOIN c.stores cs "
+				+ "WHERE cs.id IN (:storesId) "
+				+ "AND c.month_birthday = :month "
+				+ "AND c.day_birthday >= :dayFrom "
+				+ "AND c.day_birthday <= :dayTo ";
 		Query query = session.createQuery(hql);
 
 		query.setParameter("month", month);
+		query.setParameter("dayFrom", dayFrom);
+		query.setParameter("dayTo", dayTo);
+		query.setParameterList("storesId", storesId);
 		
 		@SuppressWarnings("unchecked")
 		List<Client> clients = query.list();

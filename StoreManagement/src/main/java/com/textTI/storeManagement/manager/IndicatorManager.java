@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.textTI.storeManagement.dao.IndicatorDAO;
 import com.textTI.storeManagement.model.Indicator;
+import com.textTI.storeManagement.model.User;
 
 @Component
 public class IndicatorManager {
@@ -34,5 +35,9 @@ public class IndicatorManager {
 
 	public void delete(Indicator emp) {
 		this.indicatorDAO.delete(emp);
+	}
+
+	public List<Indicator> getAllByUser(User loggedUser) {
+		return this.indicatorDAO.getAllByUser(loggedUser.getStoresId());
 	}
 }

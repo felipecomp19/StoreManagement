@@ -132,8 +132,8 @@
 						<input type="hidden" name="defaultFromName" value="${mlForm.mailingList.defaultFromName}" />
 						<input type="hidden" name="defaultFromEmail" value="${mlForm.mailingList.defaultFromEmail}" />
 						<input type="hidden" name="defaultSubject" value="${mlForm.mailingList.defaultSubject}" />
-        				<div class="row">
-            				<div class="col-md-12">
+        				<div class="row action-nav-row">
+            				<div class="col-md-6">
               					<label><spring:message code="label.selectMonth"/></label>
               					<select id="monthSL" class="chzn-select" name="monthSL">
 									<option value="1"><spring:message code="month.jan"/></option>
@@ -149,7 +149,23 @@
 									<option value="11"><spring:message code="month.nov"/></option>
 									<option value="12"><spring:message code="month.dez"/></option>
 								</select>
-           					</div>
+							</div>
+							<div class="col-md-3">
+								<label><spring:message code="label.dayFrom" /></label>
+								<select id="dayFromSL" name="dayFromSL" class="uniform">
+									<c:forEach items="${days}" var="day">
+										<option value="${day}">${day}</option>
+									</c:forEach>
+								</select>
+							</div>
+							<div class="col-md-3">
+								<label><spring:message code="label.dayTo" /></label>
+								<select id="dayToSL" name="dayToSL" class="uniform">
+									<c:forEach items="${days}" var="day">
+										<option value="${day}">${day}</option>
+									</c:forEach>
+								</select>
+							</div>
       					</div>
       					<div class="modal-footer">
         					<button class="btn btn-default" data-dismiss="modal"><spring:message code="label.cancel" /></button>

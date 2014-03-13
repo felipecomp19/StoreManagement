@@ -86,12 +86,12 @@ public class ClientManager {
 		
 	}
 
-	public List<Client> getByClientTypeId(long cliTypeId) {
-		return this.clientDAO.getByClientTypeId(cliTypeId);
+	public List<Client> getByClientTypeId(long cliTypeId, User loggedUser) {
+		return this.clientDAO.getByClientTypeId(cliTypeId, loggedUser.getStoresId());
 	}
 
-	public List<Client> getByClientBirthdayMonth(int month) {
-		return this.clientDAO.getByClientBirthdayMonth(month);
+	public List<Client> getByClientBirthdayMonth(int month, int dayFrom, int dayTo, User user) {
+		return this.clientDAO.getByClientBirthdayMonth(month, dayFrom, dayTo, user.getStoresId());
 	}
 
 	public List<Client> getByClientsByStoreId(long storeId) {

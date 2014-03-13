@@ -66,7 +66,21 @@
 									<label class="control-label"><spring:message code="label.month" /></label>
 								</div>
 								<div class="col-md-3">
-									<form:select id="month_birthday" path="month_birthday" items="${monthSL}" class="uniform" />
+									<%-- <form:select id="month_birthday" path="month_birthday" items="${monthSL}" class="uniform" /> --%>
+									<select id="monthSL" class="chzn-select" name="month_birthday">
+										<option value="1"><spring:message code="month.jan"/></option>
+										<option value="2"><spring:message code="month.feb"/></option>
+										<option value="3"><spring:message code="month.mar"/></option>
+										<option value="4"><spring:message code="month.apr"/></option>
+										<option value="5"><spring:message code="month.may"/></option>
+										<option value="6"><spring:message code="month.jun"/></option>
+										<option value="7"><spring:message code="month.jul"/></option>
+										<option value="8"><spring:message code="month.ago"/></option>
+										<option value="9"><spring:message code="month.set"/></option>
+										<option value="10"><spring:message code="month.oct"/></option>
+										<option value="11"><spring:message code="month.nov"/></option>
+										<option value="12"><spring:message code="month.dez"/></option>
+									</select>
 								</div>
 							</div>
 						</li>
