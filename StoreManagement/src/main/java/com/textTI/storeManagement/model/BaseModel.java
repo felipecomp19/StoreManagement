@@ -42,4 +42,9 @@ public class BaseModel implements Serializable{
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
+	
+	public String getIdAsString()
+	{
+		return this.getId().toString();
+	}
 }

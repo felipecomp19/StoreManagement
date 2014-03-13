@@ -18,8 +18,8 @@
 							Home</span> <span class="breadcrumb-arrow"><span></span></span>
 					</div>
 					<div class="breadcrumb-button">
-						<span class="breadcrumb-label"> <i class="icon-sitemap"></i>
-							<spring:message code="label.employees" />
+						<span class="breadcrumb-label"> <i class="icon-book"></i>
+							<spring:message code="label.indicators" />
 						</span> <span class="breadcrumb-arrow"><span></span></span>
 					</div>
 					<div class="breadcrumb-button">
@@ -41,7 +41,7 @@
 							<span class="title"><spring:message code="label.form" /></span>
 						</div>
 						<div class="box-content">
-							<%@include file="employeeForm.jsp"%>
+							<%@include file="indicatorForm.jsp"%>
 						</div>
 					</div>
 				</div>

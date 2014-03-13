@@ -32,6 +32,10 @@
 	      <beans:bean class="com.textTI.storeManagement.converter.MailingListConverter"/>
 	      <beans:bean class="com.textTI.storeManagement.converter.UserRoleConverter"/>
 	      <beans:bean class="com.textTI.storeManagement.converter.StoreConverter"/>
+	      <beans:bean class="com.textTI.storeManagement.converter.EmployeeConverter"/>
+	      <beans:bean class="com.textTI.storeManagement.converter.BigDecimalConverter"/>
+	      <!-- <beans:bean class="com.textTI.storeManagement.converter.IntConverter"/> -->
+	      
 	    </beans:list>
 	  </beans:property>
 	</beans:bean>

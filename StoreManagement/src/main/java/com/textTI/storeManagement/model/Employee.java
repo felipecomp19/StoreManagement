@@ -1,13 +1,18 @@
 package com.textTI.storeManagement.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonManagedReference;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name="tb_employees")
@@ -23,6 +28,10 @@ public class Employee extends BaseModel {
 	@JsonManagedReference
 	private Store store;
 	
+	@OneToMany(mappedBy="employee")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<Indicator> indicators;
+	
 	public String getName() {
 		return name;
 	}
@@ -37,5 +46,13 @@ public class Employee extends BaseModel {
 
 	public void setStore(Store store) {
 		this.store = store;
+	}
+
+	public List<Indicator> getIndicators() {
+		return indicators;
+	}
+
+	public void setIndicators(List<Indicator> indicators) {
+		this.indicators = indicators;
 	}
 }

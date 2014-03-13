@@ -35,7 +35,7 @@
 				<div class="col-md-12">
 					<div class="box">
 						<div class="box-header">
-							<span class="title"><spring:message code="label.stores" /></span>
+							<span class="title"><spring:message code="label.employees" /></span>
 							<ul class="box-toolbar">
 								<li>
 									<a href="${pageContext.request.contextPath}/employee/create">

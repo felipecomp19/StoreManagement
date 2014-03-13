@@ -13,7 +13,6 @@ public class StoreConverter implements Converter<String, Store>{
 	
 	@Override
 	public Store convert(String id) {
-
 		return this.storeManager.getById(Long.parseLong(id));
 	}
 

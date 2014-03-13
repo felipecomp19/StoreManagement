@@ -23,6 +23,7 @@
 <!--  	<script src="http://cidades-estados-js.googlecode.com/files/cidades-estados-1.2-utf8.js" type="text/javascript"></script> --> 
  	<script src="${pageContext.request.contextPath}/resources/js/jquery.blockUI.js" type="text/javascript"></script>
  	<script src="${pageContext.request.contextPath}/resources/js/jquery.validate.min.js" type="text/javascript"></script>
+ 	<script src="${pageContext.request.contextPath}/resources/js/jquery.maskMoney.min.js" type="text/javascript"></script>
 </head>
 <body>
 	<!-- top bar -->
@@ -167,7 +168,11 @@
 			<li class="">
 				<span class="glow"></span> 
 				<a href="${pageContext.request.contextPath}/employee/list"> <i class="icon-sitemap icon-2x"></i> <span><spring:message code="label.employees" /></span> </a>
-			</li> 
+			</li>
+			<li class="">
+				<span class="glow"></span> 
+				<a href="${pageContext.request.contextPath}/indicator/list"> <i class="icon-book icon-2x"></i> <span><spring:message code="label.indicators" /></span> </a>
+			</li>  
 			 
 
 			<!-- Configurações  -->
