@@ -66,21 +66,20 @@
 									<label class="control-label"><spring:message code="label.month" /></label>
 								</div>
 								<div class="col-md-3">
-									<%-- <form:select id="month_birthday" path="month_birthday" items="${monthSL}" class="uniform" /> --%>
-									<select id="monthSL" class="chzn-select" name="month_birthday">
-										<option value="1"><spring:message code="month.jan"/></option>
-										<option value="2"><spring:message code="month.feb"/></option>
-										<option value="3"><spring:message code="month.mar"/></option>
-										<option value="4"><spring:message code="month.apr"/></option>
-										<option value="5"><spring:message code="month.may"/></option>
-										<option value="6"><spring:message code="month.jun"/></option>
-										<option value="7"><spring:message code="month.jul"/></option>
-										<option value="8"><spring:message code="month.ago"/></option>
-										<option value="9"><spring:message code="month.set"/></option>
-										<option value="10"><spring:message code="month.oct"/></option>
-										<option value="11"><spring:message code="month.nov"/></option>
-										<option value="12"><spring:message code="month.dez"/></option>
-									</select>
+									<form:select id="month_birthday" path="month_birthday" class="uniform">
+										<form:option value="1"><spring:message code="month.jan"/></form:option>
+										<form:option value="2"><spring:message code="month.feb"/></form:option>
+										<form:option value="3"><spring:message code="month.mar"/></form:option>
+										<form:option value="4"><spring:message code="month.apr"/></form:option>
+										<form:option value="5"><spring:message code="month.may"/></form:option>
+										<form:option value="6"><spring:message code="month.jun"/></form:option>
+										<form:option value="7"><spring:message code="month.jul"/></form:option>
+										<form:option value="8"><spring:message code="month.ago"/></form:option>
+										<form:option value="9"><spring:message code="month.set"/></form:option>
+										<form:option value="10"><spring:message code="month.oct"/></form:option>
+										<form:option value="11"><spring:message code="month.nov"/></form:option>
+										<form:option value="12"><spring:message code="month.dez"/></form:option>
+									</form:select> 
 								</div>
 							</div>
 						</li>
@@ -159,20 +158,7 @@
     	$("#telephone").mask("(99) 9999-99999");
     	$("#cellPhone").mask("(99) 9999-99999");
     	$("#cep").mask("99.999-999");
-    	
-    	/* $("#telephone").mask("(99) 9999-9999?9").ready(function(event) {
-            var target, phone, element;
-            target = (event.currentTarget) ? event.currentTarget : event.srcElement;
-            phone = target.value.replace(/\D/g, '');
-            element = $(target);
-            element.unmask();
-            if(phone.length > 10) {
-                element.mask("(99) 99999-999?9");
-            } else {
-                element.mask("(99) 9999-9999?9");
-            }
-        }); */
-    	
+
     	$("#cpf").focusout(function(){
 	   		var cpf = this.value.replace(/[^\d]/g, "");
     		

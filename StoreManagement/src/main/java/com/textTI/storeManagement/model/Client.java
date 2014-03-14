@@ -209,7 +209,6 @@ public class Client extends BaseModel {
 		try {
 			return formatarString(this.cpf, "###.###.###-##");
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return this.cpf;

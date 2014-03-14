@@ -205,24 +205,4 @@ public class ClientController extends BaseController{
 		//this.populateWithSequencialNumber(model, "monthSL", 1, 12);
 	}
 	
-	/***
-	 * Create a list starting in {initNumber}, ending in {finalNumber} and add 
-	 * this list as attribute of the {model} named {var}
-	 * 
-	 * @param model
-	 * @param var
-	 * @param initNumber
-	 * @param finalNumber
-	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private void populateWithSequencialNumber(Model model, String var, int initNumber, int finalNumber)
-	{
-		List numbers = new ArrayList();
-		for(int i = initNumber; i <= finalNumber; i++)
-		{
-			numbers.add(i);
-		}
-		
-		model.addAttribute(var, numbers);
-	}
 }
