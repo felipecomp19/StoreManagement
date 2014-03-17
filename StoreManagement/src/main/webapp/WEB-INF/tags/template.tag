@@ -1,5 +1,6 @@
 <!doctype html>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
@@ -107,11 +108,6 @@
 				</a>
 
 				<ul id="yJ6h3Npe7C" class="collapse ">
-					<!-- 
-					<li class="">
-						<a href="${pageContext.request.contextPath}/client/create"> <i	class="icon-plus-sign-alt"> </i><spring:message code="label.new" /> </a>
-					</li>
-					 -->
 					<li class="">
 						<a href="${pageContext.request.contextPath}/client/list"> <i class="icon-th-large"></i> <spring:message code="label.listAll"/> </a>
 					</li>
@@ -120,43 +116,54 @@
 						<a href="${pageContext.request.contextPath}/client/upload"> <i class="icon-folder-open-alt"></i> <spring:message code="label.import" /> </a>
 					</li>
 					 -->
-					<li class="">
-						<a href="${pageContext.request.contextPath}/clientType/list"> <i class="icon-user"></i> <spring:message code="label.clientTypes" /> </a>
-					</li>
+					<sec:authorize ifAnyGranted="ROLE_MANAGER,ROLE_ADMIN">
+						<li class="">
+							<a href="${pageContext.request.contextPath}/clientType/list"> <i class="icon-user"></i> <spring:message code="label.clientTypes" /> </a>
+						</li>
+					</sec:authorize>
 				</ul>
 			</li>
 			<!--  [END] Clients menu -->
 
 			<!-- Lojas -->
-			<li class="">
-				<span class="glow"></span> 
-				<a href="${pageContext.request.contextPath}/store/list"> <i class="icon-building icon-2x"></i> <span><spring:message code="label.stores"></spring:message></span> </a>
-			</li>
+			<sec:authorize ifAnyGranted="ROLE_ADMIN">
+				<li class="">
+					<span class="glow"></span> 
+					<a href="${pageContext.request.contextPath}/store/list"> <i class="icon-building icon-2x"></i> <span><spring:message code="label.stores"></spring:message></span> </a>
+				</li>
+			</sec:authorize>
 			<!-- [END] Lojas -->
 				
 			<!-- Campanhas -->
-			<li class="dark-nav">
-				<span class="glow"></span> 
-				<a class="accordion-toggle collapsed " data-toggle="collapse" href="#campaigns">
-					 <i class="icon-envelope-alt icon-2x"></i><span><spring:message code="label.campaigns" /><i class="icon-caret-down"></i></span>
-				</a>
-				<ul id="campaigns" class="collapse ">
-					<!-- 
-					<li>
-						<a href="${pageContext.request.contextPath}/campaign/create"> <i class="icon-plus-sign-alt"> </i><spring:message code="label.newCampaign" /> </a>
-					</li>
-					 -->
-					<li>
-						<a href="${pageContext.request.contextPath}/campaign/list"> <i class="icon-th-large"> </i><spring:message code="label.listAllCampaigns" /> </a>
-					</li>
-					<li>
-						<a href="${pageContext.request.contextPath}/mailingList/list"> <i class="icon-list-alt"> </i><spring:message code="label.mailingLists" /> </a>
-					</li>
-					<li>
-						<a href="${pageContext.request.contextPath}/imagens/list"> <i class="icon-picture"> </i><spring:message code="label.imagens" /> </a>
-					</li>
-				</ul>
-			</li>
+			<sec:authorize ifAnyGranted="ROLE_MANAGER,ROLE_ADMIN">
+				<!-- 
+				<li class="">
+					<span class="glow"></span> 
+					<a href="${pageContext.request.contextPath}/campaign/bulding"> 
+						<i class="icon-envelope-alt icon-2x"></i><span><spring:message code="label.campaigns" /><i class="icon-caret-down"></i></span> 
+					</a>
+				</li>
+				 -->
+				<!-- -->
+				<li class="dark-nav">
+					<span class="glow"></span> 
+					<a class="accordion-toggle collapsed " data-toggle="collapse" href="#campaigns">
+						 <i class="icon-envelope-alt icon-2x"></i><span><spring:message code="label.campaigns" /><i class="icon-caret-down"></i></span>
+					</a>
+					<ul id="campaigns" class="collapse ">
+						<li>
+							<a href="${pageContext.request.contextPath}/campaign/list"> <i class="icon-th-large"> </i><spring:message code="label.listAllCampaigns" /> </a>
+						</li>
+						<li>
+							<a href="${pageContext.request.contextPath}/mailingList/list"> <i class="icon-list-alt"> </i><spring:message code="label.mailingLists" /> </a>
+						</li>
+						<li>
+							<a href="${pageContext.request.contextPath}/imagens/list"> <i class="icon-picture"> </i><spring:message code="label.imagens" /> </a>
+						</li>
+					</ul>
+				</li>
+				 
+			</sec:authorize>
 			<!-- [END] Campanhas -->
 			
 			<!-- 
@@ -165,29 +172,34 @@
 				<a href="${pageContext.request.contextPath}/calendar"> <i class="icon-calendar icon-2x"></i> <span><spring:message code="label.calendar"></spring:message></span> </a>
 			</li>
 			 -->
-			<li class="">
-				<span class="glow"></span> 
-				<a href="${pageContext.request.contextPath}/employee/list"> <i class="icon-sitemap icon-2x"></i> <span><spring:message code="label.employees" /></span> </a>
-			</li>
-			<li class="">
-				<span class="glow"></span> 
-				<a href="${pageContext.request.contextPath}/indicator/list"> <i class="icon-book icon-2x"></i> <span><spring:message code="label.indicators" /></span> </a>
-			</li>  
+			<sec:authorize ifAnyGranted="ROLE_MANAGER,ROLE_ADMIN">
+				<li class="">
+					<span class="glow"></span> 
+					<a href="${pageContext.request.contextPath}/employee/list"> <i class="icon-sitemap icon-2x"></i> <span><spring:message code="label.employees" /></span> </a>
+				</li>
+			</sec:authorize>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<li class="">
+					<span class="glow"></span> 
+					<a href="${pageContext.request.contextPath}/indicator/list"> <i class="icon-book icon-2x"></i> <span><spring:message code="label.indicators" /></span> </a>
+				</li>  
+			</sec:authorize>
 			 
-
 			<!-- Configurações  -->
-			<li class="dark-nav ">
-				<span class="glow"></span> 
-				<a class="accordion-toggle collapsed " data-toggle="collapse" href="#WLGsdJPav9">
-					<i class="icon-wrench icon-2x"></i> <span> <spring:message code="label.configurations" /> <i class="icon-caret-down"></i></span>
-				</a>
-
-				<ul id="WLGsdJPav9" class="collapse ">
-					<li class="">
-						<a href="${pageContext.request.contextPath}/user/list"> <i class="icon-user"></i> <spring:message code="label.users"></spring:message></a>
-					</li>
-				</ul>
-			</li>
+			<sec:authorize ifAnyGranted="ROLE_MANAGER,ROLE_ADMIN">
+				<li class="dark-nav ">
+					<span class="glow"></span> 
+					<a class="accordion-toggle collapsed " data-toggle="collapse" href="#WLGsdJPav9">
+						<i class="icon-wrench icon-2x"></i> <span> <spring:message code="label.configurations" /> <i class="icon-caret-down"></i></span>
+					</a>
+	
+					<ul id="WLGsdJPav9" class="collapse ">
+						<li class="">
+							<a href="${pageContext.request.contextPath}/user/list"> <i class="icon-user"></i> <spring:message code="label.users"></spring:message></a>
+						</li>
+					</ul>
+				</li>
+			</sec:authorize>
 			<!-- [END] Configurações -->
 		</ul>
 	</div>

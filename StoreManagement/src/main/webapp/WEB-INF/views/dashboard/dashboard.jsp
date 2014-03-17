@@ -1,5 +1,6 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html;charset=UTF-8" language="java" %>
 <t:template>
@@ -56,7 +57,15 @@
 	   		<div class="row">
 				<!--big normal buttons-->
 				<div class="col-md-3">
-					<%@include file="bigNormalButtons.jsp" %>
+					<sec:authorize ifAnyGranted="ROLE_ADMIN">
+						<%@include file="bigNormalButtons.jsp" %>
+					</sec:authorize>
+					<sec:authorize ifAnyGranted="ROLE_MANAGER">
+						<%@include file="bigNormalButtonsRoleManager.jsp" %>
+					</sec:authorize>
+					<sec:authorize ifAnyGranted="ROLE_USER">
+						<%@include file="bigNormalButtonsRoleUser.jsp" %>
+					</sec:authorize>
 				</div>
 				<!--[END] big normal buttons-->
 				

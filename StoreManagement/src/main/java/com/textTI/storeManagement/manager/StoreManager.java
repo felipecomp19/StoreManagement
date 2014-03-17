@@ -45,11 +45,21 @@ public class StoreManager {
 		return stores;
 	}
 	
-	public List<TotalClientsByMonth> getTotalClientsByMonthInAYear(int year)
+	/**
+	 * @param year
+	 * @param user - the logged user
+	 * @return a list of TotalClientsByMonth filtered by the user's stores
+	 */
+	public List<TotalClientsByMonth> getTotalClientsByMonthInAYear(int year, User user)
 	{
-		List<TotalClientsByMonth> result = this.storeDAO.getTotalClientsByMonthInAYear(year);
-		if(result == null)
-			result = new ArrayList<TotalClientsByMonth>(); //avoiding nullPointers =)
+		List<TotalClientsByMonth> totalClientsByMonthList = this.storeDAO.getTotalClientsByMonthInAYear(year);
+		if(totalClientsByMonthList == null)
+			totalClientsByMonthList = new ArrayList<TotalClientsByMonth>(); //avoiding nullPointers =)
+		
+		List<TotalClientsByMonth> result = new ArrayList<TotalClientsByMonth>();
+		for (TotalClientsByMonth totalClientsByMonth : totalClientsByMonthList)
+			if(user.getStoresId().indexOf(totalClientsByMonth.getStoreId().longValue()) != -1)
+				result.add(totalClientsByMonth);
 		
 		return result;
 	}

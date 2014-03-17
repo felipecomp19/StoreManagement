@@ -135,8 +135,10 @@ public class ClientController extends BaseController{
 	public @ResponseBody Client getClientByCPF(@PathVariable("cpf") String cpf) {
 		Client cli = this.clientManager.getClientByCPF(cpf);
 		
-		if(cli == null)
+		if(cli == null){
 			cli = new Client();
+			cli.setId(new Long(0));
+		}
 		
 		return cli;
 	}

@@ -101,4 +101,18 @@ public class User extends BaseModel {
 		return result;
 	}
 	
+	public String getStoresNames()
+	{
+		String result = "";
+		int count = 1;
+		for (Store store : this.stores) {
+			if(count == this.stores.size())
+				result+= store.getNameWithDesc();
+			else
+				result+= store.getNameWithDesc() + ", ";
+			count++;
+		}
+		return result;
+	}
+	
 }

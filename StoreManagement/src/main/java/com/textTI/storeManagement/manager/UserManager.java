@@ -43,8 +43,13 @@ public class UserManager {
 	}
 
 	public void update(User user) {
-		
-		this.encodePassword(user);
+		if(user.getPassword() == null || user.getPassword() == "")
+		{
+			User _user = this.getById(user.getId());
+			user.setPassword(_user.getPassword());
+		}else{
+			this.encodePassword(user);
+		}
 		
 		this.userDAO.update(user);
 	}

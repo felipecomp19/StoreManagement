@@ -33,6 +33,12 @@ public class CampaignController extends BaseController {
 	@Autowired
 	private MailingListManager mailingListManager;
 	
+	@RequestMapping(value = "/bulding", method = RequestMethod.GET)
+	public String bulding()
+	{
+		return "error/bulding";
+	}
+	
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public String create(Model model)
 	{

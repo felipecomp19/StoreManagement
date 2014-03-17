@@ -1,7 +1,10 @@
 package com.textTI.storeManagement.controller;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,12 +33,14 @@ public class DashboardController extends BaseController{
 	private AuditManager auditManager;
 	
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-	public String dashboard(Locale locale, Model model) {
+	public String dashboard(HttpServletRequest request, Locale locale, Model model) {
 		logger.info("Accessed the dashboard", locale);
 		
-		List<Client> clients = this.clienteManager.getAll();
-		List<Store>	stores = this.storeManager.getAll();
-		List<TotalClientsByMonth> totalClientsByMonth = this.storeManager.getTotalClientsByMonthInAYear(2014);
+		List<Client> clients = this.clienteManager.getAllByUser(this.getLoggedUser(request));
+		List<Store>	stores = this.storeManager.getAllByUser(this.getLoggedUser(request));
+		
+		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+		List<TotalClientsByMonth> totalClientsByMonth = this.storeManager.getTotalClientsByMonthInAYear(currentYear, this.getLoggedUser(request));
 		
 		//ClientChartUtil ccUtil = new ClientChartUtil();
 		//ccUtil.prepareClientChartData(model, clients, this.clienteManager);

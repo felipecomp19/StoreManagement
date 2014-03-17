@@ -12,7 +12,8 @@ public abstract class BaseDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		session.beginTransaction();
-
+		
+		model.setEnabled(true); //TODO remove IT. SHOULD BE IN SERVICE LAYER
 		session.save(model);
 
 		session.getTransaction().commit();

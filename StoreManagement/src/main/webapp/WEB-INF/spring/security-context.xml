@@ -5,15 +5,19 @@
            http://www.springframework.org/schema/security
            http://www.springframework.org/schema/security/spring-security.xsd">
 
+	<global-method-security secured-annotations="enabled" />
+	
 	<http pattern="/resources/**" security="none" />
 	
 	<http>
 		<intercept-url pattern="/login*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<intercept-url pattern="/upload/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-		<intercept-url pattern="/**" access="ROLE_ADMIN,ROLE_USER" />
+		<intercept-url pattern="/**" access="ROLE_ADMIN,ROLE_MANAGER,ROLE_USER" />
 		<form-login login-page="/login" default-target-url="/dashboard" always-use-default-target="true" authentication-failure-url="/loginfailed" />
 		<logout logout-success-url="/" logout-url="/j_spring_security_logout" />
 	</http>
+	
+	<beans:bean id="webexpressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
 
 	<!--  
 	<beans:bean id="success"

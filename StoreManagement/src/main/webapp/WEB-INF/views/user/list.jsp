@@ -52,7 +52,7 @@
 											<th><div><spring:message code="label.name" /></div></th>
 											<th><div><spring:message code="label.userName"/></div></th>
 											<th><div><spring:message code="label.role"/></div></th>
-											<%-- <th><div><spring:message code="label.store" /></div></th> --%>
+											<th><div><spring:message code="label.store" /></div></th>
 										</tr>
 									</thead>
 									<tbody>
@@ -77,7 +77,7 @@
 												<td>${user.name}</td>
 												<td>${user.userName}</td>
 												<td>${user.userRole.roleTranslated}</td>
-												<%-- <td class="center">${user.store.name}</td> --%>
+												<td>${user.storesNames}</td>
 											</tr>
 										</c:forEach>
 									</tbody>
