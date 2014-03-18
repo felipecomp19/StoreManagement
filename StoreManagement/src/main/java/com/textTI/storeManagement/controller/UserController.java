@@ -64,6 +64,16 @@ public class UserController extends BaseController {
 		return "/user/edit";
 	}
 	
+	@RequestMapping(value= "/editProfile/{id}" , method = RequestMethod.GET)
+	public String editProfile(@PathVariable("id") long id, HttpServletRequest request, Model model, Locale locale)
+	{
+		User user = this.userManager.getById(id);
+		
+		this.prepareUserForm(locale, model, user);
+		
+		return "/user/editProfile";
+	}
+	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String save(@ModelAttribute("user") User user, HttpServletRequest request)
 	{
@@ -73,6 +83,20 @@ public class UserController extends BaseController {
 			this.userManager.insert(user);
 		
 		return "redirect:/user/list";
+	}
+	
+	@RequestMapping(value = "/saveProfile", method = RequestMethod.POST)
+	public String saveProfile(@ModelAttribute("user") User user, HttpServletRequest request)
+	{
+		User _user = this.userManager.getById(user.getId());
+		if(user.getStores() == null)
+			user.setStores(_user.getStores());
+		if(user.getUserRole() == null)
+			user.setUserRole(_user.getUserRole());
+		
+		this.userManager.update(user);
+		
+		return "redirect:/dashboard";
 	}
 	
 	

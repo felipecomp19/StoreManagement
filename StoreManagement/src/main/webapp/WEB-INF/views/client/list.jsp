@@ -64,6 +64,9 @@
 												<spring:message code="label.clientType" />
 											</th>
 											<th>
+												<spring:message code="label.store" />
+											</th>
+											<th>
 												<spring:message code="label.createdOn" />
 											</th>
 										</tr>
@@ -79,11 +82,11 @@
 														</button>
 														<ul class="dropdown-menu">
 															<li>
-																<a href="edit/${client.id}"><spring:message code="label.edit"/></a>
+																<a href="${pageContext.request.contextPath}/client/edit/${client.id}"><spring:message code="label.edit"/></a>
 															</li>
 															<li class="divider" />
 															<li>
-																<a href="delete/${client.id}"><spring:message code="label.delete"/></a>
+																<a href="${pageContext.request.contextPath}/client/delete/${client.id}"><spring:message code="label.delete"/></a>
 															</li>
 														</ul>
 													</div>
@@ -93,8 +96,8 @@
 												<td>${client.email}</td>
 												<td>${client.formatedBirthday}</td>
 												<td>${client.clientType.name}</td>
+												<td>${client.storesNames}</td>
 												<td>${client.formatedCreatedOn}</td>
-												
 											</tr>
 										</c:forEach>
 									</tbody>

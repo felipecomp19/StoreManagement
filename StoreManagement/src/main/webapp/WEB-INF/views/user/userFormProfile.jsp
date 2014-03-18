@@ -7,7 +7,7 @@
 
 <div class="row">
 	<div class="col-md-12">
-		<form:form id="userForm" class="fill-up validatable" method="POST" modelAttribute="user" commandName="user" action="${pageContext.request.contextPath}/user/save" >
+		<form:form id="userForm" class="fill-up validatable" method="POST" commandName="user" action="${pageContext.request.contextPath}/user/saveProfile" >
 			<div class="row">
 				<div class="col-md-3">
 					<ul class="padded separate-sections">
@@ -79,7 +79,7 @@
 			</div>
 			<div class="form-actions">
 				<button type="submit" class="btn btn-blue"><spring:message code="label.save" /></button>
-				<a href="${pageContext.request.contextPath}/user/list">
+				<a href="${pageContext.request.contextPath}/dashboard">
 					<button type="button" class="btn btn-default"><spring:message code="label.cancel" /></button>
 				</a>
 			</div>

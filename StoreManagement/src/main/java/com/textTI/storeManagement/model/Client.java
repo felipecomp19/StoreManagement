@@ -218,6 +218,19 @@ public class Client extends BaseModel {
 	    MaskFormatter mf = new MaskFormatter(mascara);  
 	    mf.setValueContainsLiteralCharacters(false);  
 	    return mf.valueToString(texto);  
-	}  
+	} 
 	
+	public String getStoresNames()
+	{
+		String result = "";
+		int count = 1;
+		for (Store store : this.stores) {
+			if(count == this.stores.size())
+				result+= store.getNameWithDesc();
+			else
+				result+= store.getNameWithDesc() + ", ";
+			count++;
+		}
+		return result;
+	}
 }

@@ -2,6 +2,7 @@ package com.textTI.storeManagement.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -77,7 +78,10 @@ public class ClientController extends BaseController{
 		this.populateDayAndMonthSelectList(model);
 		this.populateStores(request, model);
 		
-		model.addAttribute("client", new Client());
+		Client client = new Client();
+		client.setStores(new HashSet<Store>(this.getLoggedUser(request).getStores()));
+		
+		model.addAttribute("client", client);
 		
 		return "client/create";
 	}
@@ -111,7 +115,7 @@ public class ClientController extends BaseController{
 	public String edit(@PathVariable("id") long id, HttpServletRequest request, Model model)
 	{
 		Client client = this.clientManager.getById(id);
-		List<Client> clients = this.clientManager.getAll();
+		List<Client> clients = this.clientManager.getAllByUser(this.getLoggedUser(request));
 
 		this.prepareChartData(model, clients);
 		this.populateDayAndMonthSelectList(model);
@@ -191,7 +195,8 @@ public class ClientController extends BaseController{
 	}
 	
 	private void populateStores(HttpServletRequest request, Model model) {
-		List<Store> stores = this.storeManager.getAllByUser(this.getLoggedUser(request));
+		//List<Store> stores = this.storeManager.getAllByUser(this.getLoggedUser(request));
+		List<Store> stores = this.storeManager.getAll();
 		this.storeCache = new HashMap<String,Store>();
 		for (Store store : stores) {
 			this.storeCache.put(store.getIdAsString(), store);
@@ -203,8 +208,6 @@ public class ClientController extends BaseController{
 	private void populateDayAndMonthSelectList(Model model)
 	{
 		SelectListUtils.populateWithSequencialNumber(model, "daysSL", 1, 31);
-		//this.populateWithSequencialNumber(model, "daysSL", 1, 31);
-		//this.populateWithSequencialNumber(model, "monthSL", 1, 12);
 	}
 	
 }

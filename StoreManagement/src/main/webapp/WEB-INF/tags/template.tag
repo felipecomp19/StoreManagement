@@ -48,40 +48,43 @@
 		<div class="collapse navbar-collapse navbar-collapse-top">
 			<div class="navbar-right">
 				
-				<ul class="nav navbar-nav navbar-left">
+				<%-- <ul class="nav navbar-nav navbar-left">
 					<li>
 						<c:url value="/j_spring_security_logout" var="logoutUrl" />
 						<a href="${logoutUrl}"><spring:message code="label.logout"/></a>
 					</li>
-				</ul>
-				<%-- <!-- user profile -->
+				</ul> --%>
+				<!-- user profile -->
+				<ul class="nav navbar-nav navbar-left">
 					<li class="dropdown">
 						<a href="#"	class="dropdown-toggle dropdown-avatar" data-toggle="dropdown">
 							<span> 
-								<img class="menu-avatar" src="<%=request.getContextPath()%>/resources/coreAdmin/images/avatars/avatar1.jpg" />
-								<span>John Smith <i class="icon-caret-down"></i></span> 
-								<span class="badge badge-dark-red">5</span>
+								<i class="icon-user icon-2x"></i>
+								<span>${loggedUser.name} <i class="icon-caret-down"></i></span> 
 							</span>
 						</a>
 						
-						<ul class="dropdown-menu">
+						<ul class="dropdown-menu" style="width: 165px;">
 							<!-- the first element is the one with the big avatar, add a with-image class to it -->
-							<li class="with-image">
+							<%-- <li class="with-image">
 								<div class="avatar">
-									<img
-										src="<%=request.getContextPath()%>/resources/coreAdmin/images/avatars/avatar1.jpg" />
-								</div> <span>John Smith</span>
+									<i class="icon-user icon-2x"></i>
+								</div> <span>${loggedUser.name}</span>
+							</li>
+							<li class="divider"></li> --%>
+							<li>
+								<a href="${pageContext.request.contextPath}/user/editProfile/${loggedUser.id}">
+									<i class="icon-cog"></i><span><spring:message code="label.configurations" /></span></a>
 							</li>
 							<li class="divider"></li>
-							<li><a href="#"><i class="icon-user"></i> <span>Profile</span></a></li>
-							<li><a href="#"><i class="icon-cog"></i> <span>Settings</span></a></li>
-							<li><a href="#"><i class="icon-envelope"></i> <span>Messages</span>
-									<span class="label label-dark-red pull-right">5</span></a></li>
-							<li><a href="#"><i class="icon-off"></i> <span>Logout</span></a></li>
+							<li>
+								<c:url value="/j_spring_security_logout" var="logoutUrl" />
+								<a href="${logoutUrl}"><i class="icon-off"></i><span><spring:message code="label.logout"/></span></a>
+							</li>
 						</ul>
 					</li>
 				</ul>
-				<!-- [END] user profile --> --%>
+				<!-- [END] user profile --> 
 			</div>
 		</div>
 		<!-- /.navbar-collapse -->

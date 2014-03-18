@@ -32,4 +32,20 @@ public class UserRole extends BaseModel {
 	public void setRoleTranslated(String roleTranslated) {
 		this.roleTranslated = roleTranslated;
 	}
+	
+	@Override
+    public int hashCode() {
+        return this.getId().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) 
+            return false;
+
+        if (! (obj instanceof ClientType)) 
+            return false;
+        
+        return this.getId() == ((ClientType)obj).getId();
+    }
 }
