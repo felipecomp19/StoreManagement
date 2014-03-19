@@ -36,13 +36,4 @@
 			/>
 		</authentication-provider>
 	</authentication-manager>
-	<!-- <authentication-manager>
-		<authentication-provider>
-			<password-encoder ref="bcryptEncoder"/>
-			<user-service>
-				<user name="felipe" password="felipe" authorities="ROLE_USER,ROLE_ADMIN" />
-				<user name="morana" password="morana" authorities="ROLE_USER" />
-			</user-service>
-		</authentication-provider>
-	</authentication-manager> -->
 </beans:beans>
