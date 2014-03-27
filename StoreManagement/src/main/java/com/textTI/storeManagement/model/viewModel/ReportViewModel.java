@@ -4,12 +4,15 @@ import java.util.Date;
 import java.util.List;
 
 import com.textTI.storeManagement.model.Employee;
+import com.textTI.storeManagement.model.Indicator;
 import com.textTI.storeManagement.model.Report;
 import com.textTI.storeManagement.model.Store;
 
 public class ReportViewModel {
 
 	private List<Report> reportsSL;
+	
+	private Report selectedReport;
 	
 	private Store store;
 	
@@ -18,6 +21,12 @@ public class ReportViewModel {
 	private Date dateFrom;
 	
 	private Date dateTo;
+	
+	private String selectedMonth;
+	
+	private String selectedYear;
+	
+	private List<Indicator> indicators;
 
 	public List<Report> getReportsSL() {
 		return reportsSL;
@@ -25,6 +34,14 @@ public class ReportViewModel {
 
 	public void setReportsSL(List<Report> reportsSL) {
 		this.reportsSL = reportsSL;
+	}
+	
+	public Report getSelectedReport() {
+		return selectedReport;
+	}
+
+	public void setSelectedReport(Report selectedReport) {
+		this.selectedReport = selectedReport;
 	}
 
 	public Store getStore() {
@@ -57,5 +74,29 @@ public class ReportViewModel {
 
 	public void setDateTo(Date dateTo) {
 		this.dateTo = dateTo;
+	}
+
+	public String getSelectedMonth() {
+		return selectedMonth;
+	}
+	
+	public String getSelectedYear() {
+		return selectedYear;
+	}
+
+	public void setSelectedYear(String selectedYear) {
+		this.selectedYear = selectedYear;
+	}
+
+	public void setSelectedMonth(String selectedMonth) {
+		this.selectedMonth = selectedMonth;
+	}
+
+	public List<Indicator> getIndicators() {
+		return indicators;
+	}
+
+	public void setIndicators(List<Indicator> indicators) {
+		this.indicators = indicators;
 	}
 }

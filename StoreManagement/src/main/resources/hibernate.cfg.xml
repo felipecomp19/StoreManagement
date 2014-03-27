@@ -7,19 +7,21 @@
 <hibernate-configuration>
     <session-factory>
 
-		<!-- <property name="connection.url">jdbc:mysql://localhost:3306/db_storeManager_dev</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/db_storeManager_dev</property>
 		<property name="connection.username">root</property>
-		<property name="connection.password">123456</property> -->
-		<property name="connection.url">jdbc:mysql://localhost:3306/db_storeManager_morana_prod</property> <!-- prod -->
-		<property name="connection.username">root</property><!-- prod -->
-		<property name="connection.password">Fl0r1p4.20</property><!-- prod -->
+		<property name="connection.password">123456</property>
+		<!-- PROD morana
+		<property name="connection.url">jdbc:mysql://localhost:3306/db_storeManager_morana_prod</property> 
+		<property name="connection.username">root</property>
+		<property name="connection.password">Fl0r1p4.20</property>
+		 -->
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
 		
 		<!-- Disable the second-level cache  -->
         <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
 
-		<property name="show_sql">false</property>
+		<property name="show_sql">true</property>
 
 		<property name="format_sql">true</property>
 		<property name="hbm2ddl.auto">update</property>

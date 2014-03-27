@@ -18,6 +18,7 @@
 	<link href="${pageContext.request.contextPath}/resources/coreAdmin/stylesheets/application.css" media="screen" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/cleditor/jquery.cleditor.css" />
 	
+	
 	<script src="${pageContext.request.contextPath}/resources/coreAdmin/javascripts/application.js" type="text/javascript"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.mask.min.js" type="text/javascript" ></script>
  	<script src="${pageContext.request.contextPath}/resources/cleditor/jquery.cleditor.min.js" type="text/javascript"></script>
@@ -25,6 +26,14 @@
  	<script src="${pageContext.request.contextPath}/resources/js/jquery.blockUI.js" type="text/javascript"></script>
  	<script src="${pageContext.request.contextPath}/resources/js/jquery.validate.min.js" type="text/javascript"></script>
  	<script src="${pageContext.request.contextPath}/resources/js/jquery.maskMoney.min.js" type="text/javascript"></script>
+ 	
+ 	<!-- jqGrid -->
+ 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/jquery-ui/css/smoothness/jquery-ui.min.css" />
+ 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/jqGrid/css/ui.jqgrid.css" />
+ 	
+ 	<script src="${pageContext.request.contextPath}/resources/js/grid.locale-pt-br.js" type="text/javascript"></script>
+ 	<script src="${pageContext.request.contextPath}/resources/jqGrid/js/jquery.jqGrid.min.js" type="text/javascript"></script>
+ 	
 </head>
 <body>
 	<!-- top bar -->
@@ -185,6 +194,10 @@
 				<li class="">
 					<span class="glow"></span> 
 					<a href="${pageContext.request.contextPath}/indicator/list"> <i class="icon-book icon-2x"></i> <span><spring:message code="label.indicators" /></span> </a>
+				</li>
+				<li class="">
+					<span class="glow"></span> 
+					<a href="${pageContext.request.contextPath}/report/"><i class="icon-book icon-2x"></i> <span><spring:message code="label.reports" /></span> </a>
 				</li>  
 			</sec:authorize>
 			 

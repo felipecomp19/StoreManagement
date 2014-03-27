@@ -43,9 +43,9 @@ public class UserRole extends BaseModel {
         if (obj == null) 
             return false;
 
-        if (! (obj instanceof ClientType)) 
+        if (! (obj instanceof UserRole)) 
             return false;
         
-        return this.getId() == ((ClientType)obj).getId();
+        return this.getId() == ((UserRole)obj).getId();
     }
 }

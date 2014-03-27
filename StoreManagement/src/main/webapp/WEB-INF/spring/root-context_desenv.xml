@@ -22,7 +22,7 @@
 	</bean>
 
 	<bean id="handlerMapping"
-		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
 		<property name="interceptors">
 			<ref bean="localeChangeInterceptor" />
 		</property>
@@ -34,11 +34,6 @@
 		<property name="url" value="jdbc:mysql://localhost:3306/db_storeManager_dev" />
 		<property name="username" value="root" />
 		<property name="password" value="123456" />
-		<!-- PROD morana 
-		<property name="url" value="jdbc:mysql://localhost:3306/db_storeManager_morana_prod" />
-		<property name="username" value="root" />
-		<property name="password" value="Fl0r1p4.20" />
-		-->
    </bean>
 	
 </beans>

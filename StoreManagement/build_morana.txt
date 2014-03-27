@@ -1,0 +1,7 @@
+Alterar:
+	1) root-context.xml
+	2) servlet-context.xml
+	3) hibernate.cfg.xml
+	4) pom.xml - > comentar javax.transaction -> jta
+	5) log4j.xml -> production version
+	

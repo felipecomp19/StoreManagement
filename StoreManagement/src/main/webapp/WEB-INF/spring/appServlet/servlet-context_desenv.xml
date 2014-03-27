@@ -34,6 +34,7 @@
 	      <beans:bean class="com.textTI.storeManagement.converter.StoreConverter"/>
 	      <beans:bean class="com.textTI.storeManagement.converter.EmployeeConverter"/>
 	      <beans:bean class="com.textTI.storeManagement.converter.BigDecimalConverter"/>
+	      <beans:bean class="com.textTI.storeManagement.converter.ReportConverter"/>
 	    </beans:list>
 	  </beans:property>
 	</beans:bean>
@@ -41,10 +42,10 @@
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></beans:bean>
 	
 	<beans:bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<beans:property name="host" value="smtp.moranavale.com.br" />
+		<beans:property name="host" value="smtp.gmail.com" />
 		<beans:property name="port" value="587" />
-		<beans:property name="username" value="morana@moranavale.com.br" />
-		<beans:property name="password" value="bucovs14" />
+		<beans:property name="username" value="felipecomp19" />
+		<beans:property name="password" value="Fl0r1p4.20" />
 	 
 		<beans:property name="javaMailProperties">
 		   <beans:props>
@@ -53,12 +54,12 @@
 	       	   </beans:props>
 		</beans:property>
 	</beans:bean>
-
+	
 	<interceptors>
 		<interceptor>
 			<mapping path="/**"/>
 			<exclude-mapping path="/login"/>
 			<beans:bean class="com.textTI.storeManagement.controller.BaseController" />
 		</interceptor>
-	</interceptors>	
+	</interceptors>
 </beans:beans>

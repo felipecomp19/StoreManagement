@@ -34,9 +34,9 @@ public class UserController extends BaseController {
 	private StoreManager storeManager;
 	
 	@RequestMapping(value= "/list")
-	public String list(Locale locale, Model model)
+	public String list(HttpServletRequest request, Locale locale, Model model)
 	{
-		List<User> users = this.userManager.getAll(locale);
+		List<User> users = this.userManager.getAllByUser(this.getLoggedUser(request),locale);
 		
 		model.addAttribute("users", users);
 		
@@ -44,22 +44,22 @@ public class UserController extends BaseController {
 	}
 	
 	@RequestMapping(value= "/create", method = RequestMethod.GET)
-	public String create(Locale locale,Model model)
+	public String create(HttpServletRequest request, Locale locale,Model model)
 	{
 		User user = new User();
 		user.setActive(true);
 		
-		this.prepareUserForm(locale, model, user);
+		this.prepareUserForm(this.getLoggedUser(request),locale, model, user);
 		
 		return "/user/create";
 	}
 
 	@RequestMapping(value= "/edit/{id}" , method = RequestMethod.GET)
-	public String edit(@PathVariable("id") long id, Model model, Locale locale)
+	public String edit(@PathVariable("id") long id,HttpServletRequest request, Model model, Locale locale)
 	{
 		User user = this.userManager.getById(id);
 		
-		this.prepareUserForm(locale, model, user);
+		this.prepareUserForm(this.getLoggedUser(request),locale, model, user);
 		
 		return "/user/edit";
 	}
@@ -69,7 +69,7 @@ public class UserController extends BaseController {
 	{
 		User user = this.userManager.getById(id);
 		
-		this.prepareUserForm(locale, model, user);
+		this.prepareUserForm(this.getLoggedUser(request),locale, model, user);
 		
 		return "/user/editProfile";
 	}
@@ -88,12 +88,6 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/saveProfile", method = RequestMethod.POST)
 	public String saveProfile(@ModelAttribute("user") User user, HttpServletRequest request)
 	{
-		User _user = this.userManager.getById(user.getId());
-		if(user.getStores() == null)
-			user.setStores(_user.getStores());
-		if(user.getUserRole() == null)
-			user.setUserRole(_user.getUserRole());
-		
 		this.userManager.update(user);
 		
 		return "redirect:/dashboard";
@@ -111,8 +105,8 @@ public class UserController extends BaseController {
 		return "redirect:/user/list";
 	}
 	
-	private void prepareUserForm(Locale locale, Model model, User user) {
-		List<UserRole> roles = this.roleManager.getAll(locale);
+	private void prepareUserForm(User loggedUser, Locale locale, Model model, User user) {
+		List<UserRole> roles = this.roleManager.getAll(loggedUser, locale);
 		List<Store> stores = this.storeManager.getAll();
 		
 		model.addAttribute("user", user);

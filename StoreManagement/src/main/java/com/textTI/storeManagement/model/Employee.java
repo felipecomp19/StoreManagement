@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -30,6 +31,7 @@ public class Employee extends BaseModel {
 	
 	@OneToMany(mappedBy="employee")
 	@LazyCollection(LazyCollectionOption.FALSE)
+	@JsonBackReference
 	private List<Indicator> indicators;
 	
 	public String getName() {

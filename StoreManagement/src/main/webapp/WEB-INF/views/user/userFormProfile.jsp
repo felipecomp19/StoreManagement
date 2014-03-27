@@ -15,12 +15,7 @@
 						<li>
 							<div id="storesCB">
 								<ul  class="padded separate-sections">
-									<sec:authorize ifAnyGranted="ROLE_MANAGER,ROLE_ADMIN">
-										<form:checkboxes id="stores" items="${stores}" path="stores" itemValue="idAsString" itemLabel="nameWithDesc" class="icheck break-word validate[required]" element="li" />
-									</sec:authorize>
-									<sec:authorize ifAnyGranted="ROLE_USER">
-										<form:checkboxes disabled="true" id="stores" items="${stores}" path="stores" itemValue="idAsString" itemLabel="nameWithDesc" class="icheck break-word validate[required]" element="li" />
-									</sec:authorize>
+									<form:checkboxes disabled="true" id="stores" items="${stores}" path="stores" itemValue="idAsString" itemLabel="nameWithDesc" class="icheck break-word validate[required]" element="li" />
 								</ul>
 							</div>
 						</li>
@@ -30,14 +25,8 @@
 					<ul class="padded separate-sections">
 						<li class="input">
 							<input type="hidden" name="id" value="${user.id}"/>
-							<sec:authorize ifAnyGranted="ROLE_MANAGER,ROLE_ADMIN">
-								<label><spring:message code="label.role" /></label>
-								<form:select id="userRole" path="userRole" items="${roles}" itemValue="id" itemLabel="roleTranslated" class="uniform"/>
-							</sec:authorize>
-							<sec:authorize ifAnyGranted="ROLE_USER">
-								<label><spring:message code="label.role" /></label>
-								<form:select disabled="true" id="userRole" path="userRole" items="${roles}" itemValue="id" itemLabel="roleTranslated" class="uniform"/>
-							</sec:authorize>
+							<label><spring:message code="label.role" /></label>
+							<form:select disabled="true" id="userRole" path="userRole" items="${roles}" itemValue="id" itemLabel="roleTranslated" class="uniform"/>
 						</li>
 						<li class="input">
 							<label><spring:message code="label.name" /></label>

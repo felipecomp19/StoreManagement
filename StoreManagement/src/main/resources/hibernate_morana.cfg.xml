@@ -7,9 +7,6 @@
 <hibernate-configuration>
     <session-factory>
 
-		<!-- <property name="connection.url">jdbc:mysql://localhost:3306/db_storeManager_dev</property>
-		<property name="connection.username">root</property>
-		<property name="connection.password">123456</property> -->
 		<property name="connection.url">jdbc:mysql://localhost:3306/db_storeManager_morana_prod</property> <!-- prod -->
 		<property name="connection.username">root</property><!-- prod -->
 		<property name="connection.password">Fl0r1p4.20</property><!-- prod -->
@@ -20,9 +17,8 @@
         <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
 
 		<property name="show_sql">false</property>
-
-		<property name="format_sql">true</property>
-		<property name="hbm2ddl.auto">update</property>
+		<property name="format_sql">false</property>
+		<!-- <property name="hbm2ddl.auto">update</property> -->
 		<!-- <property name="hibernate.hbm2ddl.import_files">sql/update_tables.sql</property> -->
 
 		<!-- JDBC connection pool (use the built-in) -->
@@ -39,5 +35,7 @@
 		<mapping class="com.textTI.storeManagement.model.UserRole"/>
 		<mapping class="com.textTI.storeManagement.model.Audit"/>
 		<mapping class="com.textTI.storeManagement.model.Imagen"/>
+		<mapping class="com.textTI.storeManagement.model.Employee"/>
+		<mapping class="com.textTI.storeManagement.model.Indicator"/>
 	</session-factory>
 </hibernate-configuration>

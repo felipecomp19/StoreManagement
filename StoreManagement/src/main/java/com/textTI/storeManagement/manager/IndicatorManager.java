@@ -40,4 +40,9 @@ public class IndicatorManager {
 	public List<Indicator> getAllByUser(User loggedUser) {
 		return this.indicatorDAO.getAllByUser(loggedUser.getStoresId());
 	}
+
+	public List<Indicator> getAllByUserAndMonth(User loggedUser,
+			String selectedMonth, String selectedYear) {
+		return this.indicatorDAO.getAllByUserAndMonth(loggedUser.getStoresId(),selectedMonth, selectedYear);
+	}
 }

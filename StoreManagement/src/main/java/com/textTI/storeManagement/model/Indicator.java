@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
 @Entity
 @Table(name="tb_indicators")
 public class Indicator extends BaseModel {
@@ -29,6 +31,7 @@ public class Indicator extends BaseModel {
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "employee", nullable = false)
+	@JsonManagedReference
 	private Employee employee;
 	
 	@Column(name="workedDays")

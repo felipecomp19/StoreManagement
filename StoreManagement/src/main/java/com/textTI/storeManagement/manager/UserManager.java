@@ -43,13 +43,16 @@ public class UserManager {
 	}
 
 	public void update(User user) {
+
+		User _user = this.getById(user.getId());
+		if(user.getStores() == null)
+			user.setStores(_user.getStores());
+		if(user.getUserRole() == null)
+			user.setUserRole(_user.getUserRole());
 		if(user.getPassword() == null || user.getPassword() == "")
-		{
-			User _user = this.getById(user.getId());
 			user.setPassword(_user.getPassword());
-		}else{
+		else
 			this.encodePassword(user);
-		}
 		
 		this.userDAO.update(user);
 	}
@@ -72,5 +75,14 @@ public class UserManager {
 	public User getByUserName(String userName) {
 		return this.userDAO.getByUserName(userName);
 	}
-	
+
+	public List<User> getAllByUser(User loggedUser, Locale locale) {
+		List<User> users = this.userDAO.getAllByUser(loggedUser.getStoresId());
+
+		for (User user : users) {
+			user.getUserRole().setRoleTranslated(msgSrc.getMessage(user.getUserRole().getRole(),null, locale));
+		}		
+		
+		return users;
+	}
 }

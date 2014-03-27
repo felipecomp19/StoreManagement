@@ -42,4 +42,24 @@ public class IndicatorDAO extends BaseDAO {
 		return indicators;
 	}
 
+	public List<Indicator> getAllByUserAndMonth(List<Long> storesId, String selectedMonth, String selectedYear) {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		
+		String hql = "SELECT DISTINCT i FROM Indicator i WHERE i.employee.store.id IN (:storesId) AND i.month = :month AND i.year = :year order by i.employee.store.name";
+		
+		Query query = session.createQuery(hql);
+
+		query.setParameterList("storesId", storesId);
+		query.setParameter("month", Integer.parseInt(selectedMonth));
+		query.setParameter("year", Integer.parseInt(selectedYear));
+		
+		@SuppressWarnings("unchecked")
+		List<Indicator> indicators = query.list();
+		
+		session.close();
+		
+		return indicators;
+	}
+
 }
