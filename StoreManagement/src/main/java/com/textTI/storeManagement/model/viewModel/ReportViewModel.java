@@ -1,5 +1,6 @@
 package com.textTI.storeManagement.model.viewModel;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import com.textTI.storeManagement.model.Employee;
 import com.textTI.storeManagement.model.Indicator;
 import com.textTI.storeManagement.model.Report;
 import com.textTI.storeManagement.model.Store;
+import com.textTI.storeManagement.model.utils.Month;
 
 public class ReportViewModel {
 
@@ -27,6 +29,59 @@ public class ReportViewModel {
 	private String selectedYear;
 	
 	private List<Indicator> indicators;
+	
+	private List<Month> monthList = new ArrayList<Month>(12);
+	
+	//private List<String> yearList = new ArrayList<String>(5);
+	
+	private int monthFrom;
+	private int monthTo;
+	
+	private String yearFrom;
+	private String yearTo;
+	
+	private List<String> headers;
+	
+	public ReportViewModel()
+	{
+		this.populateMonthList();
+		//this.populateYearList();
+	}
+
+	/*private void populateYearList() {
+		yearList.add("2013");
+		yearList.add("2014");
+		yearList.add("2015");
+		yearList.add("2016");
+		yearList.add("2017");
+	}*/
+
+	private void populateMonthList() {
+		Month jan = new Month(1, "month.jan");
+		Month feb = new Month(2, "month.feb");
+		Month mar = new Month(3, "month.mar");
+		Month apr = new Month(4, "month.apr");
+		Month may = new Month(5, "month.may");
+		Month jun = new Month(6, "month.jun");
+		Month jul = new Month(7, "month.jul");
+		Month ago = new Month(8, "month.ago");
+		Month set = new Month(9, "month.set");
+		Month oct = new Month(10, "month.oct");
+		Month nov = new Month(11, "month.nov");
+		Month dez = new Month(12, "month.dez");
+		monthList.add(jan);
+		monthList.add(feb);
+		monthList.add(mar);
+		monthList.add(apr);
+		monthList.add(may);
+		monthList.add(jun);
+		monthList.add(jul);
+		monthList.add(ago);
+		monthList.add(set);
+		monthList.add(oct);
+		monthList.add(nov);
+		monthList.add(dez);
+	}
 
 	public List<Report> getReportsSL() {
 		return reportsSL;
@@ -99,4 +154,62 @@ public class ReportViewModel {
 	public void setIndicators(List<Indicator> indicators) {
 		this.indicators = indicators;
 	}
+
+	public List<Month> getMonthList() {
+		return monthList;
+	}
+
+	public void setMonthList(List<Month> monthList) {
+		this.monthList = monthList;
+	}
+
+	/*public List<String> getYearList() {
+		return yearList;
+	}
+
+	public void setYearList(List<String> yearList) {
+		this.yearList = yearList;
+	}*/
+
+	public int getMonthFrom() {
+		return monthFrom;
+	}
+
+	public void setMonthFrom(int monthFrom) {
+		this.monthFrom = monthFrom;
+	}
+
+	public int getMonthTo() {
+		return monthTo;
+	}
+
+	public void setMonthTo(int monthTo) {
+		this.monthTo = monthTo;
+	}
+
+	public String getYearFrom() {
+		return yearFrom;
+	}
+
+	public void setYearFrom(String yearFrom) {
+		this.yearFrom = yearFrom;
+	}
+
+	public String getYearTo() {
+		return yearTo;
+	}
+
+	public void setYearTo(String yearTo) {
+		this.yearTo = yearTo;
+	}
+
+	public List<String> getHeaders() {
+		return headers;
+	}
+
+	public void setHeaders(List<String> headers) {
+		this.headers = headers;
+	}
+	
+	
 }

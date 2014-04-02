@@ -3,7 +3,7 @@
 		<div class="area-top clearfix">
 			<div class="pull-left header">
 				<h3 class="title">
-					<i class="icon-book"></i>
+					<i class="icon-tasks"></i>
 					<spring:message code="label.indicators" />
 				</h3>
 				<h5>

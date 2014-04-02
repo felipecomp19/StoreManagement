@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
@@ -21,6 +23,8 @@ public class ReportManager {
 	
 	@Autowired
 	private IndicatorManager indicatorManager;
+	
+	protected static final Logger logger = LoggerFactory.getLogger(ReportManager.class);
 	
 	public List<Report> getAll(Locale locale) {
 		List<Report> reports = new ArrayList<Report>();
@@ -50,5 +54,31 @@ public class ReportManager {
 		return result;
 	}
 	
+	public Indicator generateReportResultOfMonthTotals(User loggedUser,
+			String month, String year) {
+		
+		return this.indicatorManager.generateReportResultOfMonthTotals(loggedUser, month, year);
+	}
 
+	public List<Indicator> generateReportevolutionOfIndicators(User loggedUser,
+			String monthFrom, String yearFrom, String monthTo, String yearTo) {
+		
+		List<Indicator> result = this.indicatorManager.generateReportevolutionOfIndicators(loggedUser, monthFrom, yearFrom, monthTo, yearTo);
+		
+		return result;
+	}
+
+	public List<Indicator> generateReportCumulativeResult(User loggedUser,
+			String monthFrom, String yearFrom, String monthTo, String yearTo) {
+		
+		List<Indicator> result = this.indicatorManager.generateReportCumulativeResult(loggedUser, monthFrom, yearFrom, monthTo, yearTo);
+		
+		return result;
+	}
+
+	public Indicator generateReportCumulativeResultTotals(User loggedUser,
+			String monthFrom, String yearFrom, String monthTo, String yearTo) {
+		
+		return this.indicatorManager.generateReportCumulativeResultTotals(loggedUser, monthFrom, yearFrom, monthTo, yearTo);
+	}
 }

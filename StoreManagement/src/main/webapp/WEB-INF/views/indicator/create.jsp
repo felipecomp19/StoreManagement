@@ -18,7 +18,7 @@
 							Home</span> <span class="breadcrumb-arrow"><span></span></span>
 					</div>
 					<div class="breadcrumb-button">
-						<span class="breadcrumb-label"> <i class="icon-book"></i>
+						<span class="breadcrumb-label"> <i class="icon-tasks"></i>
 							<spring:message code="label.indicators" />
 						</span> <span class="breadcrumb-arrow"><span></span></span>
 					</div>

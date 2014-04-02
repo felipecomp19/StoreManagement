@@ -47,6 +47,45 @@ public class Indicator extends BaseModel {
 	
 	private int numberOfItemsSold;
 	
+	private BigDecimal achievementOfGoals;
+	
+	private BigDecimal averageValueOfTheProduct;
+	
+	private BigDecimal averageTicket;
+	
+	private BigDecimal itemsPerSale;
+	
+	private BigDecimal conversionRate;
+	
+	private BigDecimal averageSalesPerDay;
+	
+	public Indicator()
+	{
+		//default constroctor for hibernate
+	}
+	
+	public Indicator(Long id, Long workedDays, BigDecimal goal, BigDecimal valueOfSales,
+			Long numberOfAttendances, Long numberOfSales, Long numberOfItemsSold,
+			Double achievementOfGoals, Double averageValueOfTheProduct,
+			Double averageTicket, Double itemsPerSale,
+			Double conversionRate, Double averageSalesPerDay, Employee e) {
+		super();
+		this.setId(id);
+		this.workedDays =  workedDays != null ? workedDays.intValue() : 0;
+		this.goal = goal;
+		this.valueOfSales = valueOfSales;
+		this.numberOfAttendances = numberOfAttendances != null ? numberOfAttendances.intValue() : 0;
+		this.numberOfSales = numberOfSales != null ? numberOfSales.intValue() : 0;
+		this.numberOfItemsSold = numberOfItemsSold != null ? numberOfItemsSold.intValue() : 0;
+		this.achievementOfGoals = achievementOfGoals != null ? new BigDecimal(String.valueOf(achievementOfGoals)) : new BigDecimal(0);
+		this.averageValueOfTheProduct = averageValueOfTheProduct != null ? new BigDecimal(String.valueOf(averageValueOfTheProduct)): new BigDecimal(0);
+		this.averageTicket = averageTicket != null ? new BigDecimal(String.valueOf(averageTicket)): new BigDecimal(0);
+		this.itemsPerSale = itemsPerSale != null ? new BigDecimal(String.valueOf(itemsPerSale)): new BigDecimal(0);
+		this.conversionRate = conversionRate != null ? new BigDecimal(String.valueOf(conversionRate)): new BigDecimal(0);
+		this.averageSalesPerDay = averageSalesPerDay != null ? new BigDecimal(String.valueOf(averageSalesPerDay)): new BigDecimal(0);
+		this.employee = e;
+	}
+
 	public int getMonth() {
 		return month;
 	}
@@ -127,8 +166,9 @@ public class Indicator extends BaseModel {
 		this.numberOfItemsSold = numberOfItemsSold;
 	}
 	
+	
 	//calculated
-	public BigDecimal getAchievementOfGoals()
+	/*public BigDecimal getAchievementOfGoals()
 	{
 		return this.valueOfSales.divide(this.goal, 2, RoundingMode.HALF_UP);
 	}
@@ -153,13 +193,79 @@ public class Indicator extends BaseModel {
 	
 	public BigDecimal getAverageSalesPerDay(){
 		return this.valueOfSales.divide(new BigDecimal(this.workedDays), 2, RoundingMode.HALF_UP);
-	}
+	}*/
 	
 	public String formatedGoal()
 	{
 		return "";
 	}
 	
+	public BigDecimal getAchievementOfGoals() {
+		return achievementOfGoals;
+	}
+
+	public void setAchievementOfGoals(BigDecimal achievementOfGoals) {
+		if(achievementOfGoals == null)
+			this.achievementOfGoals = this.valueOfSales.divide(this.goal, 2, RoundingMode.HALF_UP);
+		else
+			this.achievementOfGoals = achievementOfGoals;
+	}
+
+	public BigDecimal getAverageValueOfTheProduct() {
+		return averageValueOfTheProduct;
+	}
+
+	public void setAverageValueOfTheProduct(BigDecimal averageValueOfTheProduct) {
+		if(averageValueOfTheProduct == null)
+			this.averageValueOfTheProduct = this.valueOfSales.divide(new BigDecimal(this.numberOfItemsSold), 2, RoundingMode.HALF_UP);
+		else
+			this.averageValueOfTheProduct = averageValueOfTheProduct;
+	}
+
+	public BigDecimal getAverageTicket() {
+		return averageTicket;
+	}
+
+	public void setAverageTicket(BigDecimal averageTicket) {
+		if(averageTicket == null)
+			this.averageTicket = this.valueOfSales.divide(new BigDecimal(this.numberOfSales), 2, RoundingMode.HALF_UP);
+		else
+			this.averageTicket = averageTicket;
+	}
+
+	public BigDecimal getItemsPerSale() {
+		return itemsPerSale;
+	}
+
+	public void setItemsPerSale(BigDecimal itemsPerSale) {
+		if(itemsPerSale == null)
+			this.itemsPerSale = new BigDecimal(this.numberOfItemsSold).divide(new BigDecimal(this.numberOfSales), 2, RoundingMode.HALF_UP);
+		else
+			this.itemsPerSale = itemsPerSale;
+	}
+
+	public BigDecimal getConversionRate() {
+		return conversionRate;
+	}
+
+	public void setConversionRate(BigDecimal conversionRate) {
+		if(conversionRate == null)
+			this.conversionRate = new BigDecimal(this.numberOfSales).divide(new BigDecimal(this.numberOfAttendances), 2, RoundingMode.HALF_UP);
+		else
+			this.conversionRate = conversionRate;
+	}
+
+	public BigDecimal getAverageSalesPerDay() {
+		return averageSalesPerDay;
+	}
+
+	public void setAverageSalesPerDay(BigDecimal averageSalesPerDay) {
+		if(averageSalesPerDay == null)
+			this.averageSalesPerDay = this.valueOfSales.divide(new BigDecimal(this.workedDays), 2, RoundingMode.HALF_UP);
+		else
+			this.averageSalesPerDay = averageSalesPerDay;
+	}
+
 	public String getFormattedAverageTicket()
 	{
 		return NumberFormat.getPercentInstance().format(this.valueOfSales.divide(new BigDecimal(this.numberOfSales), 2, RoundingMode.HALF_UP));

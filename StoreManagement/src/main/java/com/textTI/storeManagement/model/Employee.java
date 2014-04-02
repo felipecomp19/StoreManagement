@@ -57,4 +57,22 @@ public class Employee extends BaseModel {
 	public void setIndicators(List<Indicator> indicators) {
 		this.indicators = indicators;
 	}
+	
+	@Override
+    public int hashCode() {
+		if(this.getId() != null)
+			return this.getId().hashCode();
+		return 0;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) 
+            return false;
+
+        if (! (obj instanceof Store)) 
+            return false;
+        
+        return this.getId() == ((Employee)obj).getId();
+    }
 }

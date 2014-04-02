@@ -46,7 +46,12 @@ public class IndicatorDAO extends BaseDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		
-		String hql = "SELECT DISTINCT i FROM Indicator i WHERE i.employee.store.id IN (:storesId) AND i.month = :month AND i.year = :year order by i.employee.store.name";
+		String hql = "SELECT DISTINCT i "
+				+ "FROM Indicator i "
+				+ "WHERE i.employee.store.id IN (:storesId) "
+				+ "AND i.month = :month "
+				+ "AND i.year = :year "
+				+ "ORDER BY i.employee.store.name";
 		
 		Query query = session.createQuery(hql);
 
@@ -61,5 +66,158 @@ public class IndicatorDAO extends BaseDAO {
 		
 		return indicators;
 	}
+	
+	public Indicator generateReportResultOfMonthTotals(List<Long> storesId,
+			String month, String year) {
+		
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
 
+		String hqlTotal = "SELECT new com.textTI.storeManagement.model.Indicator(i.id, sum(i.workedDays) as workedDays,"
+				+ " sum(i.goal) as goal,"
+				+ " sum(i.valueOfSales) as valueOfSales,"
+				+ " sum(i.numberOfAttendances) as numberOfAttendances,"
+				+ " sum(i.numberOfSales) as numberOfSales,"
+				+ " sum(i.numberOfItemsSold) as numberOfItemsSold,"
+				+ " avg(i.achievementOfGoals) as achievementOfGoals,"
+				+ " avg(i.averageValueOfTheProduct) as averageValueOfTheProduct,"
+				+ " avg(i.averageTicket) as averageTicket,"
+				+ " avg(i.itemsPerSale) as itemsPerSale,"
+				+ " avg(i.conversionRate) as conversionRate,"
+				+ " avg(i.averageSalesPerDay) as averageSalesPerDay,"
+				+ "	i.employee) "
+				+ " FROM Indicator i "
+				+ " WHERE i.employee.store.id IN (:storesId) "
+				+ " AND i.month = :month "
+				+ " AND i.year = :year ";
+		
+		Query query = session.createQuery(hqlTotal);
+
+		query.setParameterList("storesId", storesId);
+		query.setParameter("month", Integer.parseInt(month));
+		query.setParameter("year", Integer.parseInt(year));
+		
+		Indicator indicator = (Indicator) query.uniqueResult();
+		
+		session.close();
+		
+		return indicator;
+	}
+
+	public List<Indicator> getAllByUserAndMonthYearInterval(
+			List<Long> storesId, String monthFrom, String yearFrom,
+			String monthTo, String yearTo) {
+		
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		
+		String hql = "SELECT DISTINCT i "
+				+ "FROM Indicator i "
+				+ "WHERE i.employee.store.id IN (:storesId) "
+				+ "AND STR_TO_DATE(CONCAT(i.year,CONCAT('-',i.month)), '%Y-%m') BETWEEN STR_TO_DATE(:dateFrom,'%Y-%m') and STR_TO_DATE(:dateTo,'%Y-%m') "
+				+ "ORDER BY i.employee.store.name, i.employee.name, i.year, i.month";
+		
+		Query query = session.createQuery(hql);
+
+		query.setParameterList("storesId", storesId);
+		query.setParameter("dateFrom", yearFrom + '-' + monthFrom);
+		query.setParameter("dateTo", yearTo + '-' + monthTo);
+		
+		@SuppressWarnings("unchecked")
+		List<Indicator> indicators = query.list();
+		
+		session.close();
+		
+		return indicators;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Indicator> generateReportCumulativeResult(List<Long> storesId,
+			String monthFrom, String yearFrom, String monthTo, String yearTo) {
+		
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		
+		String hql = "SELECT new com.textTI.storeManagement.model.Indicator(i.id, sum(i.workedDays) as workedDays,"
+				+ " sum(i.goal) as goal,"
+				+ " sum(i.valueOfSales) as valueOfSales,"
+				+ " sum(i.numberOfAttendances) as numberOfAttendances,"
+				+ " sum(i.numberOfSales) as numberOfSales,"
+				+ " sum(i.numberOfItemsSold) as numberOfItemsSold,"
+				+ " avg(i.achievementOfGoals) as achievementOfGoals,"
+				+ " avg(i.averageValueOfTheProduct) as averageValueOfTheProduct,"
+				+ " avg(i.averageTicket) as averageTicket,"
+				+ " avg(i.itemsPerSale) as itemsPerSale,"
+				+ " avg(i.conversionRate) as conversionRate,"
+				+ " avg(i.averageSalesPerDay) as averageSalesPerDay,"
+				+ "	i.employee) "
+				+ " FROM Indicator i "
+				+ " WHERE i.employee.store.id IN (:storesId) "
+				+ " AND STR_TO_DATE(CONCAT(i.year,CONCAT('-',i.month)), '%Y-%m') BETWEEN STR_TO_DATE(:dateFrom,'%Y-%m') and STR_TO_DATE(:dateTo,'%Y-%m') "
+				+ " GROUP BY i.employee.id"
+				+ " ORDER BY i.employee.store.name, i.employee.name, i.year, i.month";
+		
+		Query query = session.createQuery(hql);
+
+		query.setParameterList("storesId", storesId);
+		query.setParameter("dateFrom", yearFrom + '-' + monthFrom);
+		query.setParameter("dateTo", yearTo + '-' + monthTo);
+		
+		List<Indicator> indicators = query.list();
+		
+		session.close();
+		
+		return indicators;
+	}
+
+	public Indicator generateReportCumulativeResultTotals(List<Long> storesId,
+			String monthFrom, String yearFrom, String monthTo, String yearTo) {
+		
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		
+		String hqlTotal = "SELECT new com.textTI.storeManagement.model.Indicator(i.id, sum(i.workedDays) as workedDays,"
+				+ " sum(i.goal) as goal,"
+				+ " sum(i.valueOfSales) as valueOfSales,"
+				+ " sum(i.numberOfAttendances) as numberOfAttendances,"
+				+ " sum(i.numberOfSales) as numberOfSales,"
+				+ " sum(i.numberOfItemsSold) as numberOfItemsSold,"
+				+ " avg(i.achievementOfGoals) as achievementOfGoals,"
+				+ " avg(i.averageValueOfTheProduct) as averageValueOfTheProduct,"
+				+ " avg(i.averageTicket) as averageTicket,"
+				+ " avg(i.itemsPerSale) as itemsPerSale,"
+				+ " avg(i.conversionRate) as conversionRate,"
+				+ " avg(i.averageSalesPerDay) as averageSalesPerDay,"
+				+ "	i.employee) "
+				+ " FROM Indicator i "
+				+ " WHERE i.employee.store.id IN (:storesId) "
+				+ " AND STR_TO_DATE(CONCAT(i.year,CONCAT('-',i.month)), '%Y-%m') BETWEEN STR_TO_DATE(:dateFrom,'%Y-%m') and STR_TO_DATE(:dateTo,'%Y-%m') ";
+		
+		Query queryTotals = session.createQuery(hqlTotal);
+		
+		queryTotals.setParameterList("storesId", storesId);
+		queryTotals.setParameter("dateFrom", yearFrom + '-' + monthFrom);
+		queryTotals.setParameter("dateTo", yearTo + '-' + monthTo);
+		
+		Indicator indicator = (Indicator) queryTotals.uniqueResult();
+		
+		session.close();
+		
+		return indicator;
+	}
+
+	public List<String> getDistinctYears() {
+		
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		
+		String sql = "Select DISTINCT i.year from Indicator i";
+		
+		Query query = session.createQuery(sql);
+		
+		@SuppressWarnings("unchecked")
+		List<String> distinctYears = query.list();
+		
+		return distinctYears;
+	}
 }

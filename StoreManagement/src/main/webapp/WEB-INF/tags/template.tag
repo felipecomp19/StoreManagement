@@ -32,7 +32,7 @@
  	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/jqGrid/css/ui.jqgrid.css" />
  	
  	<script src="${pageContext.request.contextPath}/resources/js/grid.locale-pt-br.js" type="text/javascript"></script>
- 	<script src="${pageContext.request.contextPath}/resources/jqGrid/js/jquery.jqGrid.min.js" type="text/javascript"></script>
+ 	<script src="${pageContext.request.contextPath}/resources/jqGrid/js/jquery.jqGrid.src.js" type="text/javascript"></script>
  	
 </head>
 <body>
@@ -193,7 +193,7 @@
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<li class="">
 					<span class="glow"></span> 
-					<a href="${pageContext.request.contextPath}/indicator/list"> <i class="icon-book icon-2x"></i> <span><spring:message code="label.indicators" /></span> </a>
+					<a href="${pageContext.request.contextPath}/indicator/list"> <i class="icon-tasks icon-2x"></i> <span><spring:message code="label.indicators" /></span> </a>
 				</li>
 				<li class="">
 					<span class="glow"></span> 

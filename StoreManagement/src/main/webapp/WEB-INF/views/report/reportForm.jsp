@@ -6,74 +6,64 @@
 
 <div class="row">
 	<div class="col-md-12">
-		<form:form class="fill-up validatable" method="POST" commandName="reportVM" modelAttribute="reportVM" action="${pageContext.request.contextPath}/report/generate" >
+		<form:form class="form-horizontal fill-up validatable" method="POST" commandName="reportVM" modelAttribute="reportVM" action="${pageContext.request.contextPath}/report/generate" >
 			<div class="row">
 				<div class="col-md-6">
 					<ul class="padded separate-sections">
-						<li>Selecione o relatorio desejado</li>
 						<li>
-							<form:select path="selectedReport" cssClass="uniform">
+							<label><spring:message code="label.selectDisiredReport"/></label>
+							<form:select id="reportsSL" path="selectedReport" cssClass="uniform">
 								<form:option value="0"><spring:message code="label.select"/></form:option>
 								<form:option value="1"><spring:message code="report.resultOfMonth"/></form:option>
 								<form:option value="2"><spring:message code="report.cumulativeResult"/></form:option>
-								<form:option value="3"><spring:message code="report.evolutionOfIndicators"/></form:option>
+								<%-- <form:option value="3"><spring:message code="report.evolutionOfIndicators"/></form:option> --%>
 							</form:select>
 						</li>
-						
-						<%-- <li><spring:message code="label.selectMonth"></spring:message></li>
-						<li>
-							<div class="col-md-3">
-								<form:select id="selectedMonth" path="selectedMonth" class="uniform">
-									<form:option value="month.jan"><spring:message code="month.jan"/></form:option>
-									<form:option value="2"><spring:message code="month.feb"/></form:option>
-									<form:option value="3"><spring:message code="month.mar"/></form:option>
-									<form:option value="4"><spring:message code="month.apr"/></form:option>
-									<form:option value="month.may"><spring:message code="month.may"/></form:option>
-									<form:option value="6"><spring:message code="month.jun"/></form:option>
-									<form:option value="7"><spring:message code="month.jul"/></form:option>
-									<form:option value="8"><spring:message code="month.ago"/></form:option>
-									<form:option value="9"><spring:message code="month.set"/></form:option>
-									<form:option value="10"><spring:message code="month.oct"/></form:option>
-									<form:option value="11"><spring:message code="month.nov"/></form:option>
-									<form:option value="12"><spring:message code="month.dez"/></form:option>
-								</form:select> 
-							</div>
-						</li> --%>
-						<li>
-							<div class="row action-nav-row">
-								<div class="col-md-1" align="right">
-									<label class="control-label"><spring:message code="label.year" /></label>
+						<li id="resultOfMonthFilter" hidden="hidden">
+							<label><spring:message code="label.selectMonth"/></label>
+							<div class="form-group"> 
+								<label class="control-label col-md-1"><spring:message code="label.month" /></label>
+								<div class="col-md-2">
+									<form:select path="selectedMonth" cssClass="uniform" >
+										<c:forEach var="month" items="${reportVM.monthList}">
+											<form:option value="${month.code}"><spring:message code="${month.desc}"/></form:option>
+										</c:forEach>
+									</form:select>
 								</div>
-								<div class="col-md-3">
-									<form:select path="selectedYear" class="uniform">
-										<form:option value="2013">2013</form:option>
-										<form:option value="2014">2014</form:option>
-										<form:option value="2015">2015</form:option>
-										<form:option value="2016">2016</form:option>
-									</form:select> 
-								</div>
-								<div class="col-md-1" align="right" style="vertical-align: bottom;">
-									<label class="control-label"><spring:message code="label.selectMonth" /></label>
-								</div>
-								<div class="col-md-3">
-									<form:select id="selectedMonth" path="selectedMonth" class="uniform">
-										<form:option value="1"><spring:message code="month.jan"/></form:option>
-										<form:option value="2"><spring:message code="month.feb"/></form:option>
-										<form:option value="3"><spring:message code="month.mar"/></form:option>
-										<form:option value="4"><spring:message code="month.apr"/></form:option>
-										<form:option value="5"><spring:message code="month.may"/></form:option>
-										<form:option value="6"><spring:message code="month.jun"/></form:option>
-										<form:option value="7"><spring:message code="month.jul"/></form:option>
-										<form:option value="8"><spring:message code="month.ago"/></form:option>
-										<form:option value="9"><spring:message code="month.set"/></form:option>
-										<form:option value="10"><spring:message code="month.oct"/></form:option>
-										<form:option value="11"><spring:message code="month.nov"/></form:option>
-										<form:option value="12"><spring:message code="month.dez"/></form:option>
-									</form:select> 
+								<label class="control-label col-md-1"><spring:message code="label.year" /></label>
+								<div class="col-md-2">
+									<form:select path="selectedYear" cssClass="uniform" items="${yearList}"></form:select>
 								</div>
 							</div>
 						</li>
 						
+						<li id="otherFilters" hidden="hidden">
+							<label><spring:message code="label.selectDisiredInterval"/></label>
+							<div class="form-group"> 
+								<label class="control-label col-md-2"><spring:message code="label.dateFrom"/></label>
+								<div class="col-md-2">
+									<form:select path="monthFrom" cssClass="uniform" >
+										<c:forEach var="month" items="${reportVM.monthList}">
+											<form:option value="${month.code}"><spring:message code="${month.desc}"/></form:option>
+										</c:forEach>
+									</form:select>
+								</div>
+								<div class="col-md-2">													
+									<form:select path="yearFrom" cssClass="uniform" items="${yearList}"></form:select>
+								</div>
+								<label class="control-label col-md-2"><spring:message code="label.dateTo"/></label>
+								<div class="col-md-2">
+									<form:select path="monthTo" cssClass="uniform" >
+										<c:forEach var="month" items="${reportVM.monthList}">
+											<form:option value="${month.code}"><spring:message code="${month.desc}"/></form:option>
+										</c:forEach>
+									</form:select>
+								</div>
+								<div class="col-md-2">
+									<form:select path="yearTo" cssClass="uniform" items="${yearList}"></form:select>
+								</div>
+							</div>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -85,7 +75,22 @@
 </div>
 
 <script type="text/javascript">
-	$(document).ready(function () { 
-		
+	$(document).ready(function () {
+		$("#reportsSL").change(function(){
+			var reportCode = $(this).val();
+			if(reportCode == 1)
+			{
+				$("#otherFilters").hide();
+				$("#resultOfMonthFilter").show();
+			}else if(reportCode == 0)
+			{
+				$("#otherFilters").hide();
+				$("#resultOfMonthFilter").hide();
+			}else
+			{
+				$("#otherFilters").show();
+				$("#resultOfMonthFilter").hide();
+			}
+		});
 	});
 </script>

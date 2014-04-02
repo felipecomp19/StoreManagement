@@ -20,7 +20,7 @@
 						<span class="breadcrumb-arrow"><span></span></span>
 					</div>
 					<div class="breadcrumb-button">
-						<span class="breadcrumb-label"> <i class="icon-book"></i>
+						<span class="breadcrumb-label"> <i class="icon-tasks"></i>
 							<spring:message code="label.indicators" />
 						</span> <span class="breadcrumb-arrow"><span></span></span>
 					</div>
@@ -40,9 +40,15 @@
 								<li>
 									<a href="${pageContext.request.contextPath}/indicator/create">
 									<button class="btn btn-green">
-										<i class="icon-book"></i>&nbsp&nbsp<spring:message code="label.newIndicator" />
+										<i class="icon-tasks"></i>&nbsp&nbsp<spring:message code="label.newIndicator" />
 									</button>
 									</a>
+									<button id="exchangeToIndBtn" class="btn btn-blue indInput">
+										<i class="icon-exchange"></i>&nbsp&nbsp<spring:message code="label.indicators" />
+									</button>
+									<button id="exchangeToIndInputBtn" class="btn btn-blue ind">
+										<i class="icon-exchange"></i>&nbsp&nbsp<spring:message code="label.indicators" />
+									</button>
 								</li>
 							</ul>
 						</div>
@@ -56,18 +62,18 @@
 											<th><div><spring:message code="label.employee"/></div></th>
 											<th><div><spring:message code="label.year"/></div></th>
 											<th><div><spring:message code="label.month"/></div></th>
-											<th><div><spring:message code="label.workedDaysT"/></div></th>
-											<th><div><spring:message code="label.goal"/></div></th>
-											<th><div><spring:message code="label.valueOfSalesT"/></div></th>
-											<th><div><spring:message code="label.numberOfAttendancesT"/></div></th>
-											<th><div><spring:message code="label.numberOfSalesT"/></div></th>
-											<th><div><spring:message code="label.numberOfItemsSoldT"/></div></th>
-											<th><div><spring:message code="label.achievementOfGoalsT"/></div></th>
-											<th><div><spring:message code="label.averageValueOfTheProductT"/></div></th>
-											<th><div><spring:message code="label.averageTicketT"/></div></th>
-											<th><div><spring:message code="label.itemsPerSaleT"/></div></th>
-											<th><div><spring:message code="label.conversionRateT"/></div></th>
-											<th><div><spring:message code="label.averageSalesPerDayT"/></div></th>
+											<th class="indInput"><div><spring:message code="label.workedDaysT"/></div></th>
+											<th class="indInput"><div><spring:message code="label.goal"/></div></th>
+											<th class="indInput"><div><spring:message code="label.valueOfSalesT"/></div></th>
+											<th class="indInput"><div><spring:message code="label.numberOfAttendancesT"/></div></th>
+											<th class="indInput"><div><spring:message code="label.numberOfSalesT"/></div></th>
+											<th class="indInput"><div><spring:message code="label.numberOfItemsSoldT"/></div></th>
+											<th class="ind" hidden="hidden"><div><spring:message code="label.achievementOfGoalsT"/></div></th>
+											<th class="ind" hidden="hidden"><div><spring:message code="label.averageValueOfTheProductT"/></div></th>
+											<th class="ind" hidden="hidden"><div><spring:message code="label.averageTicketT"/></div></th>
+											<th class="ind" hidden="hidden"><div><spring:message code="label.itemsPerSaleT"/></div></th>
+											<th class="ind" hidden="hidden"><div><spring:message code="label.conversionRateT"/></div></th>
+											<th class="ind" hidden="hidden"><div><spring:message code="label.averageSalesPerDayT"/></div></th>
 										</tr>
 									</thead>
 									<tbody>
@@ -93,18 +99,18 @@
 												<td>${indicator.employee.name}</td>
 												<td>${indicator.year}</td>
 												<td>${indicator.month}</td>
-												<td>${indicator.workedDays}</td>
-												<td class="money">${indicator.goal}</td>
-												<td>${indicator.valueOfSales}</td>
-												<td>${indicator.numberOfAttendances}</td>
-												<td>${indicator.numberOfSales}</td>
-												<td>${indicator.numberOfItemsSold}</td>
-												<td>${indicator.achievementOfGoals}</td>
-												<td>${indicator.averageValueOfTheProduct}</td>
-												<td>${indicator.averageTicket}</td>
-												<td>${indicator.itemsPerSale}</td>
-												<td>${indicator.conversionRate}</td>
-												<td>${indicator.averageSalesPerDay}</td>
+												<td class="indInput">${indicator.workedDays}</td>
+												<td class="indInput money">${indicator.goal}</td>
+												<td class="indInput">${indicator.valueOfSales}</td>
+												<td class="indInput">${indicator.numberOfAttendances}</td>
+												<td class="indInput">${indicator.numberOfSales}</td>
+												<td class="indInput">${indicator.numberOfItemsSold}</td>
+												<td class="ind" hidden="hidden">${indicator.achievementOfGoals}</td>
+												<td class="ind" hidden="hidden">${indicator.averageValueOfTheProduct}</td>
+												<td class="ind" hidden="hidden">${indicator.averageTicket}</td>
+												<td class="ind" hidden="hidden">${indicator.itemsPerSale}</td>
+												<td class="ind" hidden="hidden">${indicator.conversionRate}</td>
+												<td class="ind" hidden="hidden">${indicator.averageSalesPerDay}</td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -118,3 +124,20 @@
 		<!-- [END] main content -->
 	</jsp:body>
 </t:template>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#exchangeToIndBtn").click(function(){
+			$(".ind").show();
+			$(".indInput").hide();
+		});
+		
+		$("#exchangeToIndInputBtn").click(function(){
+			$(".ind").hide();
+			$(".indInput").show();
+		});
+		
+		$("#exchangeToIndInputBtn").hide();
+		
+	});
+</script>

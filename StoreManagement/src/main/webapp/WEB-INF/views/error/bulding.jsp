@@ -37,7 +37,6 @@
   	<div> </div>
     <div class="error-box">
       <div class="message-big"><img alt="Em Construção" src="${pageContext.request.contextPath}/resources/coreAdmin/images/paginaemconstrucao.png"></div>
-      <div class="message-small">You are not where you're supposed to be</div>
 
       <div style="margin-top: 50px">
         <a class="btn btn-blue" href="${pageContext.request.contextPath}/dashboard">
