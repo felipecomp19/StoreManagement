@@ -7,6 +7,15 @@
 <div class="row">
 	<div class="col-md-12">
 		<form:form class="fill-up validatable" method="POST" commandName="indicator" modelAttribute="indicator" action="${pageContext.request.contextPath}/indicator/save" >
+			<c:if test="${showMessage}">
+				<div class="padded col-md-12">
+					<div class="alert alert-error">
+		  				<button type="button" class="close" data-dismiss="alert">×</button>
+		  				<i class="icon-warning-sign"></i>&nbsp&nbsp&nbsp<spring:message code="${validMessage}"/><a href="${pageContext.request.contextPath}/indicator/edit/${indAlreadyExist.id}">(Visualizar)</a>
+					</div>
+				</div>
+			</c:if>
+			
 			<div class="row">
 				<div class="col-md-3">
 					<ul class="padded separate-sections">
@@ -16,11 +25,15 @@
 						</li>
 						<li>
 							<label><spring:message code="label.stores"/></label>
-							<form:select path="store" items="${stores}" itemValue="idAsString" itemLabel="nameWithDesc" class="chzn-select"></form:select>		
+							<form:select id="storeSL" path="store"  class="chzn-select">
+								<form:option value="0">Selecione</form:option>
+								<form:options items="${stores}" itemValue="idAsString" itemLabel="nameWithDesc"/>
+							</form:select>		
 						</li>
 						<li>
 							<label><spring:message code="label.employee"/></label>
-							<form:select path="employee" items="${employees}" itemValue="idAsString" itemLabel="name" class="chzn-select"></form:select>		
+							<form:select id="employeesSL" path="employee" items="${employees}" itemValue="idAsString" itemLabel="name" class="chzn-select">
+							</form:select>		
 						</li>
 						<li>
 							<div class="row">
@@ -124,5 +137,39 @@
 		// Configuração para campos de Real.
 		$(".money").maskMoney();
 		$(".money").maskMoney().maskMoney('mask');
+		
+		$("#storeSL").change(function(){
+			var storeId = $(this).val();
+			if(storeId > 0){
+				$.ajax({
+		   			url: "${pageContext.request.contextPath}/indicator/filterEmployeeSL/" + storeId,
+		   			type:"GET",
+		   			dataType: "json",
+		   			contentType: 'application/json',
+		   		    mimeType: 'application/json', 
+		   		 	success: function(employees) {
+			   		 	$('#employeesSL').find('option').remove();
+			   	     	$.each(employees, function (index, value) {
+			            	$("#employeesSL").append('<option value="'+value.idAsString+'">'+value.name+'</option>');
+			   	     	});
+		   		 		
+		   		 		return Growl.info({
+		   		 			title:'Info!',
+		   		 			text:'Filtrando funcionários'
+		   		 		});
+		   		 	},
+		   	    	error:function(data,status,er) { 
+		   	    		return Growl.error({
+	                        title:'Erro!',
+	                        text: 'Erro ao filtrar os funcionários'
+	                    });
+		   	     	},
+			   	    complete: function() {
+			   	    	//$('#employeesSL').employeesSL('<option value="000">-Select State-</option>');
+			   	    	
+			         }
+				});
+			}
+		});
 	});
 </script>

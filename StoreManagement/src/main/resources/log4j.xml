@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<!-- DESENV 
+	<!-- DESENV --> 
 	<logger name="com.textTI.storeManagement">
 		<level value="info" />
 	</logger>
@@ -30,30 +30,30 @@
 
 	<logger name="org.springframework.web">
 		<level value="info" />
+	</logger>
+	
+	
+	<!-- PRODUCTION 
+	<logger name="com.textTI.storeManagement">
+		<level value="error" />
+	</logger>
+	
+	<logger name="org.springframework.core">
+		<level value="error" />
+	</logger>
+	
+	<logger name="org.springframework.beans">
+		<level value="error" />
+	</logger>
+	
+	<logger name="org.springframework.context">
+		<level value="error" />
+	</logger>
+
+	<logger name="org.springframework.web">
+		<level value="error" />
 	</logger>
 	-->
-	
-	<!-- PRODUCTION -->
-	<logger name="com.textTI.storeManagement">
-		<level value="error" />
-	</logger>
-	
-	<logger name="org.springframework.core">
-		<level value="error" />
-	</logger>
-	
-	<logger name="org.springframework.beans">
-		<level value="error" />
-	</logger>
-	
-	<logger name="org.springframework.context">
-		<level value="error" />
-	</logger>
-
-	<logger name="org.springframework.web">
-		<level value="error" />
-	</logger>
-	
 
 	<!-- Root Logger -->
 	<root>

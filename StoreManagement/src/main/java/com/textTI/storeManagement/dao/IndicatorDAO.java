@@ -220,4 +220,83 @@ public class IndicatorDAO extends BaseDAO {
 		
 		return distinctYears;
 	}
+
+	public List<Indicator> getIndicatorsByStoreMonthAndYear(long storeId,
+			int month, int year) {
+
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		
+		String hql = "SELECT DISTINCT i "
+				+ " FROM Indicator i"
+				+ " WHERE i.employee.store.id = :storeId "
+				+ " AND i.month = :month "
+				+ " AND i.year = :year";
+		
+		Query query = session.createQuery(hql);
+		
+		query.setParameter("storeId", storeId);
+		query.setParameter("month", month);
+		query.setParameter("year", year);
+		
+		@SuppressWarnings("unchecked")
+		List<Indicator> indicators = query.list();
+		
+		return indicators;
+	}
+
+	public Indicator getIndicatorsByStoreMonthAndYearTotals(int storeId,
+			int month, int year) {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		
+		String hqlTotal = "SELECT new com.textTI.storeManagement.model.Indicator(i.id, sum(i.workedDays) as workedDays,"
+				+ " sum(i.goal) as goal,"
+				+ " sum(i.valueOfSales) as valueOfSales,"
+				+ " sum(i.numberOfAttendances) as numberOfAttendances,"
+				+ " sum(i.numberOfSales) as numberOfSales,"
+				+ " sum(i.numberOfItemsSold) as numberOfItemsSold,"
+				+ " avg(i.achievementOfGoals) as achievementOfGoals,"
+				+ " avg(i.averageValueOfTheProduct) as averageValueOfTheProduct,"
+				+ " avg(i.averageTicket) as averageTicket,"
+				+ " avg(i.itemsPerSale) as itemsPerSale,"
+				+ " avg(i.conversionRate) as conversionRate,"
+				+ " avg(i.averageSalesPerDay) as averageSalesPerDay,"
+				+ "	i.employee) "
+				+ " FROM Indicator i "
+				+ " WHERE i.employee.store.id = :storeId "
+				+ " AND i.month = :month "
+				+ " AND i.year = :year";
+		
+		Query queryTotals = session.createQuery(hqlTotal);
+		
+		queryTotals.setParameter("storeId", storeId);
+		queryTotals.setParameter("month", month);
+		queryTotals.setParameter("year", year);
+		
+		Indicator indicator =  (Indicator) queryTotals.uniqueResult();
+		
+		return indicator;
+	}
+
+	public Indicator getByMonthAndYear(Long employeeId, int month, int year) {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		
+		String hql = "SELECT DISTINCT i "
+				+ " FROM Indicator i"
+				+ " WHERE i.employee.id = :employeeId "
+				+ " AND i.month = :month "
+				+ " AND i.year = :year";
+		
+		Query query = session.createQuery(hql);
+		
+		query.setParameter("employeeId", employeeId);
+		query.setParameter("month", month);
+		query.setParameter("year", year);
+		
+		Indicator indicator = (Indicator) query.uniqueResult();
+		
+		return indicator;
+	}
 }

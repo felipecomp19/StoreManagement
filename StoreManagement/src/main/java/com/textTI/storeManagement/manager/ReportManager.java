@@ -81,4 +81,14 @@ public class ReportManager {
 		
 		return this.indicatorManager.generateReportCumulativeResultTotals(loggedUser, monthFrom, yearFrom, monthTo, yearTo);
 	}
+
+	public List<Indicator> getIndicatorsByStoreMonthAndYear(User loggedUser,
+			int store, int month, int year) {
+		return this.indicatorManager.getIndicatorsByStoreMonthAndYear(store,month,year);
+	}
+
+	public Indicator getIndicatorsByStoreMonthAndYearTotals(User loggedUser,
+			int store, int month, int year) {
+		return this.indicatorManager.getIndicatorsByStoreMonthAndYearTotals(store,month,year);
+	}
 }

@@ -230,7 +230,7 @@
 			<scope>test</scope>
 		</dependency>
 		
-<!-- -->             
+<!-- -->                
 		<dependency>
 			<groupId>javax.transaction</groupId>
 			<artifactId>jta</artifactId>

@@ -61,25 +61,25 @@
 										<div class="form-group"> 
 											<label class="control-label col-md-1"><spring:message code="label.dateFrom"/></label>
 											<div class="col-md-2">
-												<form:select path="monthFrom" cssClass="uniform" >
+												<form:select path="monthFrom" cssClass="uniform validate[required]" >
 													<c:forEach var="month" items="${reportVM.monthList}">
 														<form:option value="${month.code}"><spring:message code="${month.desc}"/></form:option>
 													</c:forEach>
 												</form:select>
 											</div>
 											<div class="col-md-2">													
-												<form:select path="yearFrom" cssClass="uniform" items="${yearList}"></form:select>
+												<form:select path="yearFrom" cssClass="uniform validate[required]" items="${yearList}"></form:select>
 											</div>
 											<label class="control-label col-md-1"><spring:message code="label.dateTo"/></label>
 											<div class="col-md-2">
-												<form:select path="monthTo" cssClass="uniform" >
+												<form:select path="monthTo" cssClass="uniform validate[required]" >
 													<c:forEach var="month" items="${reportVM.monthList}">
 														<form:option value="${month.code}"><spring:message code="${month.desc}"/></form:option>
 													</c:forEach>
 												</form:select>
 											</div>
 											<div class="col-md-2">
-												<form:select path="yearTo" cssClass="uniform" items="${yearList}"></form:select>
+												<form:select path="yearTo" cssClass="uniform validate[required]" items="${yearList}"></form:select>
 											</div>
 											<div class="col-md-2">
 												<button type="submit" id="btnGenerateReport" class="btn btn-sm btn-green"><spring:message code="label.generate"/></button>
@@ -161,7 +161,7 @@
 			    	          '<spring:message code="label.averageSalesPerDayT"/>'
 	   	          	],
 			    	colModel:[
-			    		{name:'employee.store.name',index:'employee.store.name', width:90},
+			    		{name:'employee.store.nameWithDesc',index:'employee.store.nameWithDesc', width:90},
 			    		{name:'employee.name',index:'employee.name', width:100 },
 			    		{name:'workedDays',index:'workedDays', width:80, align:"right",sorttype:"int", formatter:"number", summaryType:'max', summaryTpl:'<b>Max: {0}</b>'},
 			    		{name:'goal',index:'goal', width:80, align:"right",sorttype:"float", formatter:"number", summaryType:'sum', summaryTpl:'<b>Total: {0}</b>'},
@@ -178,10 +178,10 @@
 			    	],
 			    	pager: "#preportCumulativeResult",
 			    	viewrecords: true,
-			    	sortname: 'employee.store.name',
+			    	sortname: 'employee.store.nameWithDesc',
 			    	grouping: true,
 			    	groupingView : {
-			    		groupField : ['employee.store.name'],
+			    		groupField : ['employee.store.nameWithDesc'],
 			    		groupSummary : [true],
 			    		groupColumnShow : [false],
 			    		groupText : ['<b>{0}</b>'],

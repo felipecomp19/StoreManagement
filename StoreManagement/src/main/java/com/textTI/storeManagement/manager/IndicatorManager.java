@@ -27,16 +27,16 @@ public class IndicatorManager {
 	}
 
 	public void update(Indicator indicator) {
-		this.populateCalculatedValues(indicator);
-		this.indicatorDAO.update(indicator);
+			this.populateCalculatedValues(indicator);
+			this.indicatorDAO.update(indicator);
 	}
 
 	public void insert(Indicator indicator) {
-		indicator.setEnabled(true);
-		this.populateCalculatedValues(indicator);
-		this.indicatorDAO.insert(indicator);
+			indicator.setEnabled(true);
+			this.populateCalculatedValues(indicator);
+			this.indicatorDAO.insert(indicator);
 	}
-
+	
 	private void populateCalculatedValues(Indicator indicator) {
 		indicator.setAchievementOfGoals(null);
 		indicator.setAverageSalesPerDay(null);
@@ -90,5 +90,19 @@ public class IndicatorManager {
 
 	public List<String> getDistinctYears() {
 		return this.indicatorDAO.getDistinctYears();
+	}
+
+	public List<Indicator> getIndicatorsByStoreMonthAndYear(int store,
+			int month, int year) {
+		return this.indicatorDAO.getIndicatorsByStoreMonthAndYear(store,month,year);
+	}
+
+	public Indicator getIndicatorsByStoreMonthAndYearTotals(int store,
+			int month, int year) {
+		return this.indicatorDAO.getIndicatorsByStoreMonthAndYearTotals(store,month,year);
+	}
+
+	public Indicator getByMonthAndYear(Long employeeId, int month, int year) {
+		return this.indicatorDAO.getByMonthAndYear(employeeId, month, year);
 	}
 }

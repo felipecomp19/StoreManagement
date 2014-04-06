@@ -24,7 +24,7 @@
 							<div class="form-group"> 
 								<label class="control-label col-md-1"><spring:message code="label.month" /></label>
 								<div class="col-md-2">
-									<form:select path="selectedMonth" cssClass="uniform" >
+									<form:select path="selectedMonth" cssClass="uniform validate[required]">
 										<c:forEach var="month" items="${reportVM.monthList}">
 											<form:option value="${month.code}"><spring:message code="${month.desc}"/></form:option>
 										</c:forEach>
@@ -32,7 +32,7 @@
 								</div>
 								<label class="control-label col-md-1"><spring:message code="label.year" /></label>
 								<div class="col-md-2">
-									<form:select path="selectedYear" cssClass="uniform" items="${yearList}"></form:select>
+									<form:select path="selectedYear" cssClass="uniform validate[required]" items="${yearList}"></form:select>
 								</div>
 							</div>
 						</li>
@@ -42,18 +42,18 @@
 							<div class="form-group"> 
 								<label class="control-label col-md-2"><spring:message code="label.dateFrom"/></label>
 								<div class="col-md-2">
-									<form:select path="monthFrom" cssClass="uniform" >
+									<form:select path="monthFrom" cssClass="uniform validate[required]" >
 										<c:forEach var="month" items="${reportVM.monthList}">
 											<form:option value="${month.code}"><spring:message code="${month.desc}"/></form:option>
 										</c:forEach>
 									</form:select>
 								</div>
 								<div class="col-md-2">													
-									<form:select path="yearFrom" cssClass="uniform" items="${yearList}"></form:select>
+									<form:select path="yearFrom" cssClass="uniform validate[required]" items="${yearList}"></form:select>
 								</div>
 								<label class="control-label col-md-2"><spring:message code="label.dateTo"/></label>
 								<div class="col-md-2">
-									<form:select path="monthTo" cssClass="uniform" >
+									<form:select path="monthTo" cssClass="uniform validate[required]" >
 										<c:forEach var="month" items="${reportVM.monthList}">
 											<form:option value="${month.code}"><spring:message code="${month.desc}"/></form:option>
 										</c:forEach>

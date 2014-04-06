@@ -17,6 +17,7 @@
 		 -->
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+		
 		<property name="testOnBorrow">true</property>
 		<property name="validationQuery">select 1</property>
 		

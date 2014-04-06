@@ -35,6 +35,7 @@ public class Store extends BaseModel {
 	
 	@OneToMany(mappedBy="store")
 	@LazyCollection(LazyCollectionOption.FALSE)
+	@JsonBackReference
 	private List<Employee> employees;
 	
 	public Store() {
@@ -88,6 +89,14 @@ public class Store extends BaseModel {
 		return this.name + " - " + this.description;
 	}
 	
+	public List<Employee> getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(List<Employee> employees) {
+		this.employees = employees;
+	}
+
 	@Override
     public int hashCode() {
 		if(this.getId() != null)

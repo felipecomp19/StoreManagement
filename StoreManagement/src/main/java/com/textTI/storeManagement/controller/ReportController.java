@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.textTI.storeManagement.manager.IndicatorManager;
 import com.textTI.storeManagement.manager.ReportManager;
+import com.textTI.storeManagement.manager.StoreManager;
 import com.textTI.storeManagement.model.Indicator;
+import com.textTI.storeManagement.model.Store;
 import com.textTI.storeManagement.model.constants.ReportConstants;
 import com.textTI.storeManagement.model.report.IndicatorsSummary;
 import com.textTI.storeManagement.model.viewModel.ReportViewModel;
@@ -33,6 +35,9 @@ public class ReportController extends BaseController {
 	@Autowired
 	private IndicatorManager indicatorManager;
 	
+	@Autowired
+	private StoreManager storeManager;
+	
 	/*@ModelAttribute("reporList")
 	public List<Report> getReportList(Locale locale)
 	{
@@ -43,6 +48,12 @@ public class ReportController extends BaseController {
 	public List<String> getYearList()
 	{
 		return this.indicatorManager.getDistinctYears();
+	}
+	
+	@ModelAttribute("storeList")
+	public List<Store> getStoreList(HttpServletRequest request)
+	{
+		return this.storeManager.getAllByUser(this.getLoggedUser(request));
 	}
 	
 	@RequestMapping(value= "/")
@@ -129,6 +140,21 @@ public class ReportController extends BaseController {
 		
 		return indicators;
 	}
+	
+	@RequestMapping(value="/getIndicatorsByStoreMonthAndYear/{store}/{month}/{year}")
+	public @ResponseBody IndicatorsSummary getIndicatorsByStoreMonthAndYear(@PathVariable("store") int store, @PathVariable("month") int month, @PathVariable("year") int year, HttpServletRequest request, Model model) {
+		
+		List<Indicator> indicators = this.reportManager.getIndicatorsByStoreMonthAndYear(this.getLoggedUser(request), store, month, year);
+		//Indicator totals = this.reportManager.getIndicatorsByStoreMonthAndYearTotals(this.getLoggedUser(request), store, month, year);
+		
+		IndicatorsSummary result = new IndicatorsSummary();
+		//result.setUserData(totals);
+
+		result.setIndicators(indicators);
+		
+		return result;
+	}
+	
 	
 	
 

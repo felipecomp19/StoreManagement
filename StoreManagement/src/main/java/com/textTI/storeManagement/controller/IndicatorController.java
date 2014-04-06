@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.textTI.storeManagement.manager.EmployeeManager;
 import com.textTI.storeManagement.manager.IndicatorManager;
@@ -72,12 +73,22 @@ public class IndicatorController extends BaseController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String save(@ModelAttribute("indicator") Indicator indicator, HttpServletRequest request)
+	public String save(@ModelAttribute("indicator") Indicator indicator, HttpServletRequest request, Model model)
 	{
-		if(indicator.getId() != null)
-			this.indicatorManager.update(indicator);
-		else
-			this.indicatorManager.insert(indicator);
+			if(indicator.getId() != null)
+				if(this.validate(indicator, model, request))
+					this.indicatorManager.update(indicator);
+				else{
+					model.addAttribute("indicator", indicator);
+					return "/indicator/edit";
+				}
+			else
+				if(this.validate(indicator, model, request))
+					this.indicatorManager.insert(indicator);
+				else{
+					model.addAttribute("indicator", indicator);
+					return "/indicator/create";
+				}
 		
 		return "redirect:/indicator/list";
 	}
@@ -90,6 +101,26 @@ public class IndicatorController extends BaseController {
 		this.indicatorManager.delete(indicator);
 
 		return "redirect:/indicator/list";
+	}
+	
+	@RequestMapping(value= "/filterEmployeeSL/{storeId}" , method = RequestMethod.GET)
+	public @ResponseBody List<Employee> filterEmployeeSL(@PathVariable("storeId") long storeId)
+	{
+		List<Employee> employees = this.storeManager.getById(storeId).getEmployees();
+		
+		return employees;
+	}
+	
+	private boolean validate(Indicator indicator, Model model, HttpServletRequest request) {
+		Indicator _ind = this.indicatorManager.getByMonthAndYear(indicator.getEmployee().getId(), indicator.getMonth(),indicator.getYear());
+		if(_ind != null && _ind.getId() != indicator.getId()){
+			model.addAttribute("showMessage", true);
+			populateStoreAndEmployeeList(request,model);
+			model.addAttribute("validMessage", "validMessage.indAlreadyExist");
+			model.addAttribute("indAlreadyExist",_ind);
+			return false;
+		}
+		return true;
 	}
 	
 	private void populateStoreAndEmployeeList(HttpServletRequest request, Model model) {

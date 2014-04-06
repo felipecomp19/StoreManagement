@@ -63,7 +63,7 @@
 											<div class="form-group"> 
 												<label class="control-label col-md-1"><spring:message code="label.month" /></label>
 												<div class="col-md-2">
-													<form:select path="selectedMonth" cssClass="uniform" >
+													<form:select path="selectedMonth" cssClass="uniform validate[required]" >
 														<c:forEach var="month" items="${reportVM.monthList}">
 															<form:option value="${month.code}"><spring:message code="${month.desc}"/></form:option>
 														</c:forEach>
@@ -71,7 +71,7 @@
 												</div>
 												<label class="control-label col-md-1"><spring:message code="label.year" /></label>
 												<div class="col-md-2">
-													<form:select path="selectedYear" cssClass="uniform" items="${yearList}"></form:select>
+													<form:select path="selectedYear" cssClass="uniform validate[required]" items="${yearList}"></form:select>
 												</div>
 												<div class="col-md-2">
 													<button type="submit" id="btnGenerateReport" class="btn btn-sm btn-green"><spring:message code="label.generate"/></button>
@@ -93,16 +93,48 @@
 								</div>
 							</div>
 							
-							<div class="row">
-								<div class="col-md-12">	
-									<ul class="padded separate-sections">
-										<li>
-											<table id="list486"></table>
-											<div id="plist486"></div>
-										</li>
-									</ul>
+							<!-- charts -->
+							<div class="container">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="box">
+											<div class="box-header">
+												<span class="title"><spring:message code="label.charts" /></span>
+											</div>
+											
+											<div class="box-content padded">
+												<div class="row">
+													<form:form class="form-horizontal fill-up" modelAttribute="reportVM" action="#" >
+													<div class="col-md-4 form-group">
+														<label class="control-label col-md-2"><spring:message code="label.indicators" /></label>
+														<div class="col-md-10">
+														<select id="indSL" class="uniform">
+															<option value="1"><spring:message code="label.achievementOfGoals"/></option>
+															<option value="2"><spring:message code="label.averageValueOfTheProduct"/></option>
+															<option value="3"><spring:message code="label.averageTicket"/></option>
+															<option value="4"><spring:message code="label.itemsPerSale"/></option>
+															<option value="5"><spring:message code="label.conversionRate"/></option>
+															<option value="6"><spring:message code="label.averageSalesPerDay"/></option>
+														</select>
+														</div>
+													</div>
+													<div class="col-md-4 form-group">
+														<label class="control-label col-md-2"><spring:message code="label.stores" /></label>
+														<div class="col-md-10">
+														<form:select id="storeSL" path="store" items="${storeList}" itemLabel="nameWithDesc" itemValue="id" class="uniform"/>
+														</div>
+													</div>
+													</form:form>
+												</div>
+												
+												<div id="indChart" class="xcharts-indChart" style="width: 100%; height: 300px">
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
+							
 						</div>
 					</div>
 				</div>
@@ -116,15 +148,6 @@
 	$(document).ready(function () {
 		var month = $("#selectedMonth").val();
 		var year = $("#selectedYear").val();
-		
-		$("form").submit(function (e) {
-			month = $("#selectedMonth").val();
-			year = $("#selectedYear").val();
-			$("#reportResultOfMonth").jqGrid('setGridParam',{
-				url: "${pageContext.request.contextPath}/report/generateReportResultOfMonth/" + month + "/" + year, 
-				datatype:"json", page:1}).trigger("reloadGrid");
-			e.preventDefault(); 
-		});
 		
 		$("#reportResultOfMonth").jqGrid({
 			url: "${pageContext.request.contextPath}/report/generateReportResultOfMonth/" + month + "/" + year,
@@ -154,7 +177,7 @@
 		    	          '<spring:message code="label.averageSalesPerDayT"/>'
    	          	],
 		    	colModel:[
-		    		{name:'employee.store.name',index:'employee.store.name', width:90},
+		    		{name:'employee.store.nameWithDesc',index:'employee.store.nameWithDesc', width:90},
 		    		{name:'employee.name',index:'employee.name', width:100 },
 		    		{name:'workedDays',index:'workedDays', width:80, align:"right",sorttype:"int", formatter:"integer"},
 		    		{name:'goal',index:'goal', width:80, align:"right",sorttype:"float", formatter:"number", summaryType:'sum', summaryTpl:'<b>Total: {0}</b>'},
@@ -171,10 +194,10 @@
 		    	],
 		    	pager: "#preportResultOfMonth",
 		    	viewrecords: true,
-		    	sortname: 'employee.store.name',
+		    	sortname: 'employee.store.nameWithDesc',
 		    	grouping: true,
 		    	groupingView : {
-		    		groupField : ['employee.store.name'],
+		    		groupField : ['employee.store.nameWithDesc'],
 		    		groupSummary : [true],
 		    		groupColumnShow : [false],
 		    		groupText : ['<b>{0}</b>'],
@@ -185,5 +208,134 @@
 		        footerrow: true,
 		        userDataOnFooter: true
 		 });
+		
+		
+		
+		//css para os graficos
+		var tt = document.createElement('div'),leftOffset = -(~~$('html').css('padding-left').replace('px', '') + ~~$('body').css('margin-left').replace('px', '')),topOffset = -32;
+		tt.className = 'ex-tooltip';
+		document.body.appendChild(tt);
+		
+		var populateChart = function(){
+			var selectedInd = $("#indSL").val();
+        	var selectedStore = $("#storeSL").val();
+        	month = $("#selectedMonth").val();
+			year = $("#selectedYear").val();
+			
+			var data = {
+	                "xScale": "ordinal",
+	                "yScale": "linear"
+	            };
+
+            data.main = [];
+            var graphData = [];
+            $.blockUI({
+   	            message: '<h3> Consultando <img src="${pageContext.request.contextPath}/resources/coreAdmin/images/loading.gif" /></h3>'
+   	        });
+            
+            $.ajax({
+	   			url: "${pageContext.request.contextPath}/report/getIndicatorsByStoreMonthAndYear/" + selectedStore + "/" + month + "/" +year,
+	   			type:"GET",
+	   			dataType: "json",
+	   			contentType: 'application/json',
+	   		    mimeType: 'application/json', 
+	   		 	success: function(result) { 
+	   		 		$.each(result.indicators, function(){
+						if(selectedInd == 1) //achievementOfGoals
+			   		 		graphData.push({
+		                        "x": this.employee.name,
+		                        "y": this.achievementOfGoals
+		                    });
+						else if(selectedInd == 2)//averageValueOfTheProduct
+							graphData.push({
+		                        "x": this.employee.name,
+		                        "y": this.averageValueOfTheProduct
+		                    });
+						else if(selectedInd == 3)//averageTicket
+							graphData.push({
+		                        "x": this.employee.name,
+		                        "y": this.averageTicket
+		                    });
+						else if(selectedInd == 4)//itemsPerSale
+							graphData.push({
+		                        "x": this.employee.name,
+		                        "y": this.itemsPerSale
+		                    });
+						else if(selectedInd == 5)//conversionRate
+							graphData.push({
+		                        "x": this.employee.name,
+		                        "y": this.conversionRate
+		                    });
+						else if(selectedInd == 6)//averageSalesPerDay
+							graphData.push({
+		                        "x": this.employee.name,
+		                        "y": this.averageSalesPerDay
+		                    });
+					});
+		   		 	data.main.push({
+		                "className": ".indicators",
+		                "data": graphData
+		            });
+		   		 
+	   	    	},
+	   	    	error:function(data,status,er) { 
+	   	    		return Growl.error({
+                        title:'Erro!',
+                        text: 'Erro ao criar graficos'
+                    });
+	   	     	},
+                complete: function() {
+                	new xChart('bar', data, '#indChart', {
+                		axisPaddingTop: 5, 
+                		paddingLeft: 25,
+	    	        	mouseover: function (d, i) {
+	    	            	var pos = $(this).offset();
+	    	            	$(tt).text(d.y).css({top: topOffset + pos.top, left: pos.left + leftOffset}).show();
+	    	          	},
+	    	          	mouseout: function (x) { $(tt).hide(); }
+                	});
+	
+                	
+                	var c = 0;
+                	$("g.indicators").attr("class","main indicators bar");
+                	$(".indicators").find("rect").each(function(){
+                		$(this).addClass("color" + c);
+                		$(this).attr("class", "color" + c);
+                		if(c >= 9)
+                			c = 0;
+                		c++;
+    	          	});
+
+                    $.unblockUI();
+                }
+            }).done(function(){
+            	
+            });
+            
+            return data;
+		};
+		
+		populateChart();
+        
+        $("#indSL").change(function(){
+        	populateChart();
+        });
+        
+        $("#storeSL").change(function(){
+        	populateChart();
+        });
+        
+        $("form").submit(function (e) {
+			month = $("#selectedMonth").val();
+			year = $("#selectedYear").val();
+			$("#reportResultOfMonth").jqGrid('setGridParam',{
+				url: "${pageContext.request.contextPath}/report/generateReportResultOfMonth/" + month + "/" + year, 
+				datatype:"json", page:1}).trigger("reloadGrid");
+			 
+			
+			populateChart();
+			
+			e.preventDefault();
+		});
 	});
 </script>

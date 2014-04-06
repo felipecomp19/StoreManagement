@@ -173,8 +173,6 @@
 		   			contentType: 'application/json',
 		   		    mimeType: 'application/json', 
 		   		 	success: function(client) { 
-		   		 		alert(client.id);
-		   		 		alert(client.id > 0);
 		   	        	if(client.id > 0){
 		   	        		window.location.replace("${pageContext.request.contextPath}/client/edit/" + client.id);
 			   	        	return Growl.info({
