@@ -308,8 +308,6 @@
 
                     $.unblockUI();
                 }
-            }).done(function(){
-            	
             });
             
             return data;
@@ -328,11 +326,11 @@
         $("form").submit(function (e) {
 			month = $("#selectedMonth").val();
 			year = $("#selectedYear").val();
+			
 			$("#reportResultOfMonth").jqGrid('setGridParam',{
 				url: "${pageContext.request.contextPath}/report/generateReportResultOfMonth/" + month + "/" + year, 
 				datatype:"json", page:1}).trigger("reloadGrid");
 			 
-			
 			populateChart();
 			
 			e.preventDefault();

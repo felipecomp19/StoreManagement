@@ -21,6 +21,12 @@
 		<property name="testOnBorrow">true</property>
 		<property name="validationQuery">select 1</property>
 		
+		<property name="hibernate.connection.provider_class">org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider</property>
+		<property name="hibernate.c3p0.min_size">1</property>
+		<property name="hibernate.c3p0.max_size">20</property>
+		<property name="hibernate.c3p0.timeout">30</property>
+		<property name="hibernate.c3p0.idle_test_period">100</property>
+		
 		<!-- Disable the second-level cache  -->
         <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
 

@@ -29,7 +29,10 @@ public class IndicatorDAO extends BaseDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		
-		String hql = "SELECT DISTINCT i FROM Indicator i WHERE i.employee.store.id IN (:storesId)";
+		String hql = "SELECT DISTINCT i "
+				+ " FROM Indicator i "
+				+ " WHERE i.employee.store.id IN (:storesId)"
+				+ " ORDER BY i.employee.store.name, i.employee.name, i.year, i.month";
 		Query query = session.createQuery(hql);
 
 		query.setParameterList("storesId", storesId);
@@ -51,7 +54,7 @@ public class IndicatorDAO extends BaseDAO {
 				+ "WHERE i.employee.store.id IN (:storesId) "
 				+ "AND i.month = :month "
 				+ "AND i.year = :year "
-				+ "ORDER BY i.employee.store.name";
+				+ "ORDER BY i.employee.store.id";
 		
 		Query query = session.createQuery(hql);
 
@@ -115,7 +118,7 @@ public class IndicatorDAO extends BaseDAO {
 				+ "FROM Indicator i "
 				+ "WHERE i.employee.store.id IN (:storesId) "
 				+ "AND STR_TO_DATE(CONCAT(i.year,CONCAT('-',i.month)), '%Y-%m') BETWEEN STR_TO_DATE(:dateFrom,'%Y-%m') and STR_TO_DATE(:dateTo,'%Y-%m') "
-				+ "ORDER BY i.employee.store.name, i.employee.name, i.year, i.month";
+				+ "ORDER BY i.employee.store.name, i.employee.name,i.employee.id, i.year, i.month";
 		
 		Query query = session.createQuery(hql);
 
@@ -155,7 +158,7 @@ public class IndicatorDAO extends BaseDAO {
 				+ " WHERE i.employee.store.id IN (:storesId) "
 				+ " AND STR_TO_DATE(CONCAT(i.year,CONCAT('-',i.month)), '%Y-%m') BETWEEN STR_TO_DATE(:dateFrom,'%Y-%m') and STR_TO_DATE(:dateTo,'%Y-%m') "
 				+ " GROUP BY i.employee.id"
-				+ " ORDER BY i.employee.store.name, i.employee.name, i.year, i.month";
+				+ " ORDER BY i.employee.store.id, i.employee.name";
 		
 		Query query = session.createQuery(hql);
 
@@ -218,6 +221,8 @@ public class IndicatorDAO extends BaseDAO {
 		@SuppressWarnings("unchecked")
 		List<String> distinctYears = query.list();
 		
+		session.close();
+		
 		return distinctYears;
 	}
 
@@ -241,6 +246,8 @@ public class IndicatorDAO extends BaseDAO {
 		
 		@SuppressWarnings("unchecked")
 		List<Indicator> indicators = query.list();
+		
+		session.close();
 		
 		return indicators;
 	}
@@ -276,6 +283,8 @@ public class IndicatorDAO extends BaseDAO {
 		
 		Indicator indicator =  (Indicator) queryTotals.uniqueResult();
 		
+		session.close();
+		
 		return indicator;
 	}
 
@@ -296,6 +305,8 @@ public class IndicatorDAO extends BaseDAO {
 		query.setParameter("year", year);
 		
 		Indicator indicator = (Indicator) query.uniqueResult();
+		
+		session.close();
 		
 		return indicator;
 	}

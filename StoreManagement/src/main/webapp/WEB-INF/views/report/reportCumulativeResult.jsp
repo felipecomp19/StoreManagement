@@ -163,7 +163,7 @@
 			    	colModel:[
 			    		{name:'employee.store.nameWithDesc',index:'employee.store.nameWithDesc', width:90},
 			    		{name:'employee.name',index:'employee.name', width:100 },
-			    		{name:'workedDays',index:'workedDays', width:80, align:"right",sorttype:"int", formatter:"number", summaryType:'max', summaryTpl:'<b>Max: {0}</b>'},
+			    		{name:'workedDays',index:'workedDays', width:80, align:"right",sorttype:"int", formatter:"integer"},
 			    		{name:'goal',index:'goal', width:80, align:"right",sorttype:"float", formatter:"number", summaryType:'sum', summaryTpl:'<b>Total: {0}</b>'},
 			    		{name:'valueOfSales',index:'valueOfSales', width:80, align:"right",sorttype:"float",formatter:"number", summaryType:'sum', summaryTpl:'<b>Total: {0}</b>'},
 			    		{name:'numberOfAttendances',index:'numberOfAttendances', width:80, align:"right",sorttype:"int", summaryType:'sum', summaryTpl:'<b>Total: {0}</b>'},

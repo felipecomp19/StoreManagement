@@ -8,6 +8,7 @@ import com.textTI.storeManagement.model.Employee;
 import com.textTI.storeManagement.model.Indicator;
 import com.textTI.storeManagement.model.Report;
 import com.textTI.storeManagement.model.Store;
+import com.textTI.storeManagement.model.report.EvolutionOfIndicatorReportData;
 import com.textTI.storeManagement.model.utils.Month;
 
 public class ReportViewModel {
@@ -31,8 +32,8 @@ public class ReportViewModel {
 	private List<Indicator> indicators;
 	
 	private List<Month> monthList = new ArrayList<Month>(12);
-	
-	//private List<String> yearList = new ArrayList<String>(5);
+
+	private List<EvolutionOfIndicatorReportData> evolutionOfIndicatorReportData;
 	
 	private int monthFrom;
 	private int monthTo;
@@ -210,8 +211,13 @@ public class ReportViewModel {
 	public void setHeaders(List<String> headers) {
 		this.headers = headers;
 	}
-	
-	
-	
-	
+
+	public List<EvolutionOfIndicatorReportData> getEvolutionOfIndicatorReportData() {
+		return evolutionOfIndicatorReportData;
+	}
+
+	public void setEvolutionOfIndicatorReportData(
+			List<EvolutionOfIndicatorReportData> evolutionOfIndicatorReportData) {
+		this.evolutionOfIndicatorReportData = evolutionOfIndicatorReportData;
+	}
 }

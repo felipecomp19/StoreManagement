@@ -16,14 +16,14 @@
 								<form:option value="0"><spring:message code="label.select"/></form:option>
 								<form:option value="1"><spring:message code="report.resultOfMonth"/></form:option>
 								<form:option value="2"><spring:message code="report.cumulativeResult"/></form:option>
-								<%-- <form:option value="3"><spring:message code="report.evolutionOfIndicators"/></form:option> --%>
+								<form:option value="3"><spring:message code="report.evolutionOfIndicators"/></form:option> 
 							</form:select>
 						</li>
 						<li id="resultOfMonthFilter" hidden="hidden">
 							<label><spring:message code="label.selectMonth"/></label>
 							<div class="form-group"> 
 								<label class="control-label col-md-1"><spring:message code="label.month" /></label>
-								<div class="col-md-2">
+								<div class="col-md-3">
 									<form:select path="selectedMonth" cssClass="uniform validate[required]">
 										<c:forEach var="month" items="${reportVM.monthList}">
 											<form:option value="${month.code}"><spring:message code="${month.desc}"/></form:option>

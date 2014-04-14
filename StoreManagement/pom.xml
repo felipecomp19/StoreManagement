@@ -124,6 +124,14 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		
+		<!-- Hibernate c3p0 connection pool -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-c3p0</artifactId>
+			<version>4.1.1.Final</version>
+		</dependency>
+            
 
 		<!-- AspectJ -->
 		<dependency>
@@ -230,7 +238,7 @@
 			<scope>test</scope>
 		</dependency>
 		
-<!-- -->                
+<!-- -->                     
 		<dependency>
 			<groupId>javax.transaction</groupId>
 			<artifactId>jta</artifactId>

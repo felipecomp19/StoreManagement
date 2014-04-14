@@ -25,14 +25,14 @@
 						</li>
 						<li>
 							<label><spring:message code="label.stores"/></label>
-							<form:select id="storeSL" path="store"  class="chzn-select">
+							<form:select id="storeSL" path="store"  class="uniform">
 								<form:option value="0">Selecione</form:option>
 								<form:options items="${stores}" itemValue="idAsString" itemLabel="nameWithDesc"/>
 							</form:select>		
 						</li>
 						<li>
 							<label><spring:message code="label.employee"/></label>
-							<form:select id="employeesSL" path="employee" items="${employees}" itemValue="idAsString" itemLabel="name" class="chzn-select">
+							<form:select id="employeesSL" path="employee" items="${employees}" itemValue="idAsString" itemLabel="name" class="uniform">
 							</form:select>		
 						</li>
 						<li>
@@ -148,11 +148,13 @@
 		   			contentType: 'application/json',
 		   		    mimeType: 'application/json', 
 		   		 	success: function(employees) {
-			   		 	$('#employeesSL').find('option').remove();
+			   		 	//$('#employeesSL').find('option').remove();
+			   		 	$('#employeesSL').empty();
 			   	     	$.each(employees, function (index, value) {
 			            	$("#employeesSL").append('<option value="'+value.idAsString+'">'+value.name+'</option>');
 			   	     	});
 		   		 		
+			   	     	$('#employeesSL').selectmenu('refresh', true);
 		   		 		return Growl.info({
 		   		 			title:'Info!',
 		   		 			text:'Filtrando funcionários'

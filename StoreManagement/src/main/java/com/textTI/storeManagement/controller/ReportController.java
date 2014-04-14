@@ -22,6 +22,7 @@ import com.textTI.storeManagement.manager.StoreManager;
 import com.textTI.storeManagement.model.Indicator;
 import com.textTI.storeManagement.model.Store;
 import com.textTI.storeManagement.model.constants.ReportConstants;
+import com.textTI.storeManagement.model.report.EvolutionOfIndicatorReportData;
 import com.textTI.storeManagement.model.report.IndicatorsSummary;
 import com.textTI.storeManagement.model.viewModel.ReportViewModel;
 
@@ -81,9 +82,12 @@ public class ReportController extends BaseController {
 		
 		}else if(reportVM.getSelectedReport().getCode() == (ReportConstants.REP_EVOLUTION_OF_INDICATORS_CODE)){
 			logger.info("Selected report" + ReportConstants.REP_EVOLUTION_OF_INDICATORS_DESC + " month:" + reportVM.getSelectedMonth());
+			
+			List<EvolutionOfIndicatorReportData> reportData = this.reportManager.generateReportevolutionOfIndicators(this.getLoggedUser(request), reportVM.getMonthFrom(), reportVM.getYearFrom(), reportVM.getMonthTo(), reportVM.getYearTo());
+			reportVM.setEvolutionOfIndicatorReportData(reportData);
+			
 			model.addAttribute("reportVM", reportVM);
-			//return "/report/reportEvolutionOfIndicators";
-			return "/error/bulding";
+			return "/report/reportEvolutionOfIndicators";
 		}else
 			System.out.println("Unkown the report");
 		
@@ -99,8 +103,10 @@ public class ReportController extends BaseController {
 		
 		IndicatorsSummary result = new IndicatorsSummary();
 		
-		result.setIndicators(indicators);
-		result.setUserData(totals);
+		if(indicators.size() > 0){
+			result.setIndicators(indicators);
+			result.setUserData(totals);
+		}
 		
 		return result;
 	}
@@ -128,17 +134,9 @@ public class ReportController extends BaseController {
 	public @ResponseBody List<Indicator> generateReportevolutionOfIndicators(@PathVariable("mf") String monthFrom, @PathVariable("yf") String yearFrom, @PathVariable("mt") String monthTo, @PathVariable("yt") String yearTo, HttpServletRequest request, Model model) {
 		logger.info("gerentinh report" + ReportConstants.REP_RESULT_OF_MONTH_DESC + " month:" + monthFrom + "/" + yearFrom);
 		
-		List<Indicator> indicators = this.reportManager.generateReportevolutionOfIndicators(this.getLoggedUser(request), monthFrom, yearFrom, monthTo, yearTo);
+		//EvolutionOfIndicatorReportData reportData = this.reportManager.generateReportevolutionOfIndicators(this.getLoggedUser(request), monthFrom, yearFrom, monthTo, yearTo);
 		
-		ReportViewModel reportVM = new ReportViewModel();
-		reportVM.setIndicators(indicators);
-		
-		List<String> headers = populateHeaderList(monthFrom, yearFrom, monthTo,yearTo);
-		
-		reportVM.setHeaders(headers);
-		model.addAttribute("reportVM",reportVM);
-		
-		return indicators;
+		return null;
 	}
 	
 	@RequestMapping(value="/getIndicatorsByStoreMonthAndYear/{store}/{month}/{year}")

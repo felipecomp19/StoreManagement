@@ -65,7 +65,14 @@ public class IndicatorManager {
 		Indicator indicator = this.indicatorDAO.generateReportResultOfMonthTotals(loggedUser.getStoresId(), month, year);
 		if(indicator != null){
 			Calendar mycal = new GregorianCalendar(Integer.parseInt(year), Integer.parseInt(month) - 1, 1);
-			indicator.setWorkedDays(mycal.getActualMaximum(Calendar.DAY_OF_MONTH));
+			int workedDays = mycal.getActualMaximum(Calendar.DAY_OF_MONTH);
+			
+			//regra da MORANA
+			//Janeiro e Dezembro tem um dia a menos de trabalho
+			if((Calendar.JANUARY == (Integer.parseInt(month) - 1)) || (Calendar.DECEMBER == (Integer.parseInt(month) - 1)))
+				workedDays = workedDays - 1;
+			
+			indicator.setWorkedDays(workedDays);
 		}
 		
 		return indicator;
@@ -85,7 +92,28 @@ public class IndicatorManager {
 	public Indicator generateReportCumulativeResultTotals(User loggedUser,
 			String monthFrom, String yearFrom, String monthTo, String yearTo) {
 		
-		return this.indicatorDAO.generateReportCumulativeResultTotals(loggedUser.getStoresId(),monthFrom, yearFrom, monthTo, yearTo);
+		Indicator result = this.indicatorDAO.generateReportCumulativeResultTotals(loggedUser.getStoresId(),monthFrom, yearFrom, monthTo, yearTo);
+		
+		Calendar mycalFrom = new GregorianCalendar(Integer.parseInt(yearFrom), Integer.parseInt(monthFrom) - 1, 1);
+		Calendar mycalTo = new GregorianCalendar(Integer.parseInt(yearTo), Integer.parseInt(monthTo) - 1, 1);
+		
+		int workedDays = 0;
+		int totalOfDays = 0;
+		while(mycalFrom.getTime().compareTo(mycalTo.getTime()) <= 0 ){
+			workedDays = mycalFrom.getActualMaximum(Calendar.DAY_OF_MONTH);
+			
+			//regra da MORANA
+			//Janeiro e Dezembro tem um dia a menos de trabalho
+			if((Calendar.JANUARY ==  mycalFrom.get(Calendar.MONTH)) || (Calendar.DECEMBER == mycalFrom.get(Calendar.MONTH)))
+				workedDays = workedDays - 1;
+			
+			totalOfDays = totalOfDays + workedDays;
+			
+			mycalFrom.add(Calendar.MONTH, 1);
+		}
+		
+		result.setWorkedDays(totalOfDays);
+		return result;
 	}
 
 	public List<String> getDistinctYears() {
