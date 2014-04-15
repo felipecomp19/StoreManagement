@@ -141,7 +141,8 @@ public class IndicatorDAO extends BaseDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		
-		String hql = "SELECT new com.textTI.storeManagement.model.Indicator(i.id, sum(i.workedDays) as workedDays,"
+		String hql = "SELECT new com.textTI.storeManagement.model.Indicator(i.id, "
+				+ " sum(i.workedDays) as workedDays,"
 				+ " sum(i.goal) as goal,"
 				+ " sum(i.valueOfSales) as valueOfSales,"
 				+ " sum(i.numberOfAttendances) as numberOfAttendances,"

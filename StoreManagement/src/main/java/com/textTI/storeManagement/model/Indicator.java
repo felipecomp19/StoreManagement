@@ -168,7 +168,7 @@ public class Indicator extends BaseModel {
 	
 	
 	//calculated
-	/*public BigDecimal getAchievementOfGoals()
+	public BigDecimal getAchievementOfGoals()
 	{
 		return this.valueOfSales.divide(this.goal, 2, RoundingMode.HALF_UP);
 	}
@@ -193,16 +193,16 @@ public class Indicator extends BaseModel {
 	
 	public BigDecimal getAverageSalesPerDay(){
 		return this.valueOfSales.divide(new BigDecimal(this.workedDays), 2, RoundingMode.HALF_UP);
-	}*/
+	}
 	
 	public String formatedGoal()
 	{
 		return "";
 	}
 	
-	public BigDecimal getAchievementOfGoals() {
-		return achievementOfGoals;
-	}
+//	public BigDecimal getAchievementOfGoals() {
+//		return achievementOfGoals;
+//	}
 
 	public void setAchievementOfGoals(BigDecimal achievementOfGoals) {
 		if(achievementOfGoals == null)
@@ -211,9 +211,9 @@ public class Indicator extends BaseModel {
 			this.achievementOfGoals = achievementOfGoals;
 	}
 
-	public BigDecimal getAverageValueOfTheProduct() {
-		return averageValueOfTheProduct;
-	}
+//	public BigDecimal getAverageValueOfTheProduct() {
+//		return averageValueOfTheProduct;
+//	}
 
 	public void setAverageValueOfTheProduct(BigDecimal averageValueOfTheProduct) {
 		if(averageValueOfTheProduct == null)
@@ -222,9 +222,9 @@ public class Indicator extends BaseModel {
 			this.averageValueOfTheProduct = averageValueOfTheProduct;
 	}
 
-	public BigDecimal getAverageTicket() {
-		return averageTicket;
-	}
+//	public BigDecimal getAverageTicket() {
+//		return averageTicket;
+//	}
 
 	public void setAverageTicket(BigDecimal averageTicket) {
 		if(averageTicket == null)
@@ -233,9 +233,9 @@ public class Indicator extends BaseModel {
 			this.averageTicket = averageTicket;
 	}
 
-	public BigDecimal getItemsPerSale() {
-		return itemsPerSale;
-	}
+//	public BigDecimal getItemsPerSale() {
+//		return itemsPerSale;
+//	}
 
 	public void setItemsPerSale(BigDecimal itemsPerSale) {
 		if(itemsPerSale == null)
@@ -244,9 +244,9 @@ public class Indicator extends BaseModel {
 			this.itemsPerSale = itemsPerSale;
 	}
 
-	public BigDecimal getConversionRate() {
-		return conversionRate;
-	}
+//	public BigDecimal getConversionRate() {
+//		return conversionRate;
+//	}
 
 	public void setConversionRate(BigDecimal conversionRate) {
 		if(conversionRate == null)
@@ -255,9 +255,9 @@ public class Indicator extends BaseModel {
 			this.conversionRate = conversionRate;
 	}
 
-	public BigDecimal getAverageSalesPerDay() {
-		return averageSalesPerDay;
-	}
+//	public BigDecimal getAverageSalesPerDay() {
+//		return averageSalesPerDay;
+//	}
 
 	public void setAverageSalesPerDay(BigDecimal averageSalesPerDay) {
 		if(averageSalesPerDay == null)

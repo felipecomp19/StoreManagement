@@ -1,5 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<div id="tab2">
 <div id="dataTables">
 	<table cellpadding="0" cellspacing="0" border="0"
 		class="dTable responsive">
@@ -32,3 +33,33 @@
 		</tbody>
 	</table>
 </div>
+
+
+<!-- charts -->
+<br/>
+<div class="row">
+	<div class="col-md-12">
+		<div class="box">
+			<div class="box-header">
+				<span class="title"><spring:message code="label.charts" /></span>
+			</div>
+			<div class="box-content padded">
+				<div class="sine-chart" id="averageValueOfTheProductChart">
+					<input type="hidden" id="keys" value="${reportVM.evolutionOfIndicatorReportData[0].keys}" />
+					<c:forEach var="reportData" items="${reportVM.evolutionOfIndicatorReportData}">
+						<div name="employees2" empName="${reportData.employee.name}">
+							<c:forEach var="entry" items="${reportData.averageValueOfTheProductMap}">
+								<input name="graphData2" type="hidden" key="${entry.key}" value="${entry.value}">
+							</c:forEach>
+						</div>
+					</c:forEach>
+				</div>
+				<div id="averageValueOfTheProductChart_legend" style="text-align: center;">
+					<!-- js will populate with legend based on the chart -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+

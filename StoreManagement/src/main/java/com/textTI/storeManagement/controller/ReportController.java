@@ -118,12 +118,11 @@ public class ReportController extends BaseController {
 		List<Indicator> indicators = this.reportManager.generateReportCumulativeResult(this.getLoggedUser(request), monthFrom, yearFrom, monthTo, yearTo);
 		Indicator totals = this.reportManager.generateReportCumulativeResultTotals(this.getLoggedUser(request), monthFrom, yearFrom, monthTo, yearTo);
 		
-		ReportViewModel reportVM = new ReportViewModel();
-		model.addAttribute("reportVM",reportVM);
+//		ReportViewModel reportVM = new ReportViewModel();
+//		model.addAttribute("reportVM",reportVM);
 		
 		IndicatorsSummary result = new IndicatorsSummary();
 		result.setUserData(totals);
-
 		result.setIndicators(indicators);
 		
 		return result;
