@@ -41,10 +41,10 @@
 	<div class="col-md-12">
 		<div class="box">
 			<div class="box-header">
-				<span class="title"><spring:message code="label.charts" /></span>
+				<span class="title"><spring:message code="label.charts" />&nbsp;&nbsp;-&nbsp;&nbsp;<spring:message code="label.averageTicket" /></span>
 			</div>
 			<div class="box-content padded">
-				<div class="sine-chart" id="averageTicketChart">
+				<div class="sine-chart" id="averageTicketChart" style="height: 350px;">
 					<input type="hidden" id="keys" value="${reportVM.evolutionOfIndicatorReportData[0].keys}" />
 					<c:forEach var="reportData" items="${reportVM.evolutionOfIndicatorReportData}">
 						<div name="employees3" empName="${reportData.employee.name}">

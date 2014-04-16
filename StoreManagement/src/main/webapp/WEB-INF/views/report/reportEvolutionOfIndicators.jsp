@@ -144,12 +144,14 @@
 		tt.className = 'ex-tooltip';
 		document.body.appendChild(tt);
 		
+		
 		populateChart("#achievementOfGoalChart","#achievementOfGoalChart_legend","employees","graphData");
-		populateChart("#averageValueOfTheProductChart","#averageValueOfTheProductChart_legend","employees2","graphData2");
-		populateChart("#averageTicketChart","#averageTicketChart_legend","employees3","graphData3");
-		populateChart("#itemsPerSaleChart","#itemsPerSaleChart_legend","employees4","graphData4");
+		populateChartMoney("#averageValueOfTheProductChart","#averageValueOfTheProductChart_legend","employees2","graphData2");
+		populateChartMoney("#averageTicketChart","#averageTicketChart_legend","employees3","graphData3");
+		populateChartStatic("#itemsPerSaleChart","#itemsPerSaleChart_legend","employees4","graphData4");
 		populateChart("#conversionRateChart","#conversionRateChart_legend","employees5","graphData5");
-		populateChart("#averageSalesPerDayChart","#averageSalesPerDayChart_legend","employees6","graphData6");
+		populateChartMoney("#averageSalesPerDayChart","#averageSalesPerDayChart_legend","employees6","graphData6");
+		
 		
 		$("#tab1").hide();
 		$("#tab2").hide();
@@ -247,6 +249,53 @@
 	          	}
 	        });
 		}
+		
+		function populateChartMoney(chartId, chartLegendId, emps, gData)
+		{
+			var myChart = new xChart('line-dotted', getData(chartLegendId, emps, gData), chartId, {
+	        	axisPaddingTop: 5, 
+	        	paddingLeft: 50,
+	        	tickFormatX: function (x) { 
+	        			var month = x.split("_")[1];
+	        			return month; 
+	        		},
+        		tickFormatY: function (x) { 
+        			return "R$ " + x; 
+        		},
+	        	mouseover: function (d, i) {
+	            	var pos = $(this).offset();
+	            	$(tt).text("R$ " + d.y).css({top: topOffset + pos.top, left: pos.left + leftOffset}).show();
+	          	},
+	          	mouseout: function (x) { 
+	          		$(tt).hide(); 
+	          	}
+	        });
+		}
+		
+		function populateChartStatic(chartId, chartLegendId, emps, gData)
+		{
+			var myChart = new xChart('line-dotted', getData(chartLegendId, emps, gData), chartId, {
+	        	axisPaddingTop: 5, 
+	        	paddingLeft: 50,
+	        	tickFormatX: function (x) { 
+	        			var month = x.split("_")[1];
+	        			return month; 
+	        		},
+        		tickFormatY: function (x) { 
+        			return x; 
+        		},
+	        	mouseover: function (d, i) {
+	            	var pos = $(this).offset();
+	            	$(tt).text(d.y + " iten(s)").css({top: topOffset + pos.top, left: pos.left + leftOffset}).show();
+	          	},
+	          	mouseout: function (x) { 
+	          		$(tt).hide(); 
+	          	}
+	        });
+		}
+		
+		$("#tabRef2").click();
+		$("#tabRef1").click();
 	});
 </script>
 	</jsp:body>
