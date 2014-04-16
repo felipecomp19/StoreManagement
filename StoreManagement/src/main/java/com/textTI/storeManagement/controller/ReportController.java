@@ -118,4 +118,16 @@ public class ReportController extends BaseController {
 		
 		return result;
 	}
+	
+	@RequestMapping(value="/getIndicatorsByStoreAndRangeOfMonthAndYear/{store}/{monthFrom}/{yearFrom}/{monthTo}/{yearTo}")
+	public @ResponseBody IndicatorsSummary getIndicatorsByStoreAndRangeOfMonthAndYear(@PathVariable("store") long storeId, @PathVariable("monthFrom") String monthFrom, @PathVariable("yearFrom") String yearFrom, @PathVariable("monthTo") String monthTo, @PathVariable("yearTo") String yearTo, HttpServletRequest request, Model model) {
+		
+		List<Indicator> indicators = this.reportManager.generateReportCumulativeResult(this.getLoggedUser(request), monthFrom, yearFrom, monthTo, yearTo, storeId);
+		
+		IndicatorsSummary result = new IndicatorsSummary();
+
+		result.setIndicators(indicators);
+		
+		return result;
+	}
 }
