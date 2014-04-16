@@ -3,8 +3,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <div id="tab4">
 <div id="dataTables">
-	<table cellpadding="0" cellspacing="0" border="0"
-		class="dTable responsive">
+	<table cellpadding="0" cellspacing="0" border="0" class="dTable responsive">
 		<thead>
 			<tr>
 				<th><div>

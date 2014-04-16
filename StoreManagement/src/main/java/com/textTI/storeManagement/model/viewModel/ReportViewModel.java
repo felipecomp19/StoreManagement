@@ -9,6 +9,7 @@ import com.textTI.storeManagement.model.Indicator;
 import com.textTI.storeManagement.model.Report;
 import com.textTI.storeManagement.model.Store;
 import com.textTI.storeManagement.model.report.EvolutionOfIndicatorReportData;
+import com.textTI.storeManagement.model.report.IndicatorsSummary;
 import com.textTI.storeManagement.model.utils.Month;
 
 public class ReportViewModel {
@@ -43,19 +44,12 @@ public class ReportViewModel {
 	
 	private List<String> headers;
 	
+	private IndicatorsSummary reportData; 
+	
 	public ReportViewModel()
 	{
 		this.populateMonthList();
-		//this.populateYearList();
 	}
-
-	/*private void populateYearList() {
-		yearList.add("2013");
-		yearList.add("2014");
-		yearList.add("2015");
-		yearList.add("2016");
-		yearList.add("2017");
-	}*/
 
 	private void populateMonthList() {
 		Month jan = new Month(1, "month.jan");
@@ -219,5 +213,13 @@ public class ReportViewModel {
 	public void setEvolutionOfIndicatorReportData(
 			List<EvolutionOfIndicatorReportData> evolutionOfIndicatorReportData) {
 		this.evolutionOfIndicatorReportData = evolutionOfIndicatorReportData;
+	}
+
+	public IndicatorsSummary getReportData() {
+		return reportData;
+	}
+
+	public void setReportData(IndicatorsSummary reportData) {
+		this.reportData = reportData;
 	}
 }

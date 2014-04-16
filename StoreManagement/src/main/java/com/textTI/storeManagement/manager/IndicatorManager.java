@@ -56,13 +56,13 @@ public class IndicatorManager {
 	}
 
 	public List<Indicator> getAllByUserAndMonth(User loggedUser,
-			String selectedMonth, String selectedYear) {
-		return this.indicatorDAO.getAllByUserAndMonth(loggedUser.getStoresId(),selectedMonth, selectedYear);
+			String selectedMonth, String selectedYear, Long storeId) {
+		return this.indicatorDAO.getAllByUserAndMonth(loggedUser.getStoresId(),selectedMonth, selectedYear, storeId);
 	}
 	
 	public Indicator generateReportResultOfMonthTotals(User loggedUser,
-			String month, String year) {
-		Indicator indicator = this.indicatorDAO.generateReportResultOfMonthTotals(loggedUser.getStoresId(), month, year);
+			String month, String year, Long storeId) {
+		Indicator indicator = this.indicatorDAO.generateReportResultOfMonthTotals(loggedUser.getStoresId(), month, year, storeId);
 		if(indicator != null){
 			Calendar mycal = new GregorianCalendar(Integer.parseInt(year), Integer.parseInt(month) - 1, 1);
 			int workedDays = mycal.getActualMaximum(Calendar.DAY_OF_MONTH);

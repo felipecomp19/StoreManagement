@@ -45,7 +45,7 @@ public class IndicatorDAO extends BaseDAO {
 		return indicators;
 	}
 
-	public List<Indicator> getAllByUserAndMonth(List<Long> storesId, String selectedMonth, String selectedYear) {
+	public List<Indicator> getAllByUserAndMonth(List<Long> storesId, String selectedMonth, String selectedYear, Long storeId) {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		
@@ -54,6 +54,7 @@ public class IndicatorDAO extends BaseDAO {
 				+ "WHERE i.employee.store.id IN (:storesId) "
 				+ "AND i.month = :month "
 				+ "AND i.year = :year "
+				+ "AND i.employee.store.id = :storeId "
 				+ "ORDER BY i.employee.store.id";
 		
 		Query query = session.createQuery(hql);
@@ -61,6 +62,7 @@ public class IndicatorDAO extends BaseDAO {
 		query.setParameterList("storesId", storesId);
 		query.setParameter("month", Integer.parseInt(selectedMonth));
 		query.setParameter("year", Integer.parseInt(selectedYear));
+		query.setParameter("storeId", storeId);
 		
 		@SuppressWarnings("unchecked")
 		List<Indicator> indicators = query.list();
@@ -71,7 +73,7 @@ public class IndicatorDAO extends BaseDAO {
 	}
 	
 	public Indicator generateReportResultOfMonthTotals(List<Long> storesId,
-			String month, String year) {
+			String month, String year, Long storeId) {
 		
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
@@ -92,13 +94,15 @@ public class IndicatorDAO extends BaseDAO {
 				+ " FROM Indicator i "
 				+ " WHERE i.employee.store.id IN (:storesId) "
 				+ " AND i.month = :month "
-				+ " AND i.year = :year ";
+				+ " AND i.year = :year "
+				+ " AND i.employee.store.id = :storeId";
 		
 		Query query = session.createQuery(hqlTotal);
 
 		query.setParameterList("storesId", storesId);
 		query.setParameter("month", Integer.parseInt(month));
 		query.setParameter("year", Integer.parseInt(year));
+		query.setParameter("storeId", storeId);
 		
 		Indicator indicator = (Indicator) query.uniqueResult();
 		

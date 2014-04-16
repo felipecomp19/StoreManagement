@@ -57,10 +57,16 @@
 						<div class="box-content">
 							<div class="row">
 								<div class="col-md-12" >
-									<form:form class="form-horizontal fill-up validatable" method="POST" commandName="reportVM" modelAttribute="reportVM" action="#" >
-										<div class="padded col-md-8" >
-											<label><spring:message code="label.selectMonth"/></label>
+									<form:form class="form-horizontal fill-up validatable" method="POST" commandName="reportVM" modelAttribute="reportVM" action="${pageContext.request.contextPath}/report/generate" >
+										<form:select id="reportsSL" path="selectedReport">
+											<form:option value="1"><spring:message code="report.resultOfMonth"/></form:option>
+										</form:select>
+										<div class="padded col-md-12" >
 											<div class="form-group"> 
+												<label class="control-label col-md-1"><spring:message code="label.stores"/></label>
+												<div class="col-md-2">
+													<form:select id="storeSL" path="store" items="${storeList}" itemValue="id" itemLabel="nameWithDesc" cssClass="uniform"/>
+												</div>
 												<label class="control-label col-md-1"><spring:message code="label.month" /></label>
 												<div class="col-md-2">
 													<form:select path="selectedMonth" cssClass="uniform validate[required]" >
@@ -85,17 +91,67 @@
 							<!-- table -->
 							<div class="container">
 								<div class="row">
-									<div class="col-md-12">	
-										<ul class="padded separate-sections">
-											<li>
-												<table id="reportResultOfMonth"></table>
-												<div id="preportResultOfMonth"></div>
-											</li>
-										</ul>
+									<div class="col-md-12">
+										<div id="dataTables">
+											<table cellpadding="0" cellspacing="0" border="0" class="dTable responsive">
+												<thead>
+													<tr>
+														<th><spring:message code="label.employee"/></th>
+														<th><spring:message code="label.workedDaysT"/></th>
+														<th><spring:message code="label.goal"/></th>
+														<th><spring:message code="label.valueOfSalesT"/></th>
+														<th><spring:message code="label.numberOfAttendancesT"/></th>
+														<th><spring:message code="label.numberOfSalesT"/></th>
+														<th><spring:message code="label.numberOfItemsSoldT"/></th>
+														<th><spring:message code="label.achievementOfGoalsT"/></th>
+														<th><spring:message code="label.averageValueOfTheProductT"/></th>
+														<th><spring:message code="label.averageTicketT"/></th>
+														<th><spring:message code="label.itemsPerSaleT"/></th>
+														<th><spring:message code="label.conversionRateT"/></th>
+														<th><spring:message code="label.averageSalesPerDayT"/></th>
+													</tr>
+												</thead>
+												<tbody>
+													<c:forEach var="indicator" items="${reportVM.reportData.indicators}">
+														<tr>
+															<td>${indicator.employee.name}</td>
+															<td >${indicator.workedDays}</td>
+															<td class="indInput money">${indicator.goal}</td>
+															<td>${indicator.valueOfSales}</td>
+															<td>${indicator.numberOfAttendances}</td>
+															<td>${indicator.numberOfSales}</td>
+															<td>${indicator.numberOfItemsSold}</td>
+															<td>${indicator.achievementOfGoals}</td>
+															<td>${indicator.averageValueOfTheProduct}</td>
+															<td>${indicator.averageTicket}</td>
+															<td>${indicator.itemsPerSale}</td>
+															<td>${indicator.conversionRate}</td>
+															<td>${indicator.averageSalesPerDay}</td>
+														</tr>
+													</c:forEach>
+														<tr style="font-weight: bold;">
+															<td><spring:message code="label.total"/>
+															<td>${reportVM.reportData.userData.workedDays}</td>
+															<td>${reportVM.reportData.userData.goal}</td>
+															<td>${reportVM.reportData.userData.valueOfSales}</td>
+															<td>${reportVM.reportData.userData.numberOfAttendances}</td>
+															<td>${reportVM.reportData.userData.numberOfSales}</td>
+															<td>${reportVM.reportData.userData.numberOfItemsSold}</td>
+															<td>${reportVM.reportData.userData.achievementOfGoals}</td>
+															<td>${reportVM.reportData.userData.averageValueOfTheProduct}</td>
+															<td>${reportVM.reportData.userData.averageTicket}</td>
+															<td>${reportVM.reportData.userData.itemsPerSale}</td>
+															<td>${reportVM.reportData.userData.conversionRate}</td>
+															<td>${reportVM.reportData.userData.averageSalesPerDay}</td>
+														</tr>
+												</tbody>
+											</table>
+										</div>	
 									</div>
 								</div>
 							</div>
 							
+							<br/>
 							<!-- charts -->
 							<div class="container">
 								<div class="row">
@@ -108,25 +164,19 @@
 											<div class="box-content padded">
 												<div class="row">
 													<form:form class="form-horizontal fill-up" modelAttribute="reportVM" action="#" >
-													<div class="col-md-4 form-group">
-														<label class="control-label col-md-2"><spring:message code="label.indicators" /></label>
-														<div class="col-md-10">
-														<select id="indSL" class="uniform">
-															<option value="1"><spring:message code="label.achievementOfGoals"/></option>
-															<option value="2"><spring:message code="label.averageValueOfTheProduct"/></option>
-															<option value="3"><spring:message code="label.averageTicket"/></option>
-															<option value="4"><spring:message code="label.itemsPerSale"/></option>
-															<option value="5"><spring:message code="label.conversionRate"/></option>
-															<option value="6"><spring:message code="label.averageSalesPerDay"/></option>
-														</select>
+														<div class="col-md-4 form-group">
+															<label class="control-label col-md-2"><spring:message code="label.indicators" /></label>
+															<div class="col-md-10">
+															<select id="indSL" class="uniform">
+																<option value="1"><spring:message code="label.achievementOfGoals"/></option>
+																<option value="2"><spring:message code="label.averageValueOfTheProduct"/></option>
+																<option value="3"><spring:message code="label.averageTicket"/></option>
+																<option value="4"><spring:message code="label.itemsPerSale"/></option>
+																<option value="5"><spring:message code="label.conversionRate"/></option>
+																<option value="6"><spring:message code="label.averageSalesPerDay"/></option>
+															</select>
+															</div>
 														</div>
-													</div>
-													<div class="col-md-4 form-group">
-														<label class="control-label col-md-2"><spring:message code="label.stores" /></label>
-														<div class="col-md-10">
-														<form:select id="storeSL" path="store" items="${storeList}" itemLabel="nameWithDesc" itemValue="id" class="uniform"/>
-														</div>
-													</div>
 													</form:form>
 												</div>
 												
@@ -152,67 +202,7 @@
 		var month = $("#selectedMonth").val();
 		var year = $("#selectedYear").val();
 		
-		$("#reportResultOfMonth").jqGrid({
-			url: "${pageContext.request.contextPath}/report/generateReportResultOfMonth/" + month + "/" + year,
-			datatype: "json",
-		 	height: 'auto',
-		 	autowidth: true,
-		 	jsonReader: {
-		        root: "indicators",
-		        userdata: "userData",
-		        repeatitems: false
-			},
-		 	rowNum: 25,
-		 	rowList: [10,25,50,100],
-		    	colNames:['<spring:message code="label.store" />', 
-		    	          '<spring:message code="label.employee"/>', 
-		    	          '<spring:message code="label.workedDaysT"/>',
-		    	          '<spring:message code="label.goal"/>',
-		    	          '<spring:message code="label.valueOfSalesT"/>',
-		    	          '<spring:message code="label.numberOfAttendancesT"/>',
-		    	          '<spring:message code="label.numberOfSalesT"/>',
-		    	          '<spring:message code="label.numberOfItemsSoldT"/>',
-		    	          '<spring:message code="label.achievementOfGoalsT"/>',
-		    	          '<spring:message code="label.averageValueOfTheProductT"/>',
-		    	          '<spring:message code="label.averageTicketT"/>',
-		    	          '<spring:message code="label.itemsPerSaleT"/>',
-		    	          '<spring:message code="label.conversionRateT"/>',
-		    	          '<spring:message code="label.averageSalesPerDayT"/>'
-   	          	],
-		    	colModel:[
-		    		{name:'employee.store.nameWithDesc',index:'employee.store.nameWithDesc', width:90},
-		    		{name:'employee.name',index:'employee.name', width:100 },
-		    		{name:'workedDays',index:'workedDays', width:80, align:"right",sorttype:"int", formatter:"integer"},
-		    		{name:'goal',index:'goal', width:80, align:"right",sorttype:"float", formatter:"number", summaryType:'sum', summaryTpl:'<b>{0}</b>'},
-		    		{name:'valueOfSales',index:'valueOfSales', width:80, align:"right",sorttype:"float",formatter:"number", summaryType:'sum', summaryTpl:'<b>{0}</b>'},
-		    		{name:'numberOfAttendances',index:'numberOfAttendances', width:80, align:"right",sorttype:"int", summaryType:'sum', summaryTpl:'<b>{0}</b>'},
-		    		{name:'numberOfSales',index:'numberOfSales', width:80, align:"right",sorttype:"int", summaryType:'sum', summaryTpl:'<b>{0}</b>'},
-		    		{name:'numberOfItemsSold',index:'numberOfItemsSold', width:80, align:"right",sorttype:"int", summaryType:'sum', summaryTpl:'<b>{0}</b>'},
-		    		{name:'achievementOfGoals',index:'achievementOfGoals', width:80, align:"right",sorttype:"float",formatter:"number", editable:true, summaryType:'avg', summaryTpl:'<b>{0}</b>'},
-		    		{name:'averageValueOfTheProduct',index:'averageValueOfTheProduct', width:80, align:"right",sorttype:"float",formatter:"number", editable:true, summaryType:'avg', summaryTpl:'<b>{0}</b>'},
-		    		{name:'averageTicket',index:'averageTicket', width:80, align:"right",sorttype:"float",formatter:"number", editable:true, summaryType:'avg', summaryTpl:'<b>{0}</b>'},
-		    		{name:'itemsPerSale',index:'itemsPerSale', width:80, align:"right",sorttype:"float",formatter:"number", editable:true, summaryType:'avg', summaryTpl:'<b>{0}</b>'},
-		    		{name:'conversionRate',index:'conversionRate', width:80, align:"right",sorttype:"float",formatter:"number", editable:true, summaryType:'avg', summaryTpl:'<b>{0}</b>'},
-		    		{name:'averageSalesPerDay',index:'averageSalesPerDay', width:80, align:"right",sorttype:"float",formatter:"number", editable:true, summaryType:'avg', summaryTpl:'<b>{0}</b>'}
-		    	],
-		    	pager: "#preportResultOfMonth",
-		    	viewrecords: true,
-		    	sortname: 'employee.store.nameWithDesc',
-		    	grouping: true,
-		    	groupingView : {
-		    		groupField : ['employee.store.nameWithDesc'],
-		    		groupSummary : [true],
-		    		groupColumnShow : [false],
-		    		groupText : ['<b>{0}</b>'],
-		    		groupCollapse : false,
-		 			groupOrder: ['asc'],
-		 			groupDataSorted : true
-		    	},
-		        footerrow: true,
-		        userDataOnFooter: true
-		 });
-		
-		
+		$("#reportsSL").hide();
 		
 		//css para os graficos
 		var tt = document.createElement('div'),leftOffset = -(~~$('html').css('padding-left').replace('px', '') + ~~$('body').css('margin-left').replace('px', '')),topOffset = -32;
@@ -321,22 +311,5 @@
         $("#indSL").change(function(){
         	populateChart();
         });
-        
-        $("#storeSL").change(function(){
-        	populateChart();
-        });
-        
-        $("form").submit(function (e) {
-			month = $("#selectedMonth").val();
-			year = $("#selectedYear").val();
-			
-			$("#reportResultOfMonth").jqGrid('setGridParam',{
-				url: "${pageContext.request.contextPath}/report/generateReportResultOfMonth/" + month + "/" + year, 
-				datatype:"json", page:1}).trigger("reloadGrid");
-			 
-			populateChart();
-			
-			e.preventDefault();
-		});
 	});
 </script>

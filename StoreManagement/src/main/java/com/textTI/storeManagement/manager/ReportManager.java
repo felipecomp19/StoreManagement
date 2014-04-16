@@ -59,17 +59,17 @@ public class ReportManager {
 		return reports;
 	}
 
-	public List<Indicator> generateReportResultOfMonth(User loggedUser, String selectedMonth, String selectedYear) {
+	public List<Indicator> generateReportResultOfMonth(User loggedUser, String selectedMonth, String selectedYear, Long storeId) {
 		
-		List<Indicator> result = this.indicatorManager.getAllByUserAndMonth(loggedUser, selectedMonth, selectedYear); 
+		List<Indicator> result = this.indicatorManager.getAllByUserAndMonth(loggedUser, selectedMonth, selectedYear, storeId); 
 		
 		return result;
 	}
 	
 	public Indicator generateReportResultOfMonthTotals(User loggedUser,
-			String month, String year) {
+			String month, String year, Long storeId) {
 		
-		return this.indicatorManager.generateReportResultOfMonthTotals(loggedUser, month, year);
+		return this.indicatorManager.generateReportResultOfMonthTotals(loggedUser, month, year, storeId);
 	}
 
 	public List<EvolutionOfIndicatorReportData> generateReportevolutionOfIndicators(User loggedUser,

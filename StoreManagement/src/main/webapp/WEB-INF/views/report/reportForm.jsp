@@ -19,6 +19,9 @@
 								<form:option value="3"><spring:message code="report.evolutionOfIndicators"/></form:option> 
 							</form:select>
 						</li>
+						<li>
+							<form:select path="store" items="${storeList}" itemValue="id" itemLabel="nameWithDesc" cssClass="uniform"/>
+						</li>
 						<li id="resultOfMonthFilter" hidden="hidden">
 							<label><spring:message code="label.selectMonth"/></label>
 							<div class="form-group"> 
