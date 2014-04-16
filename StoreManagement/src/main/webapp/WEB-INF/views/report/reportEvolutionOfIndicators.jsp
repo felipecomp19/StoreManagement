@@ -2,6 +2,7 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html;charset=UTF-8" language="java"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <t:template>
 	<jsp:body>
@@ -65,6 +66,49 @@
 				        	</ul>
 		      			</div>
 				      	<div class="box-content padded">
+				      		<div class="row">
+								<form:form class="form-horizontal fill-up validatable" method="POST" commandName="reportVM" modelAttribute="reportVM" action="${pageContext.request.contextPath}/report/generate" >
+									<form:select id="reportsSL" path="selectedReport">
+										<form:option value="3"><spring:message code="report.evolutionOfIndicators"/></form:option>
+									</form:select>
+									<div class="padded col-md-12" >
+										<div class="form-group">
+											<label class="control-label col-md-1"><spring:message code="label.store"/></label>
+											<div class="col-md-2">
+												<form:select id="storeSL" path="store" items="${storeList}" itemValue="id" itemLabel="nameWithDesc" cssClass="uniform"/>
+											</div> 
+											<label class="control-label col-md-1"><spring:message code="label.dateFrom"/></label>
+											<div class="col-md-1">
+												<form:select path="monthFrom" cssClass="uniform validate[required]" >
+													<c:forEach var="month" items="${reportVM.monthList}">
+														<form:option value="${month.code}"><spring:message code="${month.desc}"/></form:option>
+													</c:forEach>
+												</form:select>
+											</div>
+											<div class="col-md-1">													
+												<form:select path="yearFrom" cssClass="uniform validate[required]" items="${yearList}"></form:select>
+											</div>
+											<label class="control-label col-md-1"><spring:message code="label.dateTo"/></label>
+											<div class="col-md-1">
+												<form:select path="monthTo" cssClass="uniform validate[required]" >
+													<c:forEach var="month" items="${reportVM.monthList}">
+														<form:option value="${month.code}"><spring:message code="${month.desc}"/></form:option>
+													</c:forEach>
+												</form:select>
+											</div>
+											<div class="col-md-1">
+												<form:select path="yearTo" cssClass="uniform validate[required]" items="${yearList}"></form:select>
+											</div>
+											<div class="col-md-2">
+												<button type="submit" id="btnGenerateReport" class="btn btn-sm btn-green"><spring:message code="label.generate"/></button>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										
+									</div>
+								</form:form>
+							</div>
 					        <div class="tab-content">
 					          	<div class="tab-pane active" id="tabAchievementOfGoals">
 				          			<%@include file="achievementOfGoalsDataTable.jsp"%>
@@ -92,8 +136,10 @@
 		</div>
 		<!-- [END] main content -->
 		
-		<script type="text/javascript">
+<script type="text/javascript">
 	$(document).ready(function() {
+		$("#reportsSL").hide();
+		
 		var tt = document.createElement('div'),leftOffset = -(~~$('html').css('padding-left').replace('px', '') + ~~$('body').css('margin-left').replace('px', '')),topOffset = -32;
 		tt.className = 'ex-tooltip';
 		document.body.appendChild(tt);

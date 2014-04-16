@@ -36,8 +36,8 @@ public class ReportViewModel {
 
 	private List<EvolutionOfIndicatorReportData> evolutionOfIndicatorReportData;
 	
-	private int monthFrom;
-	private int monthTo;
+	private String monthFrom;
+	private String monthTo;
 	
 	private String yearFrom;
 	private String yearTo;
@@ -166,19 +166,19 @@ public class ReportViewModel {
 		this.yearList = yearList;
 	}*/
 
-	public int getMonthFrom() {
+	public String getMonthFrom() {
 		return monthFrom;
 	}
 
-	public void setMonthFrom(int monthFrom) {
+	public void setMonthFrom(String monthFrom) {
 		this.monthFrom = monthFrom;
 	}
 
-	public int getMonthTo() {
+	public String getMonthTo() {
 		return monthTo;
 	}
 
-	public void setMonthTo(int monthTo) {
+	public void setMonthTo(String monthTo) {
 		this.monthTo = monthTo;
 	}
 

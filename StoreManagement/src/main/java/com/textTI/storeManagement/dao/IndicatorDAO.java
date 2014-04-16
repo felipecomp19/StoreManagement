@@ -113,22 +113,24 @@ public class IndicatorDAO extends BaseDAO {
 
 	public List<Indicator> getAllByUserAndMonthYearInterval(
 			List<Long> storesId, String monthFrom, String yearFrom,
-			String monthTo, String yearTo) {
+			String monthTo, String yearTo, Long storeId) {
 		
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		
 		String hql = "SELECT DISTINCT i "
-				+ "FROM Indicator i "
-				+ "WHERE i.employee.store.id IN (:storesId) "
-				+ "AND STR_TO_DATE(CONCAT(i.year,CONCAT('-',i.month)), '%Y-%m') BETWEEN STR_TO_DATE(:dateFrom,'%Y-%m') and STR_TO_DATE(:dateTo,'%Y-%m') "
-				+ "ORDER BY i.employee.store.name, i.employee.name,i.employee.id, i.year, i.month";
+				+ " FROM Indicator i "
+				+ " WHERE i.employee.store.id IN (:storesId) "
+				+ " AND STR_TO_DATE(CONCAT(i.year,CONCAT('-',i.month)), '%Y-%m') BETWEEN STR_TO_DATE(:dateFrom,'%Y-%m') and STR_TO_DATE(:dateTo,'%Y-%m') "
+				+ " AND i.employee.store.id = :storeId"
+				+ " ORDER BY i.employee.store.name, i.employee.name,i.employee.id, i.year, i.month";
 		
 		Query query = session.createQuery(hql);
 
 		query.setParameterList("storesId", storesId);
 		query.setParameter("dateFrom", yearFrom + '-' + monthFrom);
 		query.setParameter("dateTo", yearTo + '-' + monthTo);
+		query.setParameter("storeId", storeId);
 		
 		@SuppressWarnings("unchecked")
 		List<Indicator> indicators = query.list();
@@ -140,7 +142,7 @@ public class IndicatorDAO extends BaseDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Indicator> generateReportCumulativeResult(List<Long> storesId,
-			String monthFrom, String yearFrom, String monthTo, String yearTo) {
+			String monthFrom, String yearFrom, String monthTo, String yearTo, Long storeId) {
 		
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
@@ -162,6 +164,7 @@ public class IndicatorDAO extends BaseDAO {
 				+ " FROM Indicator i "
 				+ " WHERE i.employee.store.id IN (:storesId) "
 				+ " AND STR_TO_DATE(CONCAT(i.year,CONCAT('-',i.month)), '%Y-%m') BETWEEN STR_TO_DATE(:dateFrom,'%Y-%m') and STR_TO_DATE(:dateTo,'%Y-%m') "
+				+ " AND i.employee.store.id = :storeId"
 				+ " GROUP BY i.employee.id"
 				+ " ORDER BY i.employee.store.id, i.employee.name";
 		
@@ -170,6 +173,7 @@ public class IndicatorDAO extends BaseDAO {
 		query.setParameterList("storesId", storesId);
 		query.setParameter("dateFrom", yearFrom + '-' + monthFrom);
 		query.setParameter("dateTo", yearTo + '-' + monthTo);
+		query.setParameter("storeId", storeId);
 		
 		List<Indicator> indicators = query.list();
 		
@@ -179,7 +183,7 @@ public class IndicatorDAO extends BaseDAO {
 	}
 
 	public Indicator generateReportCumulativeResultTotals(List<Long> storesId,
-			String monthFrom, String yearFrom, String monthTo, String yearTo) {
+			String monthFrom, String yearFrom, String monthTo, String yearTo, Long storeId) {
 		
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
@@ -199,13 +203,15 @@ public class IndicatorDAO extends BaseDAO {
 				+ "	i.employee) "
 				+ " FROM Indicator i "
 				+ " WHERE i.employee.store.id IN (:storesId) "
-				+ " AND STR_TO_DATE(CONCAT(i.year,CONCAT('-',i.month)), '%Y-%m') BETWEEN STR_TO_DATE(:dateFrom,'%Y-%m') and STR_TO_DATE(:dateTo,'%Y-%m') ";
+				+ " AND STR_TO_DATE(CONCAT(i.year,CONCAT('-',i.month)), '%Y-%m') BETWEEN STR_TO_DATE(:dateFrom,'%Y-%m') and STR_TO_DATE(:dateTo,'%Y-%m') "
+				+ " AND i.employee.store.id = :storeId";
 		
 		Query queryTotals = session.createQuery(hqlTotal);
 		
 		queryTotals.setParameterList("storesId", storesId);
 		queryTotals.setParameter("dateFrom", yearFrom + '-' + monthFrom);
 		queryTotals.setParameter("dateTo", yearTo + '-' + monthTo);
+		queryTotals.setParameter("storeId", storeId);
 		
 		Indicator indicator = (Indicator) queryTotals.uniqueResult();
 		

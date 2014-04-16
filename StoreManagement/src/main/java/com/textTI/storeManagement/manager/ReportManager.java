@@ -73,9 +73,9 @@ public class ReportManager {
 	}
 
 	public List<EvolutionOfIndicatorReportData> generateReportevolutionOfIndicators(User loggedUser,
-			int monthFrom, String yearFrom, int monthTo, String yearTo) {
+			String monthFrom, String yearFrom, String monthTo, String yearTo, Long storeId) {
 		
-		List<Indicator> indicators = this.indicatorManager.generateReportevolutionOfIndicators(loggedUser, String.valueOf(monthFrom), yearFrom, String.valueOf(monthTo), yearTo);
+		List<Indicator> indicators = this.indicatorManager.generateReportevolutionOfIndicators(loggedUser, monthFrom, yearFrom, monthTo, yearTo, storeId);
 		
 		EvolutionOfIndicatorReportData reportData = null;
 		List<EvolutionOfIndicatorReportData> result = new ArrayList<EvolutionOfIndicatorReportData>();
@@ -146,17 +146,17 @@ public class ReportManager {
 	}
 
 	public List<Indicator> generateReportCumulativeResult(User loggedUser,
-			String monthFrom, String yearFrom, String monthTo, String yearTo) {
+			String monthFrom, String yearFrom, String monthTo, String yearTo, Long storeId) {
 		
-		List<Indicator> result = this.indicatorManager.generateReportCumulativeResult(loggedUser, monthFrom, yearFrom, monthTo, yearTo);
+		List<Indicator> result = this.indicatorManager.generateReportCumulativeResult(loggedUser, monthFrom, yearFrom, monthTo, yearTo, storeId);
 		
 		return result;
 	}
 
 	public Indicator generateReportCumulativeResultTotals(User loggedUser,
-			String monthFrom, String yearFrom, String monthTo, String yearTo) {
+			String monthFrom, String yearFrom, String monthTo, String yearTo, Long storeId) {
 		
-		return this.indicatorManager.generateReportCumulativeResultTotals(loggedUser, monthFrom, yearFrom, monthTo, yearTo);
+		return this.indicatorManager.generateReportCumulativeResultTotals(loggedUser, monthFrom, yearFrom, monthTo, yearTo, storeId);
 	}
 
 	public List<Indicator> getIndicatorsByStoreMonthAndYear(User loggedUser,

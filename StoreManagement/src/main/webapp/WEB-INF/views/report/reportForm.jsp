@@ -19,7 +19,8 @@
 								<form:option value="3"><spring:message code="report.evolutionOfIndicators"/></form:option> 
 							</form:select>
 						</li>
-						<li>
+						<li id="storeFilter" hidden="hidden">
+							<label><spring:message code="label.selectDisiredStore"/></label>
 							<form:select path="store" items="${storeList}" itemValue="id" itemLabel="nameWithDesc" cssClass="uniform"/>
 						</li>
 						<li id="resultOfMonthFilter" hidden="hidden">
@@ -85,14 +86,17 @@
 			{
 				$("#otherFilters").hide();
 				$("#resultOfMonthFilter").show();
+				$("#storeFilter").show();
 			}else if(reportCode == 0)
 			{
 				$("#otherFilters").hide();
 				$("#resultOfMonthFilter").hide();
+				$("#storeFilter").hide();
 			}else
 			{
 				$("#otherFilters").show();
 				$("#resultOfMonthFilter").hide();
+				$("#storeFilter").show();
 			}
 		});
 	});

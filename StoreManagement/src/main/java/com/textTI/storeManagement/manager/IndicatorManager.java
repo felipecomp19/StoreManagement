@@ -79,20 +79,20 @@ public class IndicatorManager {
 	}
 
 	public List<Indicator> generateReportevolutionOfIndicators(User loggedUser,
-			String monthFrom, String yearFrom, String monthTo, String yearTo) {
-		return this.indicatorDAO.getAllByUserAndMonthYearInterval(loggedUser.getStoresId(),monthFrom, yearFrom, monthTo, yearTo);
+			String monthFrom, String yearFrom, String monthTo, String yearTo, Long storeId) {
+		return this.indicatorDAO.getAllByUserAndMonthYearInterval(loggedUser.getStoresId(),monthFrom, yearFrom, monthTo, yearTo, storeId);
 	}
 
 	public List<Indicator> generateReportCumulativeResult(User loggedUser,
-			String monthFrom, String yearFrom, String monthTo, String yearTo) {
+			String monthFrom, String yearFrom, String monthTo, String yearTo, Long storeId) {
 		
-		return this.indicatorDAO.generateReportCumulativeResult(loggedUser.getStoresId(),monthFrom, yearFrom, monthTo, yearTo);
+		return this.indicatorDAO.generateReportCumulativeResult(loggedUser.getStoresId(),monthFrom, yearFrom, monthTo, yearTo, storeId);
 	}
 
 	public Indicator generateReportCumulativeResultTotals(User loggedUser,
-			String monthFrom, String yearFrom, String monthTo, String yearTo) {
+			String monthFrom, String yearFrom, String monthTo, String yearTo, Long storeId) {
 		
-		Indicator result = this.indicatorDAO.generateReportCumulativeResultTotals(loggedUser.getStoresId(),monthFrom, yearFrom, monthTo, yearTo);
+		Indicator result = this.indicatorDAO.generateReportCumulativeResultTotals(loggedUser.getStoresId(),monthFrom, yearFrom, monthTo, yearTo, storeId);
 		
 		Calendar mycalFrom = new GregorianCalendar(Integer.parseInt(yearFrom), Integer.parseInt(monthFrom) - 1, 1);
 		Calendar mycalTo = new GregorianCalendar(Integer.parseInt(yearTo), Integer.parseInt(monthTo) - 1, 1);

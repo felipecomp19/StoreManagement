@@ -63,7 +63,7 @@
 										</form:select>
 										<div class="padded col-md-12" >
 											<div class="form-group"> 
-												<label class="control-label col-md-1"><spring:message code="label.stores"/></label>
+												<label class="control-label col-md-1"><spring:message code="label.store"/></label>
 												<div class="col-md-2">
 													<form:select id="storeSL" path="store" items="${storeList}" itemValue="id" itemLabel="nameWithDesc" cssClass="uniform"/>
 												</div>

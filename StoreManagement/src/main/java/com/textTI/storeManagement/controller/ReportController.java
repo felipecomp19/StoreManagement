@@ -81,13 +81,22 @@ public class ReportController extends BaseController {
 
 		}else if(reportVM.getSelectedReport().getCode() == (ReportConstants.REP_CUMULATIVE_RESULT_CODE)){
 			logger.info("Selected report" + ReportConstants.REP_CUMULATIVE_RESULT_DESC + " month:" + reportVM.getSelectedMonth());
+			
+			List<Indicator> indicators = this.reportManager.generateReportCumulativeResult(this.getLoggedUser(request), reportVM.getMonthFrom(), reportVM.getYearFrom(), reportVM.getMonthTo(), reportVM.getYearTo(), reportVM.getStore().getId());
+			Indicator totals = this.reportManager.generateReportCumulativeResultTotals(this.getLoggedUser(request), reportVM.getMonthFrom(), reportVM.getYearFrom(), reportVM.getMonthTo(), reportVM.getYearTo(), reportVM.getStore().getId());
+			
+			IndicatorsSummary result = new IndicatorsSummary();
+			result.setUserData(totals);
+			result.setIndicators(indicators);
+			
+			reportVM.setReportData(result);
 			model.addAttribute("reportVM", reportVM);
 			return "/report/reportCumulativeResult";
 		
 		}else if(reportVM.getSelectedReport().getCode() == (ReportConstants.REP_EVOLUTION_OF_INDICATORS_CODE)){
 			logger.info("Selected report" + ReportConstants.REP_EVOLUTION_OF_INDICATORS_DESC + " month:" + reportVM.getSelectedMonth());
 			
-			List<EvolutionOfIndicatorReportData> reportData = this.reportManager.generateReportevolutionOfIndicators(this.getLoggedUser(request), reportVM.getMonthFrom(), reportVM.getYearFrom(), reportVM.getMonthTo(), reportVM.getYearTo());
+			List<EvolutionOfIndicatorReportData> reportData = this.reportManager.generateReportevolutionOfIndicators(this.getLoggedUser(request), reportVM.getMonthFrom(), reportVM.getYearFrom(), reportVM.getMonthTo(), reportVM.getYearTo(), reportVM.getStore().getId());
 			reportVM.setEvolutionOfIndicatorReportData(reportData);
 			
 			model.addAttribute("reportVM", reportVM);
@@ -96,21 +105,6 @@ public class ReportController extends BaseController {
 			System.out.println("Unkown the report");
 		
 		return "/report/index";
-	}
-	
-	@RequestMapping(value="/generateReportCumulativeResult/{mf}/{yf}/{mt}/{yt}")
-	public @ResponseBody IndicatorsSummary generateReportCumulativeResult(@PathVariable("mf") String monthFrom, @PathVariable("yf") String yearFrom, @PathVariable("mt") String monthTo, @PathVariable("yt") String yearTo, HttpServletRequest request, Model model) {
-		logger.info("gerentinh report" + ReportConstants.REP_RESULT_OF_MONTH_DESC + " month:" + monthFrom + "/" + yearFrom);
-		
-		List<Indicator> indicators = this.reportManager.generateReportCumulativeResult(this.getLoggedUser(request), monthFrom, yearFrom, monthTo, yearTo);
-		Indicator totals = this.reportManager.generateReportCumulativeResultTotals(this.getLoggedUser(request), monthFrom, yearFrom, monthTo, yearTo);
-		
-		IndicatorsSummary result = new IndicatorsSummary();
-		result.setUserData(totals);
-		result.setIndicators(indicators);
-		
-		return result;
-		
 	}
 	
 	@RequestMapping(value="/getIndicatorsByStoreMonthAndYear/{store}/{month}/{year}")
