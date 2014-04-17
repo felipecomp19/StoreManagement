@@ -98,7 +98,7 @@
 													<tr>
 														<th><spring:message code="label.employee"/></th>
 														<th><spring:message code="label.workedDaysT"/></th>
-														<th><spring:message code="label.goal"/></th>
+														<th><spring:message code="label.goalT"/></th>
 														<th><spring:message code="label.valueOfSalesT"/></th>
 														<th><spring:message code="label.numberOfAttendancesT"/></th>
 														<th><spring:message code="label.numberOfSalesT"/></th>
@@ -121,30 +121,32 @@
 															<td>${indicator.numberOfAttendances}</td>
 															<td>${indicator.numberOfSales}</td>
 															<td>${indicator.numberOfItemsSold}</td>
-															<td>${indicator.achievementOfGoals}</td>
+															<td>${indicator.formattedAchievementOfGoals}</td>
 															<td>${indicator.averageValueOfTheProduct}</td>
 															<td>${indicator.averageTicket}</td>
 															<td>${indicator.itemsPerSale}</td>
-															<td>${indicator.conversionRate}</td>
+															<td>${indicator.formattedConversionRate}</td>
 															<td>${indicator.averageSalesPerDay}</td>
 														</tr>
 													</c:forEach>
-														<tr style="font-weight: bold;">
-															<td><spring:message code="label.total"/>
-															<td>${reportVM.reportData.userData.workedDays}</td>
-															<td>${reportVM.reportData.userData.goal}</td>
-															<td>${reportVM.reportData.userData.valueOfSales}</td>
-															<td>${reportVM.reportData.userData.numberOfAttendances}</td>
-															<td>${reportVM.reportData.userData.numberOfSales}</td>
-															<td>${reportVM.reportData.userData.numberOfItemsSold}</td>
-															<td>${reportVM.reportData.userData.achievementOfGoals}</td>
-															<td>${reportVM.reportData.userData.averageValueOfTheProduct}</td>
-															<td>${reportVM.reportData.userData.averageTicket}</td>
-															<td>${reportVM.reportData.userData.itemsPerSale}</td>
-															<td>${reportVM.reportData.userData.conversionRate}</td>
-															<td>${reportVM.reportData.userData.averageSalesPerDay}</td>
-														</tr>
 												</tbody>
+												<tfoot style="font-weight: bold;">
+													<tr>
+														<td><spring:message code="label.total"/>
+														<td>${reportVM.reportData.userData.workedDays}</td>
+														<td>${reportVM.reportData.userData.goal}</td>
+														<td>${reportVM.reportData.userData.valueOfSales}</td>
+														<td>${reportVM.reportData.userData.numberOfAttendances}</td>
+														<td>${reportVM.reportData.userData.numberOfSales}</td>
+														<td>${reportVM.reportData.userData.numberOfItemsSold}</td>
+														<td>${reportVM.reportData.userData.formattedAchievementOfGoals}</td>
+														<td>${reportVM.reportData.userData.averageValueOfTheProduct}</td>
+														<td>${reportVM.reportData.userData.averageTicket}</td>
+														<td>${reportVM.reportData.userData.itemsPerSale}</td>
+														<td>${reportVM.reportData.userData.formattedConversionRate}</td>
+														<td>${reportVM.reportData.userData.averageSalesPerDay}</td>
+													</tr>
+												</tfoot>
 											</table>
 										</div>	
 									</div>

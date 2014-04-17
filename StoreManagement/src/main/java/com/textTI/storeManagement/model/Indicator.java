@@ -200,31 +200,19 @@ public class Indicator extends BaseModel {
 		return "";
 	}
 	
-//	public BigDecimal getAchievementOfGoals() {
-//		return achievementOfGoals;
-//	}
-
 	public void setAchievementOfGoals(BigDecimal achievementOfGoals) {
 		if(achievementOfGoals == null)
 			this.achievementOfGoals = this.valueOfSales.divide(this.goal, 2, RoundingMode.HALF_UP);
 		else
 			this.achievementOfGoals = achievementOfGoals;
 	}
-
-//	public BigDecimal getAverageValueOfTheProduct() {
-//		return averageValueOfTheProduct;
-//	}
-
+	
 	public void setAverageValueOfTheProduct(BigDecimal averageValueOfTheProduct) {
 		if(averageValueOfTheProduct == null)
 			this.averageValueOfTheProduct = this.valueOfSales.divide(new BigDecimal(this.numberOfItemsSold), 2, RoundingMode.HALF_UP);
 		else
 			this.averageValueOfTheProduct = averageValueOfTheProduct;
 	}
-
-//	public BigDecimal getAverageTicket() {
-//		return averageTicket;
-//	}
 
 	public void setAverageTicket(BigDecimal averageTicket) {
 		if(averageTicket == null)
@@ -233,10 +221,6 @@ public class Indicator extends BaseModel {
 			this.averageTicket = averageTicket;
 	}
 
-//	public BigDecimal getItemsPerSale() {
-//		return itemsPerSale;
-//	}
-
 	public void setItemsPerSale(BigDecimal itemsPerSale) {
 		if(itemsPerSale == null)
 			this.itemsPerSale = new BigDecimal(this.numberOfItemsSold).divide(new BigDecimal(this.numberOfSales), 2, RoundingMode.HALF_UP);
@@ -244,20 +228,12 @@ public class Indicator extends BaseModel {
 			this.itemsPerSale = itemsPerSale;
 	}
 
-//	public BigDecimal getConversionRate() {
-//		return conversionRate;
-//	}
-
 	public void setConversionRate(BigDecimal conversionRate) {
 		if(conversionRate == null)
 			this.conversionRate = new BigDecimal(this.numberOfSales).divide(new BigDecimal(this.numberOfAttendances), 2, RoundingMode.HALF_UP);
 		else
 			this.conversionRate = conversionRate;
 	}
-
-//	public BigDecimal getAverageSalesPerDay() {
-//		return averageSalesPerDay;
-//	}
 
 	public void setAverageSalesPerDay(BigDecimal averageSalesPerDay) {
 		if(averageSalesPerDay == null)
@@ -269,5 +245,13 @@ public class Indicator extends BaseModel {
 	public String getFormattedAverageTicket()
 	{
 		return NumberFormat.getPercentInstance().format(this.valueOfSales.divide(new BigDecimal(this.numberOfSales), 2, RoundingMode.HALF_UP));
+	}
+	
+	public String getFormattedAchievementOfGoals() {
+		return this.getAchievementOfGoals().multiply(new BigDecimal(100)).toBigInteger().toString();
+	}
+
+	public String getFormattedConversionRate() {
+		return this.getConversionRate().multiply(new BigDecimal(100)).toBigInteger().toString();
 	}
 }

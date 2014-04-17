@@ -9,9 +9,6 @@
 				<thead>
 					<tr>
 						<th>
-							<div><spring:message code="label.store" /></div>
-						</th>
-						<th>
 							<div><spring:message code="label.employee" /></div>
 						</th>
 						<c:forEach var="date" items="${reportVM.evolutionOfIndicatorReportData[0].keys}">
@@ -22,7 +19,6 @@
 				<tbody>
 					<c:forEach var="reportData" items="${reportVM.evolutionOfIndicatorReportData}">
 						<tr>
-							<td>${reportData.employee.store.name}</td>
 							<td>${reportData.employee.name}</td>
 							<c:forEach var="value" items="${reportData.achievementOfGoalsMapValues}">
 								<td class="">${value}</td>
