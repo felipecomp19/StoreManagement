@@ -140,18 +140,12 @@
 	$(document).ready(function() {
 		$("#reportsSL").hide();
 		
-		var tt = document.createElement('div'),leftOffset = -(~~$('html').css('padding-left').replace('px', '') + ~~$('body').css('margin-left').replace('px', '')),topOffset = -32;
-		tt.className = 'ex-tooltip';
-		document.body.appendChild(tt);
-		
-		
-		populateChart("#achievementOfGoalChart","#achievementOfGoalChart_legend","employees","graphData");
-		populateChartMoney("#averageValueOfTheProductChart","#averageValueOfTheProductChart_legend","employees2","graphData2");
-		populateChartMoney("#averageTicketChart","#averageTicketChart_legend","employees3","graphData3");
-		populateChartStatic("#itemsPerSaleChart","#itemsPerSaleChart_legend","employees4","graphData4");
-		populateChart("#conversionRateChart","#conversionRateChart_legend","employees5","graphData5");
-		populateChartMoney("#averageSalesPerDayChart","#averageSalesPerDayChart_legend","employees6","graphData6");
-		
+		populateChart("#achievementOfGoalChart","#achievementOfGoalChart_legend","employees","graphData", null);
+		populateChartMoney("#averageValueOfTheProductChart","#averageValueOfTheProductChart_legend","employees2","graphData2", null);
+		populateChartMoney("#averageTicketChart","#averageTicketChart_legend","employees3","graphData3", null);
+		populateChartStatic("#itemsPerSaleChart","#itemsPerSaleChart_legend","employees4","graphData4", null);
+		populateChart("#conversionRateChart","#conversionRateChart_legend","employees5","graphData5", null);
+		populateChartMoney("#averageSalesPerDayChart","#averageSalesPerDayChart_legend","employees6","graphData6", null);
 		
 		$("#tab1").hide();
 		$("#tab2").hide();
@@ -178,27 +172,32 @@
 			$("#tab6").show();
 		});
 		
-		
-		function getData(chartLegendId, emps, gData){
-	        var data = {
-	        	 "xScale":"ordinal",
-	             "comp":[],
-	             "yScale":"linear",
-	             "type":"line-dotted"
-	        };
+		$("#tabRef2").click();
+		$("#tabRef1").click();
+	});
+	
+	function getData(chartLegendId, emps, gData, selectedEmps){
+        $(chartLegendId).empty()
+		var data = {
+        	 "xScale":"ordinal",
+             "comp":[],
+             "yScale":"linear",
+             "type":"line-dotted"
+        };
 
-	        data.main = [];
-	        
-	        var employees = $("div[name='" + emps + "']");
-	        var graphData= [];
-	        var l = 1;
-	        var c = 0; //utilizada para obter a cor da legenda
-	        var classe = ".main.l";
-	        var className = "";
-	        var keyIndex = 0;
-	        var formatedKeys = $("#keys").val().replace('[','').replace(']','').split(',');
-	        var months = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","x","z"];
-	        employees.each(function(){
+        data.main = [];
+        
+        var employees = $("div[name='" + emps + "']");
+        var graphData= [];
+        var l = 1;
+        var c = 0; //utilizada para obter a cor da legenda
+        var classe = ".main.l";
+        var className = "";
+        var keyIndex = 0;
+        var formatedKeys = $("#keys").val().replace('[','').replace(']','').split(',');
+        var months = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","x","z"];//para ordenar o eixo x
+        employees.each(function(){
+        	if(selectedEmps == null || jQuery.inArray($(this).attr("empId"), selectedEmps) >= 0){
 	        	var linhas = $(this).find("input[name='" + gData + "']");
 				linhas.each(function(){
 					var key = months[keyIndex] + "_" + formatedKeys[keyIndex];
@@ -223,80 +222,113 @@
 				var color = "color" + c;
 				$(chartLegendId).append("<span class='legend " + color + "'>" + empName + "</span>");
 				c++;
-	        });
-	        
-	        return data;
-		}
+        	}
+        });
+        
+        return data;
+	}
+	
+	function populateChart(chartId, chartLegendId, emps, gData,selectedEmps)
+	{
+		var tt = document.createElement('div'),leftOffset = -(~~$('html').css('padding-left').replace('px', '') + ~~$('body').css('margin-left').replace('px', '')),topOffset = -32;
+		tt.className = 'ex-tooltip';
+		document.body.appendChild(tt);
 		
-		function populateChart(chartId, chartLegendId, emps, gData)
-		{
-			var myChart = new xChart('line-dotted', getData(chartLegendId, emps, gData), chartId, {
-	        	axisPaddingTop: 5, 
-	        	paddingLeft: 50,
-	        	tickFormatX: function (x) { 
-	        			var month = x.split("_")[1];
-	        			return month; 
-	        		},
-        		tickFormatY: function (x) { 
-        			return Math.round(x * 100) + "%"; 
+		var myChart = new xChart('line-dotted', getData(chartLegendId, emps, gData,selectedEmps), chartId, {
+        	axisPaddingTop: 5, 
+        	paddingLeft: 50,
+        	tickFormatX: function (x) { 
+        			var month = x.split("_")[1];
+        			return month; 
         		},
-	        	mouseover: function (d, i) {
-	            	var pos = $(this).offset();
-	            	$(tt).text(Math.round(d.y * 100) + "%").css({top: topOffset + pos.top, left: pos.left + leftOffset}).show();
-	          	},
-	          	mouseout: function (x) { 
-	          		$(tt).hide(); 
-	          	}
-	        });
-		}
+    		tickFormatY: function (x) { 
+    			return Math.round(x * 100) + "%"; 
+    		},
+        	mouseover: function (d, i) {
+            	var pos = $(this).offset();
+            	$(tt).text(Math.round(d.y * 100) + "%").css({top: topOffset + pos.top, left: pos.left + leftOffset}).show();
+          	},
+          	mouseout: function (x) { 
+          		$(tt).hide(); 
+          	}
+        });
+	}
+	
+	function populateChartMoney(chartId, chartLegendId, emps, gData, selectedEmps)
+	{
+		var tt = document.createElement('div'),leftOffset = -(~~$('html').css('padding-left').replace('px', '') + ~~$('body').css('margin-left').replace('px', '')),topOffset = -32;
+		tt.className = 'ex-tooltip';
+		document.body.appendChild(tt);
 		
-		function populateChartMoney(chartId, chartLegendId, emps, gData)
-		{
-			var myChart = new xChart('line-dotted', getData(chartLegendId, emps, gData), chartId, {
-	        	axisPaddingTop: 5, 
-	        	paddingLeft: 50,
-	        	tickFormatX: function (x) { 
-	        			var month = x.split("_")[1];
-	        			return month; 
-	        		},
-        		tickFormatY: function (x) { 
-        			return "R$ " + x; 
+		var myChart = new xChart('line-dotted', getData(chartLegendId, emps, gData,selectedEmps), chartId, {
+        	axisPaddingTop: 5, 
+        	paddingLeft: 50,
+        	tickFormatX: function (x) { 
+        			var month = x.split("_")[1];
+        			return month; 
         		},
-	        	mouseover: function (d, i) {
-	            	var pos = $(this).offset();
-	            	$(tt).text("R$ " + d.y).css({top: topOffset + pos.top, left: pos.left + leftOffset}).show();
-	          	},
-	          	mouseout: function (x) { 
-	          		$(tt).hide(); 
-	          	}
-	        });
-		}
+    		tickFormatY: function (x) { 
+    			return "R$ " + x; 
+    		},
+        	mouseover: function (d, i) {
+            	var pos = $(this).offset();
+            	$(tt).text("R$ " + d.y).css({top: topOffset + pos.top, left: pos.left + leftOffset}).show();
+          	},
+          	mouseout: function (x) { 
+          		$(tt).hide(); 
+          	}
+        });
+	}
+	
+	function populateChartStatic(chartId, chartLegendId, emps, gData,selectedEmps)
+	{
+		var tt = document.createElement('div'),leftOffset = -(~~$('html').css('padding-left').replace('px', '') + ~~$('body').css('margin-left').replace('px', '')),topOffset = -32;
+		tt.className = 'ex-tooltip';
+		document.body.appendChild(tt);
 		
-		function populateChartStatic(chartId, chartLegendId, emps, gData)
-		{
-			var myChart = new xChart('line-dotted', getData(chartLegendId, emps, gData), chartId, {
-	        	axisPaddingTop: 5, 
-	        	paddingLeft: 50,
-	        	tickFormatX: function (x) { 
-	        			var month = x.split("_")[1];
-	        			return month; 
-	        		},
-        		tickFormatY: function (x) { 
-        			return x; 
+		var myChart = new xChart('line-dotted', getData(chartLegendId, emps, gData,selectedEmps), chartId, {
+        	axisPaddingTop: 5, 
+        	paddingLeft: 50,
+        	tickFormatX: function (x) { 
+        			var month = x.split("_")[1];
+        			return month; 
         		},
-	        	mouseover: function (d, i) {
-	            	var pos = $(this).offset();
-	            	$(tt).text(d.y + " iten(s)").css({top: topOffset + pos.top, left: pos.left + leftOffset}).show();
-	          	},
-	          	mouseout: function (x) { 
-	          		$(tt).hide(); 
-	          	}
-	        });
+    		tickFormatY: function (x) { 
+    			return x; 
+    		},
+        	mouseover: function (d, i) {
+            	var pos = $(this).offset();
+            	$(tt).text(d.y + " iten(s)").css({top: topOffset + pos.top, left: pos.left + leftOffset}).show();
+          	},
+          	mouseout: function (x) { 
+          		$(tt).hide(); 
+          	}
+        });
+	}
+	
+	function reloadGraph(classe)
+	{
+		var selectedEmps = [];
+		var i = 0;
+		var selected = $('.' + classe + ':checkbox:checked').each(function(){
+			selectedEmps[i] = $(this).val();
+			i++
+		});
+
+		if(classe == "achievementOfGoalChart"){
+			populateChart("#achievementOfGoalChart","#achievementOfGoalChart_legend","employees","graphData", selectedEmps);
+		}else if(classe == "averageValueOfTheProductChart"){
+			populateChartMoney("#averageValueOfTheProductChart","#averageValueOfTheProductChart_legend","employees2","graphData2", selectedEmps);
+		}else if(classe == "averageTicketChart"){
+			populateChartMoney("#averageTicketChart","#averageTicketChart_legend","employees3","graphData3", selectedEmps);
+		}else if(classe == "itemsPerSaleChart"){
+			populateChartStatic("#itemsPerSaleChart","#itemsPerSaleChart_legend","employees4","graphData4", selectedEmps);
+		}else if(classe == "conversionRateChart"){
+			populateChart("#conversionRateChart","#conversionRateChart_legend","employees5","graphData5", selectedEmps);
+		}else if(classe == "averageSalesPerDayChart"){
+			populateChartMoney("#averageSalesPerDayChart","#averageSalesPerDayChart_legend","employees6","graphData6", selectedEmps);
 		}
-		
-		$("#tabRef2").click();
-		$("#tabRef1").click();
-	});
+	}
 </script>
 	</jsp:body>
 </t:template>

@@ -8,6 +8,9 @@
 			<table cellpadding="0" cellspacing="0" border="0" class="dTable responsive">
 				<thead>
 					<tr>
+						<th width="40px;">
+							<i class="icon-bar-chart"></i>
+						</th>
 						<th>
 							<div><spring:message code="label.employee" /></div>
 						</th>
@@ -19,6 +22,9 @@
 				<tbody>
 					<c:forEach var="reportData" items="${reportVM.evolutionOfIndicatorReportData}">
 						<tr>
+							<td>
+								<input class="achievementOfGoalChart" type="checkbox" checked="checked" value="${reportData.employee.id}" onclick="reloadGraph('achievementOfGoalChart')">
+							</td>
 							<td>${reportData.employee.name}</td>
 							<c:forEach var="value" items="${reportData.achievementOfGoalsMapValues}">
 								<td class="">${value}</td>
@@ -43,7 +49,7 @@
 				<div class="sine-chart" id="achievementOfGoalChart" style="height: 350px;">
 					<input type="hidden" id="keys" value="${reportVM.evolutionOfIndicatorReportData[0].keys}" />
 					<c:forEach var="reportData" items="${reportVM.evolutionOfIndicatorReportData}">
-						<div name="employees" empName="${reportData.employee.name}">
+						<div name="employees" empName="${reportData.employee.name}" empId="${reportData.employee.id}">
 							<c:forEach var="entry" items="${reportData.achievementOfGoalsMap}">
 								<input name="graphData" type="hidden" key="${entry.key}" value="${entry.value}">
 							</c:forEach>
@@ -58,4 +64,5 @@
 	</div>
 </div>
 </div>
+
 
