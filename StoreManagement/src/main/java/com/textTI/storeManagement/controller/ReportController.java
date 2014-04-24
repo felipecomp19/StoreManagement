@@ -23,6 +23,7 @@ import com.textTI.storeManagement.model.Store;
 import com.textTI.storeManagement.model.constants.ReportConstants;
 import com.textTI.storeManagement.model.report.EvolutionOfIndicatorReportData;
 import com.textTI.storeManagement.model.report.IndicatorsSummary;
+import com.textTI.storeManagement.model.report.excelView.ExcelReportData;
 import com.textTI.storeManagement.model.viewModel.ReportViewModel;
 
 @Controller
@@ -106,6 +107,32 @@ public class ReportController extends BaseController {
 			System.out.println("Unkown the report");
 		
 		return "/report/index";
+	}
+	
+	@RequestMapping(value="/exportReportResultOfMonth/{store}/{month}/{year}")
+	public ModelAndView exportReportResultOfMonth(@PathVariable("store") int storeId, @PathVariable("month") int month, @PathVariable("year") int year, HttpServletRequest request, Model model) {
+		
+		logger.info("export report" + ReportConstants.REP_RESULT_OF_MONTH_DESC);
+		
+		List<Indicator> indicators = this.reportManager.generateReportResultOfMonth(this.getLoggedUser(request), month, year, storeId);
+		Indicator totals = this.reportManager.generateReportResultOfMonthTotals(this.getLoggedUser(request), reportVM.getSelectedMonth(), reportVM.getSelectedYear(), reportVM.getStore().getId());
+
+		ExcelReportData reportData = new ExcelReportData("Result of month", null, indicators, totals);		
+		
+		return new ModelAndView("IndicatorsExcelReport","reportData", reportData);
+	}
+	
+	@RequestMapping(value="/exportReportCumulativeResult/{store}/{monthFrom}/{yearFrom}/{monthTo}/{yearTo}")
+	public ModelAndView exportReportCumulativeResult(@PathVariable("store") long storeId, @PathVariable("monthFrom") String monthFrom, @PathVariable("yearFrom") String yearFrom, @PathVariable("monthTo") String monthTo, @PathVariable("yearTo") String yearTo, HttpServletRequest request, Model model) {
+		
+		logger.info("export report" + ReportConstants.REP_CUMULATIVE_RESULT_DESC);
+		
+		List<Indicator> indicators = this.reportManager.generateReportCumulativeResult(this.getLoggedUser(request), monthFrom, yearFrom, monthTo, yearTo, storeId);
+		Indicator totals = this.reportManager.generateReportCumulativeResultTotals(this.getLoggedUser(request), monthFrom, yearFrom, monthTo, yearTo, storeId);
+		
+		ExcelReportData reportData = new ExcelReportData("Cumulative Result", null, indicators, totals);
+		
+		return new ModelAndView("IndicatorsExcelReport","reportData", reportData);
 	}
 	
 	@RequestMapping(value = "/exportReportToExcel", method = RequestMethod.POST)
