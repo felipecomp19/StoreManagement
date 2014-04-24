@@ -68,7 +68,7 @@ public class Indicator extends BaseModel {
 			Long numberOfAttendances, Long numberOfSales, Long numberOfItemsSold,
 			Double achievementOfGoals, Double averageValueOfTheProduct,
 			Double averageTicket, Double itemsPerSale,
-			Double conversionRate, Double averageSalesPerDay, Employee e) {
+			Double conversionRate, Double averageSalesPerDay, int month, int year, Employee e) {
 		super();
 		this.setId(id);
 		this.workedDays =  workedDays != null ? workedDays.intValue() : 0;
@@ -83,6 +83,8 @@ public class Indicator extends BaseModel {
 		this.itemsPerSale = itemsPerSale != null ? new BigDecimal(String.valueOf(itemsPerSale)): new BigDecimal(0);
 		this.conversionRate = conversionRate != null ? new BigDecimal(String.valueOf(conversionRate)): new BigDecimal(0);
 		this.averageSalesPerDay = averageSalesPerDay != null ? new BigDecimal(String.valueOf(averageSalesPerDay)): new BigDecimal(0);
+		this.month = month;
+		this.year = year;
 		this.employee = e;
 	}
 

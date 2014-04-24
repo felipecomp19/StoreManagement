@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.textTI.storeManagement.manager.IndicatorManager;
 import com.textTI.storeManagement.manager.ReportManager;
@@ -70,10 +71,7 @@ public class ReportController extends BaseController {
 			
 			IndicatorsSummary result = new IndicatorsSummary();
 			
-			if(indicators.size() > 0){
-				result.setIndicators(indicators);
-				result.setUserData(totals);
-			}
+			populateResult(result, indicators, totals);
 			
 			reportVM.setReportData(result);
 			model.addAttribute("reportVM", reportVM);
@@ -99,12 +97,59 @@ public class ReportController extends BaseController {
 			List<EvolutionOfIndicatorReportData> reportData = this.reportManager.generateReportevolutionOfIndicators(this.getLoggedUser(request), reportVM.getMonthFrom(), reportVM.getYearFrom(), reportVM.getMonthTo(), reportVM.getYearTo(), reportVM.getStore().getId());
 			reportVM.setEvolutionOfIndicatorReportData(reportData);
 			
+			EvolutionOfIndicatorReportData totals = this.reportManager.generateReportevolutionOfIndicatorsTotals(this.getLoggedUser(request), reportVM.getMonthFrom(), reportVM.getYearFrom(), reportVM.getMonthTo(), reportVM.getYearTo(), reportVM.getStore().getId());
+			reportVM.setEvolutionOfIndicatorReportDataTotals(totals);
+			
 			model.addAttribute("reportVM", reportVM);
 			return "/report/reportEvolutionOfIndicators";
 		}else
 			System.out.println("Unkown the report");
 		
 		return "/report/index";
+	}
+	
+	@RequestMapping(value = "/exportReportToExcel", method = RequestMethod.POST)
+	public ModelAndView exportReportToExcel(@ModelAttribute("reportVM") ReportViewModel reportVM, HttpServletRequest request, Model model)
+	{
+		IndicatorsSummary result = new IndicatorsSummary();
+		if(reportVM.getSelectedReport().getCode() == (ReportConstants.REP_RESULT_OF_MONTH_CODE))
+		{
+			logger.info("export report" + ReportConstants.REP_RESULT_OF_MONTH_DESC);
+			
+			List<Indicator> indicators = this.reportManager.generateReportResultOfMonth(this.getLoggedUser(request), reportVM.getSelectedMonth(), reportVM.getSelectedYear(), reportVM.getStore().getId());
+			Indicator totals = this.reportManager.generateReportResultOfMonthTotals(this.getLoggedUser(request), reportVM.getSelectedMonth(), reportVM.getSelectedYear(), reportVM.getStore().getId());
+			
+			this.populateResult(result, indicators, totals);
+			
+		}else if(reportVM.getSelectedReport().getCode() == (ReportConstants.REP_CUMULATIVE_RESULT_CODE)){
+			logger.info("export report" + ReportConstants.REP_CUMULATIVE_RESULT_DESC);
+			
+			List<Indicator> indicators = this.reportManager.generateReportCumulativeResult(this.getLoggedUser(request), reportVM.getMonthFrom(), reportVM.getYearFrom(), reportVM.getMonthTo(), reportVM.getYearTo(), reportVM.getStore().getId());
+			Indicator totals = this.reportManager.generateReportCumulativeResultTotals(this.getLoggedUser(request), reportVM.getMonthFrom(), reportVM.getYearFrom(), reportVM.getMonthTo(), reportVM.getYearTo(), reportVM.getStore().getId());
+			
+			this.populateResult(result, indicators, totals);
+		
+		}else if(reportVM.getSelectedReport().getCode() == (ReportConstants.REP_EVOLUTION_OF_INDICATORS_CODE)){
+			logger.info("export report" + ReportConstants.REP_EVOLUTION_OF_INDICATORS_DESC);
+			
+			List<EvolutionOfIndicatorReportData> reportData = this.reportManager.generateReportevolutionOfIndicators(this.getLoggedUser(request), reportVM.getMonthFrom(), reportVM.getYearFrom(), reportVM.getMonthTo(), reportVM.getYearTo(), reportVM.getStore().getId());
+			reportVM.setEvolutionOfIndicatorReportData(reportData);
+			
+			EvolutionOfIndicatorReportData totals = this.reportManager.generateReportevolutionOfIndicatorsTotals(this.getLoggedUser(request), reportVM.getMonthFrom(), reportVM.getYearFrom(), reportVM.getMonthTo(), reportVM.getYearTo(), reportVM.getStore().getId());
+			reportVM.setEvolutionOfIndicatorReportDataTotals(totals);
+
+		}else
+			System.out.println("Unkown the report");
+		
+		return new ModelAndView("IndicatorsExcelReport","reportData",result);
+	}
+
+	private void populateResult(IndicatorsSummary result,
+			List<Indicator> indicators, Indicator totals) {
+		if(indicators.size() > 0){
+			result.setIndicators(indicators);
+			result.setUserData(totals);
+		}
 	}
 	
 	@RequestMapping(value="/getIndicatorsByStoreMonthAndYear/{store}/{month}/{year}")

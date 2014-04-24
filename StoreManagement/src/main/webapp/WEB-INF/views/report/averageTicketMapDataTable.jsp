@@ -34,6 +34,15 @@
 				</tr>
 			</c:forEach>
 		</tbody>
+		<tfoot style="font-weight: bold;">
+			<tr>
+				<td></td>
+				<td><spring:message code="label.total"/>
+				<c:forEach var="value" items="${reportVM.evolutionOfIndicatorReportDataTotals.averageTicketMapValues}">
+					<td class="">${value}</td>
+				</c:forEach>
+			</tr>
+		</tfoot>
 	</table>
 </div>
 

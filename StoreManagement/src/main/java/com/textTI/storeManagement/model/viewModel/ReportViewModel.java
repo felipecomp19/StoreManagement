@@ -36,6 +36,8 @@ public class ReportViewModel {
 
 	private List<EvolutionOfIndicatorReportData> evolutionOfIndicatorReportData;
 	
+	private EvolutionOfIndicatorReportData evolutionOfIndicatorReportDataTotals;
+	
 	private String monthFrom;
 	private String monthTo;
 	
@@ -213,6 +215,15 @@ public class ReportViewModel {
 	public void setEvolutionOfIndicatorReportData(
 			List<EvolutionOfIndicatorReportData> evolutionOfIndicatorReportData) {
 		this.evolutionOfIndicatorReportData = evolutionOfIndicatorReportData;
+	}
+	
+	public EvolutionOfIndicatorReportData getEvolutionOfIndicatorReportDataTotals() {
+		return evolutionOfIndicatorReportDataTotals;
+	}
+
+	public void setEvolutionOfIndicatorReportDataTotals(
+			EvolutionOfIndicatorReportData evolutionOfIndicatorReportDataTotals) {
+		this.evolutionOfIndicatorReportDataTotals = evolutionOfIndicatorReportDataTotals;
 	}
 
 	public IndicatorsSummary getReportData() {

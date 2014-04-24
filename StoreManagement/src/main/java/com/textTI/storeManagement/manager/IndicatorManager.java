@@ -133,4 +133,11 @@ public class IndicatorManager {
 	public Indicator getByMonthAndYear(Long employeeId, int month, int year) {
 		return this.indicatorDAO.getByMonthAndYear(employeeId, month, year);
 	}
+
+	public List<Indicator> generateReportevolutionOfIndicatorsTotals(
+			User loggedUser, String monthFrom, String yearFrom, String monthTo,
+			String yearTo, Long storeId) {
+		
+		return this.indicatorDAO.getAllByUserAndMonthYearIntervalTotals(loggedUser.getStoresId(),monthFrom, yearFrom, monthTo, yearTo, storeId);
+	}
 }

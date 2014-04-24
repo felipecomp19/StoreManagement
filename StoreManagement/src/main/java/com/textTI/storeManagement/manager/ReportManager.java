@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -80,37 +81,40 @@ public class ReportManager {
 		EvolutionOfIndicatorReportData reportData = null;
 		List<EvolutionOfIndicatorReportData> result = new ArrayList<EvolutionOfIndicatorReportData>();
 		Employee currentEmplyee = null;
+		
 		for (Indicator indicator : indicators) {
 			if(currentEmplyee == null || currentEmplyee.getId() != indicator.getEmployee().getId()){
 				currentEmplyee = indicator.getEmployee();
 				
-				Map<Date,BigDecimal> dateIndValueMap1 = new TreeMap<Date,BigDecimal>();
-				Map<Date,BigDecimal> dateIndValueMap2 = new TreeMap<Date,BigDecimal>();
-				Map<Date,BigDecimal> dateIndValueMap3 = new TreeMap<Date,BigDecimal>();
-				Map<Date,BigDecimal> dateIndValueMap4 = new TreeMap<Date,BigDecimal>();
-				Map<Date,BigDecimal> dateIndValueMap5 = new TreeMap<Date,BigDecimal>();
-				Map<Date,BigDecimal> dateIndValueMap6 = new TreeMap<Date,BigDecimal>();
+				Map<Date,BigDecimal> achievementOfGoalsMap = new TreeMap<Date,BigDecimal>();
+				Map<Date,BigDecimal> averageValueOfTheProductMap = new TreeMap<Date,BigDecimal>();
+				Map<Date,BigDecimal> averageTicketMap = new TreeMap<Date,BigDecimal>();
+				Map<Date,BigDecimal> itemsPerSaleMap = new TreeMap<Date,BigDecimal>();
+				Map<Date,BigDecimal> conversionRateMap = new TreeMap<Date,BigDecimal>();
+				Map<Date,BigDecimal> averageSalesPerDayMap = new TreeMap<Date,BigDecimal>();
 				
-				this.populateDateIndicatorValueMap(String.valueOf(monthFrom), yearFrom, String.valueOf(monthTo), yearTo, dateIndValueMap1);
-				this.populateDateIndicatorValueMap(String.valueOf(monthFrom), yearFrom, String.valueOf(monthTo), yearTo, dateIndValueMap2);
-				this.populateDateIndicatorValueMap(String.valueOf(monthFrom), yearFrom, String.valueOf(monthTo), yearTo, dateIndValueMap3);
-				this.populateDateIndicatorValueMap(String.valueOf(monthFrom), yearFrom, String.valueOf(monthTo), yearTo, dateIndValueMap4);
-				this.populateDateIndicatorValueMap(String.valueOf(monthFrom), yearFrom, String.valueOf(monthTo), yearTo, dateIndValueMap5);
-				this.populateDateIndicatorValueMap(String.valueOf(monthFrom), yearFrom, String.valueOf(monthTo), yearTo, dateIndValueMap6);
+				this.populateDateIndicatorValueMap(String.valueOf(monthFrom), yearFrom, String.valueOf(monthTo), yearTo, achievementOfGoalsMap);
+				this.populateDateIndicatorValueMap(String.valueOf(monthFrom), yearFrom, String.valueOf(monthTo), yearTo, averageValueOfTheProductMap);
+				this.populateDateIndicatorValueMap(String.valueOf(monthFrom), yearFrom, String.valueOf(monthTo), yearTo, averageTicketMap);
+				this.populateDateIndicatorValueMap(String.valueOf(monthFrom), yearFrom, String.valueOf(monthTo), yearTo, itemsPerSaleMap);
+				this.populateDateIndicatorValueMap(String.valueOf(monthFrom), yearFrom, String.valueOf(monthTo), yearTo, conversionRateMap);
+				this.populateDateIndicatorValueMap(String.valueOf(monthFrom), yearFrom, String.valueOf(monthTo), yearTo, averageSalesPerDayMap);
 				
-				reportData = new EvolutionOfIndicatorReportData(dateIndValueMap1, dateIndValueMap2,dateIndValueMap3,dateIndValueMap4,dateIndValueMap5,dateIndValueMap6);
+				reportData = new EvolutionOfIndicatorReportData(achievementOfGoalsMap, averageValueOfTheProductMap,averageTicketMap,itemsPerSaleMap,conversionRateMap,averageSalesPerDayMap);
 				reportData.setEmployee(currentEmplyee);
 				result.add(reportData);
 			}
 			
 			try {
 				Date dt = new Date(this.dateFormat.parse(indicator.getMonth() + "/" + indicator.getYear()).getTime());
-				reportData.getAchievementOfGoalsMap().put(dt,indicator.getAchievementOfGoals());
+				
+				reportData.getAchievementOfGoalsMap().put(dt, new BigDecimal(indicator.getFormattedAchievementOfGoals()));
 				reportData.getAverageValueOfTheProductMap().put(dt,indicator.getAverageValueOfTheProduct());
 				reportData.getAverageTicketMap().put(dt,indicator.getAverageTicket());
 				reportData.getItemsPerSaleMap().put(dt,indicator.getItemsPerSale());
-				reportData.getConversionRateMap().put(dt,indicator.getConversionRate());
+				reportData.getConversionRateMap().put(dt,new BigDecimal(indicator.getFormattedConversionRate()));
 				reportData.getAverageSalesPerDayMap().put(dt,indicator.getAverageSalesPerDay());
+
 			} catch (ParseException e) {
 				logger.error("Error trying to create a Date in ReportManager.generateReportevolutionOfIndicators(...");
 				e.printStackTrace();
@@ -118,6 +122,57 @@ public class ReportManager {
 		}
 		
 		return result;
+	}
+	
+	public EvolutionOfIndicatorReportData generateReportevolutionOfIndicatorsTotals(
+			User loggedUser, String monthFrom, String yearFrom, String monthTo,
+			String yearTo, Long storeId) {
+		
+		List<Indicator> indicators = this.indicatorManager.generateReportevolutionOfIndicatorsTotals(loggedUser, monthFrom, yearFrom, monthTo, yearTo, storeId);
+		
+		Map<Date,BigDecimal> achievementOfGoalsMap = new TreeMap<Date,BigDecimal>();
+		Map<Date,BigDecimal> averageValueOfTheProductMap = new TreeMap<Date,BigDecimal>();
+		Map<Date,BigDecimal> averageTicketMap = new TreeMap<Date,BigDecimal>();
+		Map<Date,BigDecimal> itemsPerSaleMap = new TreeMap<Date,BigDecimal>();
+		Map<Date,BigDecimal> conversionRateMap = new TreeMap<Date,BigDecimal>();
+		Map<Date,BigDecimal> averageSalesPerDayMap = new TreeMap<Date,BigDecimal>();
+		
+		this.populateDateIndicatorValueMap(String.valueOf(monthFrom), yearFrom, String.valueOf(monthTo), yearTo, achievementOfGoalsMap);
+		this.populateDateIndicatorValueMap(String.valueOf(monthFrom), yearFrom, String.valueOf(monthTo), yearTo, averageValueOfTheProductMap);
+		this.populateDateIndicatorValueMap(String.valueOf(monthFrom), yearFrom, String.valueOf(monthTo), yearTo, averageTicketMap);
+		this.populateDateIndicatorValueMap(String.valueOf(monthFrom), yearFrom, String.valueOf(monthTo), yearTo, itemsPerSaleMap);
+		this.populateDateIndicatorValueMap(String.valueOf(monthFrom), yearFrom, String.valueOf(monthTo), yearTo, conversionRateMap);
+		this.populateDateIndicatorValueMap(String.valueOf(monthFrom), yearFrom, String.valueOf(monthTo), yearTo, averageSalesPerDayMap);
+		
+		EvolutionOfIndicatorReportData reportData = new EvolutionOfIndicatorReportData(achievementOfGoalsMap, averageValueOfTheProductMap,averageTicketMap,itemsPerSaleMap,conversionRateMap,averageSalesPerDayMap);
+
+		for (Indicator indicator : indicators) {
+			try {
+				Date dt = new Date(this.dateFormat.parse(indicator.getMonth() + "/" + indicator.getYear()).getTime());
+				
+				Calendar cal = new GregorianCalendar(indicator.getYear(), indicator.getMonth() - 1, 1);
+				int workedDays = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+				
+				//regra da MORANA
+				//Janeiro e Dezembro tem um dia a menos de trabalho
+				if((Calendar.JANUARY ==  cal.get(Calendar.MONTH)) || (Calendar.DECEMBER == cal.get(Calendar.MONTH)))
+					workedDays = workedDays - 1;
+				
+				indicator.setWorkedDays(workedDays);
+				
+				reportData.getAchievementOfGoalsMap().put(dt, new BigDecimal(indicator.getFormattedAchievementOfGoals()));
+				reportData.getAverageValueOfTheProductMap().put(dt,indicator.getAverageValueOfTheProduct());
+				reportData.getAverageTicketMap().put(dt,indicator.getAverageTicket());
+				reportData.getItemsPerSaleMap().put(dt,indicator.getItemsPerSale());
+				reportData.getConversionRateMap().put(dt, new BigDecimal(indicator.getFormattedConversionRate()));
+				reportData.getAverageSalesPerDayMap().put(dt,indicator.getAverageSalesPerDay());
+			} catch (ParseException e) {
+				logger.error("Error trying to create a Date in ReportManager.generateReportevolutionOfIndicatorsTotals(...");
+				e.printStackTrace();
+			}
+		}
+		
+		return reportData;
 	}
 	
 	private void populateDateIndicatorValueMap(String monthFrom,

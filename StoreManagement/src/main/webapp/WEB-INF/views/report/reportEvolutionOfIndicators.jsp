@@ -65,7 +65,7 @@
 				          		<li><a id="tabRef6" href="#tabAverageSalesPerDay" data-toggle="tab"><spring:message code="label.averageSalesPerDay"/></a></li>
 				        	</ul>
 		      			</div>
-				      	<div class="box-content padded">
+				      	<div class="box-content scrollable padded" style="height: 700px; overflow-y: auto">
 				      		<div class="row">
 								<form:form class="form-horizontal fill-up validatable" method="POST" commandName="reportVM" modelAttribute="reportVM" action="${pageContext.request.contextPath}/report/generate" >
 									<form:select id="reportsSL" path="selectedReport">
@@ -236,17 +236,17 @@
 		
 		var myChart = new xChart('line-dotted', getData(chartLegendId, emps, gData,selectedEmps), chartId, {
         	axisPaddingTop: 5, 
-        	paddingLeft: 50,
+        	paddingLeft: 40,
         	tickFormatX: function (x) { 
         			var month = x.split("_")[1];
         			return month; 
         		},
     		tickFormatY: function (x) { 
-    			return Math.round(x * 100) + "%"; 
+    			return x + "%"; 
     		},
         	mouseover: function (d, i) {
             	var pos = $(this).offset();
-            	$(tt).text(Math.round(d.y * 100) + "%").css({top: topOffset + pos.top, left: pos.left + leftOffset}).show();
+            	$(tt).text(d.y + "%").css({top: topOffset + pos.top, left: pos.left + leftOffset}).show();
           	},
           	mouseout: function (x) { 
           		$(tt).hide(); 
@@ -262,7 +262,7 @@
 		
 		var myChart = new xChart('line-dotted', getData(chartLegendId, emps, gData,selectedEmps), chartId, {
         	axisPaddingTop: 5, 
-        	paddingLeft: 50,
+        	paddingLeft: 40,
         	tickFormatX: function (x) { 
         			var month = x.split("_")[1];
         			return month; 
@@ -288,7 +288,7 @@
 		
 		var myChart = new xChart('line-dotted', getData(chartLegendId, emps, gData,selectedEmps), chartId, {
         	axisPaddingTop: 5, 
-        	paddingLeft: 50,
+        	paddingLeft: 40,
         	tickFormatX: function (x) { 
         			var month = x.split("_")[1];
         			return month; 

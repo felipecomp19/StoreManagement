@@ -57,7 +57,7 @@
 						<div class="box-content">
 							<div class="row">
 								<div class="col-md-12" >
-									<form:form class="form-horizontal fill-up validatable" method="POST" commandName="reportVM" modelAttribute="reportVM" action="${pageContext.request.contextPath}/report/generate" >
+									<form:form class="form-horizontal fill-up validatable" method="POST" commandName="reportVM" modelAttribute="reportVM" action="${pageContext.request.contextPath}/report/exportReportToExcel" >
 										<form:select id="reportsSL" path="selectedReport">
 											<form:option value="1"><spring:message code="report.resultOfMonth"/></form:option>
 										</form:select>

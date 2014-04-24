@@ -90,6 +90,8 @@ public class IndicatorDAO extends BaseDAO {
 				+ " avg(i.itemsPerSale) as itemsPerSale,"
 				+ " avg(i.conversionRate) as conversionRate,"
 				+ " avg(i.averageSalesPerDay) as averageSalesPerDay,"
+				+ " month,"
+				+ " year,"
 				+ "	i.employee) "
 				+ " FROM Indicator i "
 				+ " WHERE i.employee.store.id IN (:storesId) "
@@ -160,6 +162,8 @@ public class IndicatorDAO extends BaseDAO {
 				+ " avg(i.itemsPerSale) as itemsPerSale,"
 				+ " avg(i.conversionRate) as conversionRate,"
 				+ " avg(i.averageSalesPerDay) as averageSalesPerDay,"
+				+ " month,"
+				+ " year,"
 				+ "	i.employee) "
 				+ " FROM Indicator i "
 				+ " WHERE i.employee.store.id IN (:storesId) "
@@ -200,6 +204,8 @@ public class IndicatorDAO extends BaseDAO {
 				+ " avg(i.itemsPerSale) as itemsPerSale,"
 				+ " avg(i.conversionRate) as conversionRate,"
 				+ " avg(i.averageSalesPerDay) as averageSalesPerDay,"
+				+ " month,"
+				+ " year,"
 				+ "	i.employee) "
 				+ " FROM Indicator i "
 				+ " WHERE i.employee.store.id IN (:storesId) "
@@ -280,6 +286,8 @@ public class IndicatorDAO extends BaseDAO {
 				+ " avg(i.itemsPerSale) as itemsPerSale,"
 				+ " avg(i.conversionRate) as conversionRate,"
 				+ " avg(i.averageSalesPerDay) as averageSalesPerDay,"
+				+ " month,"
+				+ " year,"
 				+ "	i.employee) "
 				+ " FROM Indicator i "
 				+ " WHERE i.employee.store.id = :storeId "
@@ -320,5 +328,47 @@ public class IndicatorDAO extends BaseDAO {
 		session.close();
 		
 		return indicator;
+	}
+
+	public List<Indicator> getAllByUserAndMonthYearIntervalTotals(
+			List<Long> storesId, String monthFrom, String yearFrom,
+			String monthTo, String yearTo, Long storeId) {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		
+		String hql = "SELECT new com.textTI.storeManagement.model.Indicator(i.id, sum(i.workedDays) as workedDays,"
+				+ " sum(i.goal) as goal,"
+				+ " sum(i.valueOfSales) as valueOfSales,"
+				+ " sum(i.numberOfAttendances) as numberOfAttendances,"
+				+ " sum(i.numberOfSales) as numberOfSales,"
+				+ " sum(i.numberOfItemsSold) as numberOfItemsSold,"
+				+ " avg(i.achievementOfGoals) as achievementOfGoals,"
+				+ " avg(i.averageValueOfTheProduct) as averageValueOfTheProduct,"
+				+ " avg(i.averageTicket) as averageTicket,"
+				+ " avg(i.itemsPerSale) as itemsPerSale,"
+				+ " avg(i.conversionRate) as conversionRate,"
+				+ " avg(i.averageSalesPerDay) as averageSalesPerDay,"
+				+ " month,"
+				+ " year,"
+				+ "	i.employee) "
+				+ " FROM Indicator i "
+				+ " WHERE i.employee.store.id IN (:storesId) "
+				+ " AND STR_TO_DATE(CONCAT(i.year,CONCAT('-',i.month)), '%Y-%m') BETWEEN STR_TO_DATE(:dateFrom,'%Y-%m') and STR_TO_DATE(:dateTo,'%Y-%m') "
+				+ " AND i.employee.store.id = :storeId "
+				+ " Group by i.employee.store.id, i.year, i.month";
+		
+		Query query = session.createQuery(hql);
+
+		query.setParameterList("storesId", storesId);
+		query.setParameter("dateFrom", yearFrom + '-' + monthFrom);
+		query.setParameter("dateTo", yearTo + '-' + monthTo);
+		query.setParameter("storeId", storeId);
+		
+		@SuppressWarnings("unchecked")
+		List<Indicator> indicators = query.list();
+		
+		session.close();
+		
+		return indicators;
 	}
 }

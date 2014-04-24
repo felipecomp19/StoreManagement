@@ -8,7 +8,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
+import com.textTI.storeManagement.model.Indicator;
 
 public class EvolutionOfIndicatorReportData extends ReportData {
 	
