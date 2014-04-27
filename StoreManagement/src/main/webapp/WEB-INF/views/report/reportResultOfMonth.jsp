@@ -57,7 +57,7 @@
 						<div class="box-content">
 							<div class="row">
 								<div class="col-md-12" >
-									<form:form class="form-horizontal fill-up validatable" method="POST" commandName="reportVM" modelAttribute="reportVM" action="${pageContext.request.contextPath}/report/exportReportToExcel" >
+									<form:form class="form-horizontal fill-up validatable" method="POST" commandName="reportVM" modelAttribute="reportVM" action="${pageContext.request.contextPath}/report/generate" >
 										<form:select id="reportsSL" path="selectedReport">
 											<form:option value="1"><spring:message code="report.resultOfMonth"/></form:option>
 										</form:select>
@@ -88,66 +88,76 @@
 								</div>
 							</div>
 							
+							
 							<!-- table -->
 							<div class="container">
 								<div class="row">
 									<div class="col-md-12">
-										<div id="dataTables">
-											<table cellpadding="0" cellspacing="0" border="0" class="dTable responsive">
-												<thead>
-													<tr>
-														<th><spring:message code="label.employee"/></th>
-														<th><spring:message code="label.workedDaysT"/></th>
-														<th><spring:message code="label.goalT"/></th>
-														<th><spring:message code="label.valueOfSalesT"/></th>
-														<th><spring:message code="label.numberOfAttendancesT"/></th>
-														<th><spring:message code="label.numberOfSalesT"/></th>
-														<th><spring:message code="label.numberOfItemsSoldT"/></th>
-														<th><spring:message code="label.achievementOfGoalsT"/></th>
-														<th><spring:message code="label.averageValueOfTheProductT"/></th>
-														<th><spring:message code="label.averageTicketT"/></th>
-														<th><spring:message code="label.itemsPerSaleT"/></th>
-														<th><spring:message code="label.conversionRateT"/></th>
-														<th><spring:message code="label.averageSalesPerDayT"/></th>
-													</tr>
-												</thead>
-												<tbody>
-													<c:forEach var="indicator" items="${reportVM.reportData.indicators}">
-														<tr>
-															<td>${indicator.employee.name}</td>
-															<td >${indicator.workedDays}</td>
-															<td class="indInput money">${indicator.goal}</td>
-															<td>${indicator.valueOfSales}</td>
-															<td>${indicator.numberOfAttendances}</td>
-															<td>${indicator.numberOfSales}</td>
-															<td>${indicator.numberOfItemsSold}</td>
-															<td>${indicator.formattedAchievementOfGoals}</td>
-															<td>${indicator.averageValueOfTheProduct}</td>
-															<td>${indicator.averageTicket}</td>
-															<td>${indicator.itemsPerSale}</td>
-															<td>${indicator.formattedConversionRate}</td>
-															<td>${indicator.averageSalesPerDay}</td>
-														</tr>
-													</c:forEach>
-												</tbody>
-												<tfoot style="font-weight: bold;">
-													<tr>
-														<td><spring:message code="label.total"/>
-														<td>${reportVM.reportData.userData.workedDays}</td>
-														<td>${reportVM.reportData.userData.goal}</td>
-														<td>${reportVM.reportData.userData.valueOfSales}</td>
-														<td>${reportVM.reportData.userData.numberOfAttendances}</td>
-														<td>${reportVM.reportData.userData.numberOfSales}</td>
-														<td>${reportVM.reportData.userData.numberOfItemsSold}</td>
-														<td>${reportVM.reportData.userData.formattedAchievementOfGoals}</td>
-														<td>${reportVM.reportData.userData.averageValueOfTheProduct}</td>
-														<td>${reportVM.reportData.userData.averageTicket}</td>
-														<td>${reportVM.reportData.userData.itemsPerSale}</td>
-														<td>${reportVM.reportData.userData.formattedConversionRate}</td>
-														<td>${reportVM.reportData.userData.averageSalesPerDay}</td>
-													</tr>
-												</tfoot>
-											</table>
+										<div class="box">
+											<div class="box-header">
+												<ul class="box-toolbar">
+													<li><button class="btn btn-sm btn-blue" id="exportReport" ><i class="icon-download-alt"></i>&nbsp;&nbsp;<spring:message code="label.exportToExcel"/></button>
+    											</ul>
+											</div>
+											<div class="box-content">
+												<div id="dataTables">
+													<table cellpadding="0" cellspacing="0" border="0" class="dTable responsive">
+														<thead>
+															<tr>
+																<th><spring:message code="label.employee"/></th>
+																<th><spring:message code="label.workedDaysT"/></th>
+																<th><spring:message code="label.goalT"/></th>
+																<th><spring:message code="label.valueOfSalesT"/></th>
+																<th><spring:message code="label.numberOfAttendancesT"/></th>
+																<th><spring:message code="label.numberOfSalesT"/></th>
+																<th><spring:message code="label.numberOfItemsSoldT"/></th>
+																<th><spring:message code="label.achievementOfGoalsT"/></th>
+																<th><spring:message code="label.averageValueOfTheProductT"/></th>
+																<th><spring:message code="label.averageTicketT"/></th>
+																<th><spring:message code="label.itemsPerSaleT"/></th>
+																<th><spring:message code="label.conversionRateT"/></th>
+																<th><spring:message code="label.averageSalesPerDayT"/></th>
+															</tr>
+														</thead>
+														<tbody>
+															<c:forEach var="indicator" items="${reportVM.reportData.indicators}">
+																<tr>
+																	<td>${indicator.employee.name}</td>
+																	<td >${indicator.workedDays}</td>
+																	<td class="indInput money">${indicator.goal}</td>
+																	<td>${indicator.valueOfSales}</td>
+																	<td>${indicator.numberOfAttendances}</td>
+																	<td>${indicator.numberOfSales}</td>
+																	<td>${indicator.numberOfItemsSold}</td>
+																	<td>${indicator.formattedAchievementOfGoals}</td>
+																	<td>${indicator.averageValueOfTheProduct}</td>
+																	<td>${indicator.averageTicket}</td>
+																	<td>${indicator.itemsPerSale}</td>
+																	<td>${indicator.formattedConversionRate}</td>
+																	<td>${indicator.averageSalesPerDay}</td>
+																</tr>
+															</c:forEach>
+														</tbody>
+														<tfoot style="font-weight: bold;">
+															<tr>
+																<td><spring:message code="label.total"/>
+																<td>${reportVM.reportData.userData.workedDays}</td>
+																<td>${reportVM.reportData.userData.goal}</td>
+																<td>${reportVM.reportData.userData.valueOfSales}</td>
+																<td>${reportVM.reportData.userData.numberOfAttendances}</td>
+																<td>${reportVM.reportData.userData.numberOfSales}</td>
+																<td>${reportVM.reportData.userData.numberOfItemsSold}</td>
+																<td>${reportVM.reportData.userData.formattedAchievementOfGoals}</td>
+																<td>${reportVM.reportData.userData.averageValueOfTheProduct}</td>
+																<td>${reportVM.reportData.userData.averageTicket}</td>
+																<td>${reportVM.reportData.userData.itemsPerSale}</td>
+																<td>${reportVM.reportData.userData.formattedConversionRate}</td>
+																<td>${reportVM.reportData.userData.averageSalesPerDay}</td>
+															</tr>
+														</tfoot>
+													</table>
+												</div>
+											</div>
 										</div>	
 									</div>
 								</div>
@@ -195,6 +205,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<!-- [END] main content -->
 	</jsp:body>
 </t:template>
@@ -312,6 +323,14 @@
         
         $("#indSL").change(function(){
         	populateChart();
+        });
+        
+        $("#exportReport").click(function(){
+        	var selectedStore = $("#storeSL").val();
+        	month = $("#selectedMonth").val();
+			year = $("#selectedYear").val();
+			
+			window.location.replace("${pageContext.request.contextPath}/report/exportReportResultOfMonth/" + selectedStore + "/" + month + "/" + year);
         });
 	});
 </script>

@@ -2,7 +2,13 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
  
-  <bean id="IndicatorsExcelReport"
-      class="com.textTI.storeManagement.model.report.excelView.IndicatorsExcelReportView">
+  <bean id="ResultOfMonthExcelReport"
+      class="com.textTI.storeManagement.model.report.excelView.ResultOfMonthExcelReportView">
+  </bean>
+  <bean id="CumulativeResultExcelReport"
+      class="com.textTI.storeManagement.model.report.excelView.CumulativeResultExcelReportView">
+  </bean>
+  <bean id="EvolutionOfIndicatorsExcelReport"
+      class="com.textTI.storeManagement.model.report.excelView.EvolutionOfIndicatorsExcelReportView">
   </bean>
 </beans>

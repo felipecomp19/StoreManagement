@@ -1,49 +1,58 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<div id="tab5">
-<div id="dataTables">
-	<table cellpadding="0" cellspacing="0" border="0"
-		class="dTable responsive">
-		<thead>
-			<tr>
-				<th width="40px;">
-					<i class="icon-bar-chart"></i>
-				</th>
-				<th>
-					<div><spring:message code="label.employee" /></div>
-				</th>
-				<c:forEach var="date"
-					items="${reportVM.evolutionOfIndicatorReportData[0].keys}">
-					<th><div>${date}</div></th>
-				</c:forEach>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="reportData"
-				items="${reportVM.evolutionOfIndicatorReportData}">
-				<tr>
-					<td>
-						<input class="averageSalesPerDayChart" type="checkbox" checked="checked" value="${reportData.employee.id}" onclick="reloadGraph('averageSalesPerDayChart')">
-					</td>
-					<td>${reportData.employee.name}</td>
-					<c:forEach var="value"
-						items="${reportData.averageSalesPerDayMapValues}">
-						<td>${value}</td>
+<div id="tab6">
+<div class="box">
+	<div class="box-header">
+		<ul class="box-toolbar">
+			<li><button class="btn btn-sm btn-blue" name="exportReport" ><i class="icon-download-alt"></i>&nbsp;&nbsp;<spring:message code="label.exportToExcel"/></button>
+		</ul>
+	</div>
+	<div class="box-content">
+		<div id="dataTables">
+			<table cellpadding="0" cellspacing="0" border="0"
+				class="dTable responsive">
+				<thead>
+					<tr>
+						<th width="40px;">
+							<i class="icon-bar-chart"></i>
+						</th>
+						<th>
+							<div><spring:message code="label.employee" /></div>
+						</th>
+						<c:forEach var="date"
+							items="${reportVM.evolutionOfIndicatorReportData[0].keys}">
+							<th><div>${date}</div></th>
+						</c:forEach>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="reportData"
+						items="${reportVM.evolutionOfIndicatorReportData}">
+						<tr>
+							<td>
+								<input class="averageSalesPerDayChart" type="checkbox" checked="checked" value="${reportData.employee.id}" onclick="reloadGraph('averageSalesPerDayChart')">
+							</td>
+							<td>${reportData.employee.name}</td>
+							<c:forEach var="value"
+								items="${reportData.averageSalesPerDayMapValues}">
+								<td>${value}</td>
+							</c:forEach>
+						</tr>
 					</c:forEach>
-				</tr>
-			</c:forEach>
-		</tbody>
-		<tfoot style="font-weight: bold;">
-			<tr>
-				<td></td>
-				<td><spring:message code="label.total"/>
-				<c:forEach var="value" items="${reportVM.evolutionOfIndicatorReportDataTotals.averageSalesPerDayMapValues}">
-					<td class="">${value}</td>
-				</c:forEach>
-			</tr>
-		</tfoot>
-	</table>
+				</tbody>
+				<tfoot style="font-weight: bold;">
+					<tr>
+						<td></td>
+						<td><spring:message code="label.total"/>
+						<c:forEach var="value" items="${reportVM.evolutionOfIndicatorReportDataTotals.averageSalesPerDayMapValues}">
+							<td class="">${value}</td>
+						</c:forEach>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
 </div>
 
 <!-- charts -->

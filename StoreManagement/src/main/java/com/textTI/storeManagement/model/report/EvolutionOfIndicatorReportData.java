@@ -9,8 +9,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import com.textTI.storeManagement.model.Indicator;
-
 public class EvolutionOfIndicatorReportData extends ReportData {
 	
 	private Map<Date,BigDecimal> achievementOfGoalsMap;

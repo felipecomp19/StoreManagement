@@ -174,10 +174,31 @@
 		
 		$("#tabRef2").click();
 		$("#tabRef1").click();
+		
+		$("button[name='exportReport']").each(function(){
+			$(this).click(function(){
+	        	var selectedStore = $("#storeSL").val();
+	        	var monthFrom = $("#monthFrom").val();
+				var yearFrom = $("#yearFrom").val();
+				var monthTo = $("#monthTo").val();
+				var yearTo = $("#yearTo").val();
+				
+				window.location.replace("${pageContext.request.contextPath}/report/exportReportEvolutionOfIndicators/" + selectedStore + "/" + monthFrom + "/" + yearFrom + "/" + monthTo + "/" + yearTo);
+	        });
+		});
+		/* $("#exportReport").click(function(){
+        	var selectedStore = $("#storeSL").val();
+        	var monthFrom = $("#monthFrom").val();
+			var yearFrom = $("#yearFrom").val();
+			var monthTo = $("#monthTo").val();
+			var yearTo = $("#yearTo").val();
+			
+			window.location.replace("${pageContext.request.contextPath}/report/exportReportEvolutionOfIndicators/" + selectedStore + "/" + monthFrom + "/" + yearFrom + "/" + monthTo + "/" + yearTo);
+        }); */
 	});
 	
 	function getData(chartLegendId, emps, gData, selectedEmps){
-        $(chartLegendId).empty()
+        $(chartLegendId).empty();
 		var data = {
         	 "xScale":"ordinal",
              "comp":[],
@@ -312,7 +333,7 @@
 		var i = 0;
 		var selected = $('.' + classe + ':checkbox:checked').each(function(){
 			selectedEmps[i] = $(this).val();
-			i++
+			i++;
 		});
 
 		if(classe == "achievementOfGoalChart"){
