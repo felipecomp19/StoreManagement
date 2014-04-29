@@ -114,6 +114,7 @@
 													<table cellpadding="0" cellspacing="0" border="0" class="dTable responsive">
 														<thead>
 															<tr>
+																<th width="40px;"><i class="icon-bar-chart"></i></th>
 																<th><spring:message code="label.employee"/></th>
 																<th><spring:message code="label.workedDaysT"/></th>
 																<th><spring:message code="label.goal"/></th>
@@ -132,6 +133,9 @@
 														<tbody>
 															<c:forEach var="indicator" items="${reportVM.reportData.indicators}">
 																<tr>
+																	<td>
+																		<input class="checkEmp" type="checkbox" checked="checked" value="${indicator.employee.id}" onclick="reloadGraph()">
+																	</td>
 																	<td>${indicator.employee.name}</td>
 																	<td>${indicator.workedDays}</td>
 																	<td>${indicator.goal}</td>
@@ -150,6 +154,7 @@
 														</tbody>
 														<tfoot style="font-weight: bold;">
 															<tr>
+																<td></td>
 																<td><spring:message code="label.total"/>
 																<td>${reportVM.reportData.userData.workedDays}</td>
 																<td>${reportVM.reportData.userData.goal}</td>
@@ -222,115 +227,11 @@
 	$(document).ready(function () {
 		$("#reportsSL").hide();
 		
-		//css para os graficos
-		var tt = document.createElement('div'),leftOffset = -(~~$('html').css('padding-left').replace('px', '') + ~~$('body').css('margin-left').replace('px', '')),topOffset = -32;
-		tt.className = 'ex-tooltip';
-		document.body.appendChild(tt);
-		
-		var populateChart = function(){
-			var selectedInd = $("#indSL").val();
-        	var selectedStore = $("#storeSL").val();
-        	var monthFrom = $("#monthFrom").val();
-			var yearFrom = $("#yearFrom").val();
-			
-			var monthTo = $("#monthTo").val();
-			var yearTo = $("#yearTo").val();
-			
-			var data = {
-	                "xScale": "ordinal",
-	                "yScale": "linear"
-	            };
-
-            data.main = [];
-            var graphData = [];
-            $.blockUI({
-   	            message: '<h3> Consultando <img src="${pageContext.request.contextPath}/resources/coreAdmin/images/loading.gif" /></h3>'
-   	        });
-            
-            $.ajax({
-	   			url: "${pageContext.request.contextPath}/report/getIndicatorsByStoreAndRangeOfMonthAndYear/" + selectedStore + "/" + monthFrom + "/" +yearFrom + "/" + monthTo + "/" + yearTo,
-	   			type:"GET",
-	   			dataType: "json",
-	   			contentType: 'application/json',
-	   		    mimeType: 'application/json', 
-	   		 	success: function(result) { 
-	   		 		$.each(result.indicators, function(){
-						if(selectedInd == 1) //achievementOfGoals
-			   		 		graphData.push({
-		                        "x": this.employee.name,
-		                        "y": this.achievementOfGoals
-		                    });
-						else if(selectedInd == 2)//averageValueOfTheProduct
-							graphData.push({
-		                        "x": this.employee.name,
-		                        "y": this.averageValueOfTheProduct
-		                    });
-						else if(selectedInd == 3)//averageTicket
-							graphData.push({
-		                        "x": this.employee.name,
-		                        "y": this.averageTicket
-		                    });
-						else if(selectedInd == 4)//itemsPerSale
-							graphData.push({
-		                        "x": this.employee.name,
-		                        "y": this.itemsPerSale
-		                    });
-						else if(selectedInd == 5)//conversionRate
-							graphData.push({
-		                        "x": this.employee.name,
-		                        "y": this.conversionRate
-		                    });
-						else if(selectedInd == 6)//averageSalesPerDay
-							graphData.push({
-		                        "x": this.employee.name,
-		                        "y": this.averageSalesPerDay
-		                    });
-					});
-		   		 	data.main.push({
-		                "className": ".indicators",
-		                "data": graphData
-		            });
-		   		 
-	   	    	},
-	   	    	error:function(data,status,er) { 
-	   	    		return Growl.error({
-                        title:'Erro!',
-                        text: 'Erro ao criar graficos'
-                    });
-	   	     	},
-                complete: function() {
-                	new xChart('bar', data, '#indChart', {
-                		axisPaddingTop: 5, 
-                		paddingLeft: 25,
-	    	        	mouseover: function (d, i) {
-	    	            	var pos = $(this).offset();
-	    	            	$(tt).text(d.y).css({top: topOffset + pos.top, left: pos.left + leftOffset}).show();
-	    	          	},
-	    	          	mouseout: function (x) { $(tt).hide(); }
-                	});
-	
-                	
-                	var c = 0;
-                	$("g.indicators").attr("class","main indicators bar");
-                	$(".indicators").find("rect").each(function(){
-                		$(this).addClass("color" + c);
-                		$(this).attr("class", "color" + c);
-                		if(c >= 9)
-                			c = 0;
-                		c++;
-    	          	});
-
-                    $.unblockUI();
-                }
-            });
-            
-            return data;
-		};
-		
-		populateChart();
+		populateChart(null);
         
         $("#indSL").change(function(){
-        	populateChart();
+        	//populateChart();
+        	reloadGraph();
         });
         
         $("#exportReport").click(function(){
@@ -344,4 +245,123 @@
 			window.location.replace("${pageContext.request.contextPath}/report/exportReportCumulativeResult/" + selectedStore + "/" + monthFrom + "/" + yearFrom + "/" + monthTo + "/" + yearTo);
         });
 	});
+	
+	function populateChart(selectedEmps){
+		var selectedInd = $("#indSL").val();
+    	var selectedStore = $("#storeSL").val();
+    	var monthFrom = $("#monthFrom").val();
+		var yearFrom = $("#yearFrom").val();
+		var monthTo = $("#monthTo").val();
+		var yearTo = $("#yearTo").val();
+		
+		//css para os graficos
+		var tt = document.createElement('div'),leftOffset = -(~~$('html').css('padding-left').replace('px', '') + ~~$('body').css('margin-left').replace('px', '')),topOffset = -32;
+		tt.className = 'ex-tooltip';
+		document.body.appendChild(tt);
+		
+		var data = {
+                "xScale": "ordinal",
+                "yScale": "linear"
+            };
+
+        data.main = [];
+        var graphData = [];
+        $.blockUI({
+	            message: '<h3> Consultando <img src="${pageContext.request.contextPath}/resources/coreAdmin/images/loading.gif" /></h3>'
+	        });
+        
+        $.ajax({
+   			url: "${pageContext.request.contextPath}/report/getIndicatorsByStoreAndRangeOfMonthAndYear/" + selectedStore + "/" + monthFrom + "/" +yearFrom + "/" + monthTo + "/" + yearTo,
+   			type:"GET",
+   			dataType: "json",
+   			contentType: 'application/json',
+   		    mimeType: 'application/json', 
+   		 	success: function(result) { 
+ 			$.each(result.indicators, function(){
+ 				var id = parseInt(this.employee.id);
+   		 		if(selectedEmps == null || jQuery.inArray(id, selectedEmps) >= 0){
+					if(selectedInd == 1) //achievementOfGoals
+		   		 		graphData.push({
+	                        "x": this.employee.name,
+	                        "y": this.achievementOfGoals
+	                    });
+					else if(selectedInd == 2)//averageValueOfTheProduct
+						graphData.push({
+	                        "x": this.employee.name,
+	                        "y": this.averageValueOfTheProduct
+	                    });
+					else if(selectedInd == 3)//averageTicket
+						graphData.push({
+	                        "x": this.employee.name,
+	                        "y": this.averageTicket
+	                    });
+					else if(selectedInd == 4)//itemsPerSale
+						graphData.push({
+	                        "x": this.employee.name,
+	                        "y": this.itemsPerSale
+	                    });
+					else if(selectedInd == 5)//conversionRate
+						graphData.push({
+	                        "x": this.employee.name,
+	                        "y": this.conversionRate
+	                    });
+					else if(selectedInd == 6)//averageSalesPerDay
+						graphData.push({
+	                        "x": this.employee.name,
+	                        "y": this.averageSalesPerDay
+                   		});
+   		 			}
+				});
+	   		 	data.main.push({
+	                "className": ".indicators",
+	                "data": graphData
+	            });
+	   		 
+   	    	},
+   	    	error:function(data,status,er) { 
+   	    		return Growl.error({
+                    title:'Erro!',
+                    text: 'Erro ao criar graficos'
+                });
+   	     	},
+            complete: function() {
+            	new xChart('bar', data, '#indChart', {
+            		axisPaddingTop: 5, 
+            		paddingLeft: 25,
+    	        	mouseover: function (d, i) {
+    	            	var pos = $(this).offset();
+    	            	$(tt).text(d.y).css({top: topOffset + pos.top, left: pos.left + leftOffset}).show();
+    	          	},
+    	          	mouseout: function (x) { $(tt).hide(); }
+            	});
+
+            	
+            	var c = 0;
+            	$("g.indicators").attr("class","main indicators bar");
+            	$(".indicators").find("rect").each(function(){
+            		$(this).addClass("color" + c);
+            		$(this).attr("class", "color" + c);
+            		if(c >= 9)
+            			c = 0;
+            		c++;
+	          	});
+
+                $.unblockUI();
+            }
+        });
+        
+        return data;
+	}
+	
+	function reloadGraph()
+	{
+		var selectedEmps = [];
+		var i = 0;
+		var selected = $('.checkEmp:checkbox:checked').each(function(){
+			selectedEmps[i] = parseInt($(this).val());
+			i++;
+		});
+		
+		populateChart(selectedEmps);
+	}
 </script>
