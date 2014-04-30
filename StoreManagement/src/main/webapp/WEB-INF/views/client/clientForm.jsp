@@ -23,7 +23,7 @@
 						
 					</ul>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-5">
 					<ul class="padded separate-sections">
 					<li><h4><spring:message code="label.clientData" /></h4></li>
 						<li class="input" style="width: 200px;">
@@ -53,19 +53,44 @@
 								</div>
 							</div>
 						</li>
-						<li class="input">
-							<label class="control-label"><spring:message code="label.birthday" /></label>
+						<li>
 							<div class="row action-nav-row">
+							<label class="control-label"><spring:message code="label.birthday" /></label>
+							<div class="form-group"> 
+								<label class="control-label col-md-1"><spring:message code="label.day" /></label>
+								<div class="col-md-5">
+									<form:select id="day_birthday" path="day_birthday" items="${daysSL}" class="uniform" />
+								</div>
+								<label class="control-label col-md-1"><spring:message code="label.month" /></label>
+								<div class="col-md-5">
+									<form:select id="month_birthday" path="month_birthday" class="uniform">
+										<form:option value="1"><spring:message code="month.jan"/></form:option>
+										<form:option value="2"><spring:message code="month.feb"/></form:option>
+										<form:option value="3"><spring:message code="month.mar"/></form:option>
+										<form:option value="4"><spring:message code="month.apr"/></form:option>
+										<form:option value="5"><spring:message code="month.may"/></form:option>
+										<form:option value="6"><spring:message code="month.jun"/></form:option>
+										<form:option value="7"><spring:message code="month.jul"/></form:option>
+										<form:option value="8"><spring:message code="month.ago"/></form:option>
+										<form:option value="9"><spring:message code="month.set"/></form:option>
+										<form:option value="10"><spring:message code="month.oct"/></form:option>
+										<form:option value="11"><spring:message code="month.nov"/></form:option>
+										<form:option value="12"><spring:message code="month.dez"/></form:option>
+									</form:select>
+								</div>
+							</div>
+							</div>
+							<%-- <div class="row action-nav-row">
 								<div class="col-md-1" align="right">
 									<label class="control-label"><spring:message code="label.day" /></label>
 								</div>
-								<div class="col-md-3">
+								<div class="col-md-5">
 									<form:select id="day_birthday" path="day_birthday" items="${daysSL}" class="uniform" />
 								</div>
 								<div class="col-md-1" align="right" style="vertical-align: bottom;">
 									<label class="control-label"><spring:message code="label.month" /></label>
 								</div>
-								<div class="col-md-3">
+								<div class="col-md-5">
 									<form:select id="month_birthday" path="month_birthday" class="uniform">
 										<form:option value="1"><spring:message code="month.jan"/></form:option>
 										<form:option value="2"><spring:message code="month.feb"/></form:option>
@@ -81,7 +106,7 @@
 										<form:option value="12"><spring:message code="month.dez"/></form:option>
 									</form:select> 
 								</div>
-							</div>
+							</div> --%>
 						</li>
 						<li class="input">
 							<div class="row action-nav-row">
@@ -142,8 +167,9 @@
 			</div>
 			<div class="form-actions">
 				<button type="submit" class="btn btn-blue"><spring:message code="label.save" /></button>
-				<a href="${pageContext.request.contextPath}/client/list">
-					<button type="button" class="btn btn-default"><spring:message code="label.cancel" /></button>
+				<a href="${pageContext.request.contextPath}/client/list" class="btn btn-default">
+					<spring:message code="label.cancel" />
+					<%-- <button type="button" class="btn btn-default"><spring:message code="label.cancel" /></button> --%>
 				</a>
 			</div>
 		</form:form>

@@ -24,8 +24,8 @@
 			</div>
 			<div class="form-actions">
 				<button type="submit" class="btn btn-blue"><spring:message code="label.save" /></button>
-				<a href="${pageContext.request.contextPath}/clientType/list">
-					<button type="button" class="btn btn-default"><spring:message code="label.cancel" /></button>
+				<a href="${pageContext.request.contextPath}/clientType/list" class="btn btn-default">
+					<spring:message code="label.cancel" />
 				</a>
 			</div>
 		</form:form>

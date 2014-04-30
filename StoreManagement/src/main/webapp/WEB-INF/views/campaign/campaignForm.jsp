@@ -49,8 +49,8 @@
 	</div>
 	<div class="form-actions">
 		<button type="submit" class="btn btn-blue"><spring:message code="label.save" /></button>
-		<a href="${pageContext.request.contextPath}/campaign/list">
-			<button type="button" class="btn btn-default"><spring:message code="label.cancel" /></button>
+		<a href="${pageContext.request.contextPath}/campaign/list" class="btn btn-default">
+			<spring:message code="label.cancel" />
 		</a>
 		<div class="navbar-right">
 			<c:choose>
