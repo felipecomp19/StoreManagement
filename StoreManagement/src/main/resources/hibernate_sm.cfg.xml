@@ -27,7 +27,7 @@
 
 		<property name="show_sql">true</property>
 		<property name="format_sql">false</property>
-		 <property name="hbm2ddl.auto">update</property>
+		<!-- <property name="hbm2ddl.auto">update</property> -->
 		<!-- <property name="hibernate.hbm2ddl.import_files">sql/update_tables.sql</property> -->
 
 		<!-- JDBC connection pool (use the built-in) -->

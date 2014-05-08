@@ -100,7 +100,7 @@ public class CampaignController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/sendEmails", method = RequestMethod.POST)
-	public String sendEmails(@ModelAttribute("campaign") Campaign campaign, HttpServletRequest request) throws MessagingException
+	public String sendEmails(@ModelAttribute("campaign") Campaign campaign, HttpServletRequest request) 
 	{
 		long selectedMLId = campaign.getMailingList().getId();
 		if(campaign.getId() != null){
@@ -108,7 +108,13 @@ public class CampaignController extends BaseController {
 			if(selectedMLId != campaign.getMailingList().getId()){
 				campaign.setMailingList(this.mailingListManager.getById(selectedMLId));
 			}
-			this.campaignManager.submit(campaign);
+			
+			try {
+				this.campaignManager.submit(campaign);
+			} catch (MessagingException e) {
+				this.logger.error("Error submiting the campaign: " + e.getMessage());
+				e.printStackTrace();
+			}
 			//this.mailManager.sendHTMLMail(campaign);
 		}
 		
