@@ -7,16 +7,18 @@
 <hibernate-configuration>
     <session-factory>
 
-		<property name="connection.url">jdbc:mysql://localhost:3306/db_storeManager_prod</property> <!-- prod -->
-		<property name="connection.username">root</property><!-- prod -->
-		<property name="connection.password">Fl0r1p4.20</property><!-- prod -->
+		<property name="connection.url">jdbc:mysql://localhost:3306/db_storeManager_dev</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">123456</property>
+		<!-- PROD morana
+		<property name="connection.url">jdbc:mysql://localhost:3306/db_storeManager_morana_prod</property> 
+		<property name="connection.username">root</property>
+		<property name="connection.password">Fl0r1p4.20</property>
+		 -->
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
 		
-		<!-- Disable the second-level cache  -->
-        <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
-
-        <property name="testOnBorrow">true</property>
+		<property name="testOnBorrow">true</property>
 		<property name="validationQuery">select 1</property>
 		
 		<property name="hibernate.connection.provider_class">org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider</property>
@@ -24,16 +26,20 @@
 		<property name="hibernate.c3p0.max_size">20</property>
 		<property name="hibernate.c3p0.timeout">30</property>
 		<property name="hibernate.c3p0.idle_test_period">100</property>
+		
+		<!-- Disable the second-level cache  -->
+        <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
 
 		<property name="show_sql">true</property>
-		<property name="format_sql">false</property>
-		 <property name="hbm2ddl.auto">update</property>
+
+		<property name="format_sql">true</property>
+		<property name="hbm2ddl.auto">update</property>
 		<!-- <property name="hibernate.hbm2ddl.import_files">sql/update_tables.sql</property> -->
 
 		<!-- JDBC connection pool (use the built-in) -->
 		<property name="connection.pool_size">1</property>
 		<property name="current_session_context_class">thread</property>
-		
+
 		<mapping class="com.textTI.storeManagement.model.Client"/>
 		<mapping class="com.textTI.storeManagement.model.Store"/>
 		<mapping class="com.textTI.storeManagement.model.ClientType"/>

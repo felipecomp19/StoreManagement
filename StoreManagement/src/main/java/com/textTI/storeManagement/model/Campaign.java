@@ -40,6 +40,8 @@ public class Campaign extends BaseModel {
 	@Column(name = "submittedDate")
 	private Date submittedDate;
 	
+	private Status status;
+	
 	public String getName() {
 		return name;
 	}
@@ -108,6 +110,14 @@ public class Campaign extends BaseModel {
 		return submittedDate;
 	}
 	
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
 	public String getFormatedSubmittedDate() {
 		if(this.submittedDate != null){
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");

@@ -1,6 +1,9 @@
 package com.textTI.storeManagement.manager;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -35,6 +38,25 @@ public class TestMailManager extends BaseManagerTestCase{
 //			Assert.fail(e.getMessage());
 //		}
 	}
+	
+	@Test
+	public void testSendAsyncMail()
+	{
+		Calendar aux = Calendar.getInstance();
+		System.out.println(aux.get(Calendar.YEAR));
+	}
+	
+	public static void main(String args[])
+	{
+		Calendar aux = Calendar.getInstance();
+		aux.set(aux.get(Calendar.YEAR),aux.get(Calendar.MONTH), aux.get(Calendar.DATE), 0,1);
+		aux.add(Calendar.DATE, 1);
+		
+		System.out.println(aux.get(Calendar.YEAR));
+		
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		System.out.println(dateFormat.format(aux.getTime()));
+	}
 
 	private MailingList createMailingList() {
 		MailingList ml = new MailingList();
@@ -49,7 +71,7 @@ public class TestMailManager extends BaseManagerTestCase{
 		
 		return ml;
 	}
-
+	
 	private void createClients(List<Client> clients) {
 		Client cli = new Client();
 		cli.setEmail("felipecomp19@gmail.com");

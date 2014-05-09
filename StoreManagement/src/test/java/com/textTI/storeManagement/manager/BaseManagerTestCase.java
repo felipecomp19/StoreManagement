@@ -23,7 +23,8 @@ import com.textTI.storeManagement.model.Store;
 
 @ContextConfiguration(locations = {
 		"classpath:/applicationContext-resources.xml",
-		"/WEB-INF/spring/appServlet/servlet-context.xml" })
+		"/WEB-INF/spring/appServlet/servlet-context.xml",
+		"/WEB-INF/spring/root-context.xml"})
 public abstract class BaseManagerTestCase extends
 		AbstractTransactionalJUnit4SpringContextTests {
 

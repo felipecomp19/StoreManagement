@@ -35,5 +35,13 @@
 		<property name="username" value="root" />
 		<property name="password" value="123456" />
    </bean>
+   
+   <bean id="taskScheduler" class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler">
+		<property name="poolSize" value="10" />
+	</bean>
+
+	<bean id="taskExecutorExample" class="com.textTI.storeManagement.manager.CampaignManager">
+		<property name="taskScheduler" ref="taskScheduler"/>
+	</bean>
 	
 </beans>
