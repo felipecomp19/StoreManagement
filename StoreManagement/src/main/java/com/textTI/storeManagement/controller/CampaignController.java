@@ -45,7 +45,7 @@ public class CampaignController extends BaseController {
 		Campaign campaign = new Campaign();
 		model.addAttribute("campaign", campaign);
 		
-		return "campaign/create";
+		return "campaign/createWizard";
 	}
 	
 	@ModelAttribute("mailingLists")
@@ -112,7 +112,7 @@ public class CampaignController extends BaseController {
 			try {
 				this.campaignManager.submit(campaign);
 			} catch (MessagingException e) {
-				this.logger.error("Error submiting the campaign: " + e.getMessage());
+				logger.error("Error submiting the campaign: " + e.getMessage());
 				e.printStackTrace();
 			}
 			//this.mailManager.sendHTMLMail(campaign);

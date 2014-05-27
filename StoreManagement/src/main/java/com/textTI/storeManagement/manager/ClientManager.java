@@ -103,6 +103,10 @@ public class ClientManager {
 
 	public List<Client> getAllByUser(User loggedUser) {
 
+		//if theres is no store, return an empty list
+		if(loggedUser.getStoresId() == null)
+			return new ArrayList<Client>();
+		
 		return this.clientDAO.getAllByUser(loggedUser.getStoresId());
 	}
 }

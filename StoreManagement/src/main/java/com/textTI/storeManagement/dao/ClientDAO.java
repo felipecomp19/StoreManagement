@@ -5,6 +5,8 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.textTI.storeManagement.model.Client;
@@ -12,6 +14,8 @@ import com.textTI.storeManagement.utils.HibernateUtil;
 
 @Repository
 public class ClientDAO extends BaseDAO {
+	
+	protected static final Logger logger = LoggerFactory.getLogger(ClientDAO.class);
 
 	public Client getById(Long id) {
 		return (Client) this.getById(id, Client.class);
@@ -105,7 +109,8 @@ public class ClientDAO extends BaseDAO {
 		
 		String hql = "SELECT DISTINCT c "
 				+ "FROM Client c JOIN c.stores cs "
-				+ "WHERE cs.id IN (:storesId) "
+				+ "WHERE (:storesId = null "
+				+ "OR cs.id IN (:storesId)) "
 				+ "AND c.month_birthday = :month "
 				+ "AND c.day_birthday >= :dayFrom "
 				+ "AND c.day_birthday <= :dayTo ";
@@ -125,19 +130,25 @@ public class ClientDAO extends BaseDAO {
 		return clients;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Client> getAllByUser(List<Long> storesId) {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		
-		String hql = "SELECT DISTINCT c FROM Client c JOIN c.stores cs WHERE cs.id IN (:storesId)";
-		Query query = session.createQuery(hql);
-
-		query.setParameterList("storesId", storesId);
+		List<Client> clients = null;
+		try{
+			String hql = "SELECT DISTINCT c FROM Client c JOIN c.stores cs WHERE cs.id IN (:storesId)";
+			Query query = session.createQuery(hql);
+	
+			query.setParameterList("storesId", storesId);
 		
-		@SuppressWarnings("unchecked")
-		List<Client> clients = query.list();
-		
-		session.close();
+			clients = query.list();
+		}catch(Exception ex){
+			logger.error("getAllByUser: " + ex.getMessage());
+			ex.printStackTrace();
+		}finally{
+			session.close();
+		}
 		
 		return clients;
 	}

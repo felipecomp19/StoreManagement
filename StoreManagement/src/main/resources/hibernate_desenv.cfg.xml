@@ -52,5 +52,6 @@
 		<mapping class="com.textTI.storeManagement.model.Imagen"/>
 		<mapping class="com.textTI.storeManagement.model.Employee"/>
 		<mapping class="com.textTI.storeManagement.model.Indicator"/>
+		<mapping class="com.textTI.storeManagement.model.Status"/>
 	</session-factory>
 </hibernate-configuration>

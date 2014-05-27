@@ -66,8 +66,8 @@ public class Client extends BaseModel {
 	@JoinColumn(name = "address")
 	private Address address;
 	
-	@Column(name = "especialActions")
-	private String especialActions;
+//	@Column(name = "especialActions")
+//	private String especialActions;
 	
 	@Transient
 	private int count;
@@ -196,13 +196,13 @@ public class Client extends BaseModel {
 		this.checked = checked;
 	}
 	
-	public String getEspecialActions() {
-		return especialActions;
-	}
-
-	public void setEspecialActions(String especialActions) {
-		this.especialActions = especialActions;
-	}
+//	public String getEspecialActions() {
+//		return especialActions;
+//	}
+//
+//	public void setEspecialActions(String especialActions) {
+//		this.especialActions = especialActions;
+//	}
 
 	public String getFormatedCPF()
 	{

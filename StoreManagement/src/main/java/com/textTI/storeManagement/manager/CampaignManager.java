@@ -90,20 +90,19 @@ public class CampaignManager {
 
 	public void submit(Campaign campaign) throws MessagingException {
 		//TODO remover
-		campaign.getMailingList().setDefaultFromEmail("morana@moranavale.com.br");
-		campaign.getMailingList().setDefaultFromName("Morana@moranavale.com.br");
+		//campaign.getMailingList().setDefaultFromEmail("morana@moranavale.com.br");
+		//campaign.getMailingList().setDefaultFromName("Morana@moranavale.com.br");
 		
 		if (campaign.getMailingList().getClientsListSize() > 3) {
 			Calendar todayCal = Calendar.getInstance();
-			todayCal.set(todayCal.get(Calendar.YEAR), todayCal.get(Calendar.MONTH), todayCal.get(Calendar.DATE), 21, 55);
-			//todayCal.add(Calendar.DATE, 1);
+			todayCal.set(todayCal.get(Calendar.YEAR), todayCal.get(Calendar.MONTH), todayCal.get(Calendar.DATE), 00, 1);
+			todayCal.add(Calendar.DATE, 1);
 			Date startTime = todayCal.getTime();
 			
 			taskScheduler.schedule(new AsyncMailSender(campaign.getId()), startTime);
 			
 			Status status = new Status();
 			status.setId(SatusConstants.CAMPAIGN_SCHEDULED);
-			status.setChangeDate(startTime);
 			this.update(campaign);
 			
 			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -113,7 +112,6 @@ public class CampaignManager {
 
 			Status status = new Status();
 			status.setId(SatusConstants.CAMPAIGN_SUBMITTED);
-			status.setChangeDate(new Date());
 			campaign.setStatus(status);
 			
 			//TODO remover
@@ -138,7 +136,6 @@ public class CampaignManager {
 			
 			Status status = new Status();
 			status.setId(SatusConstants.CAMPAIGN_PROCESSING);
-			status.setChangeDate(new Date());
 			update(campaign);
 
 			try {
@@ -149,11 +146,9 @@ public class CampaignManager {
 				campaign.setSubmittedDate(new Date());
 				
 				status.setId(SatusConstants.CAMPAIGN_SUBMITTED);
-				status.setChangeDate(new Date());
 				campaign.setStatus(status);
 			} catch (MessagingException e) {
 				status.setId(SatusConstants.ERROR);
-				status.setChangeDate(new Date());
 				campaign.setStatus(status);
 				logger.error("Error sending async emails: " + e.getMessage());
 				e.printStackTrace();

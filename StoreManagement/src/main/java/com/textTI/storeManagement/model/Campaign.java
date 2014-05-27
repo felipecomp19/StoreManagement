@@ -40,6 +40,7 @@ public class Campaign extends BaseModel {
 	@Column(name = "submittedDate")
 	private Date submittedDate;
 	
+	@ManyToOne(optional=false, fetch= FetchType.EAGER)
 	private Status status;
 	
 	public String getName() {
