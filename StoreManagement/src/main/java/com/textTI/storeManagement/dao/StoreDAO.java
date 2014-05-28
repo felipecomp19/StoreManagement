@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.textTI.storeManagement.model.Store;
 import com.textTI.storeManagement.model.chart.TotalClientsByMonth;
-import com.textTI.storeManagement.utils.HibernateUtil;
+import com.textTI.utils.HibernateUtil;
 
 @Repository
 public class StoreDAO extends BaseDAO {

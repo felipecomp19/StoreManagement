@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.textTI.storeManagement.model.Client;
-import com.textTI.storeManagement.utils.HibernateUtil;
+import com.textTI.utils.HibernateUtil;
 
 @Repository
 public class ClientDAO extends BaseDAO {

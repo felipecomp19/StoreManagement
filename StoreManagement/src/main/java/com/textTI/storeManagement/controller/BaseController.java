@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.textTI.ecommerce.models.PlanType;
 import com.textTI.storeManagement.manager.UserManager;
 import com.textTI.storeManagement.model.User;
 
@@ -42,8 +43,9 @@ public class BaseController extends HandlerInterceptorAdapter {
 			HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)
 			throws Exception {
 
-		if(modelAndView != null)
+		if(modelAndView != null){
 			modelAndView.addObject("loggedUser", this.getLoggedUser(request));
-		
+			modelAndView.addObject("planTypeBAISC", PlanType.BASIC);
+		}
 	}
 }

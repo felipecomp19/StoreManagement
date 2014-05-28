@@ -17,7 +17,7 @@
 <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 
 <!-- Use title if it's in the page YAML frontmatter -->
-<title>SM - Morana</title>
+<title>Store Manager</title>
 
 <link
 	href="${pageContext.request.contextPath}/resources/coreAdmin/stylesheets/application.css"
@@ -41,7 +41,7 @@
 	<nav class="navbar navbar-default navbar-inverse navbar-static-top" role="navigation">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
-			<a class="navbar-brand" href="#">SM - Morana</a>
+			<a class="navbar-brand" href="#">Store Manager</a>
 		</div>
 	</nav>
 	

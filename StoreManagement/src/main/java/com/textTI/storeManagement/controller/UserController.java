@@ -109,6 +109,7 @@ public class UserController extends BaseController {
 		List<UserRole> roles = this.roleManager.getAll(loggedUser, locale);
 		List<Store> stores = this.storeManager.getAll();
 		
+		user.setAccount(loggedUser.getAccount());
 		model.addAttribute("user", user);
 		model.addAttribute("roles", roles);
 		model.addAttribute("stores", stores);

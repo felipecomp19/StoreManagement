@@ -13,10 +13,10 @@
 	<link rel="stylesheet"	href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800">
 
 	<!-- Use title if it's in the page YAML frontmatter -->
-	<title>SM - Morana</title>
+	<title>SM - ${loggedUser.account.name}</title>
 
 	<link href="${pageContext.request.contextPath}/resources/coreAdmin/stylesheets/application.css" media="screen" rel="stylesheet" type="text/css" />
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/cleditor/jquery.cleditor.css" />
+	<link rel="stylesheet" type="text/csjss" href="${pageContext.request.contextPath}/resources/cleditor/jquery.cleditor.css" />
 	
 	
 	<script src="${pageContext.request.contextPath}/resources/coreAdmin/javascripts/application.js" type="text/javascript"></script>
@@ -40,7 +40,7 @@
 	<nav class="navbar navbar-default navbar-inverse navbar-static-top"	role="navigation">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
-			<a class="navbar-brand" href="#">SM - Morana</a>
+			<a class="navbar-brand" href="#">SM - ${loggedUser.account.name}</a>
 			<button type="button" class="navbar-toggle" data-toggle="collapse"
 				data-target=".navbar-collapse-primary">
 				<span class="sr-only">Toggle Side Navigation</span> <i
@@ -147,35 +147,28 @@
 			<!-- [END] Lojas -->
 				
 			<!-- Campanhas -->
-			<sec:authorize ifAnyGranted="ROLE_MANAGER,ROLE_ADMIN">
-				<!-- 
-				<li class="">
-					<span class="glow"></span> 
-					<a href="${pageContext.request.contextPath}/campaign/bulding"> 
-						<i class="icon-envelope-alt icon-2x"></i><span><spring:message code="label.campaigns" /><i class="icon-caret-down"></i></span> 
-					</a>
-				</li>
-				 -->
-				<!-- -->
-				<li class="dark-nav">
-					<span class="glow"></span> 
-					<a class="accordion-toggle collapsed " data-toggle="collapse" href="#campaigns">
-						 <i class="icon-envelope-alt icon-2x"></i><span><spring:message code="label.campaigns" /><i class="icon-caret-down"></i></span>
-					</a>
-					<ul id="campaigns" class="collapse ">
-						<li>
-							<a href="${pageContext.request.contextPath}/campaign/list"> <i class="icon-th-large"> </i><spring:message code="label.listAllCampaigns" /> </a>
-						</li>
-						<li>
-							<a href="${pageContext.request.contextPath}/mailingList/list"> <i class="icon-list-alt"> </i><spring:message code="label.mailingLists" /> </a>
-						</li>
-						<li>
-							<a href="${pageContext.request.contextPath}/imagens/list"> <i class="icon-picture"> </i><spring:message code="label.imagens" /> </a>
-						</li>
-					</ul>
-				</li>
-				 
-			</sec:authorize>
+			<c:if test="${loggedUser.account.plan.id ne planTypeBAISC}">
+				<sec:authorize ifAnyGranted="ROLE_MANAGER,ROLE_ADMIN">
+					<li class="dark-nav">
+						<span class="glow"></span> 
+						<a class="accordion-toggle collapsed " data-toggle="collapse" href="#campaigns">
+							 <i class="icon-envelope-alt icon-2x"></i><span><spring:message code="label.campaigns" /><i class="icon-caret-down"></i></span>
+						</a>
+						<ul id="campaigns" class="collapse ">
+							<li>
+								<a href="${pageContext.request.contextPath}/campaign/list"> <i class="icon-th-large"> </i><spring:message code="label.listAllCampaigns" /> </a>
+							</li>
+							<li>
+								<a href="${pageContext.request.contextPath}/mailingList/list"> <i class="icon-list-alt"> </i><spring:message code="label.mailingLists" /> </a>
+							</li>
+							<li>
+								<a href="${pageContext.request.contextPath}/imagens/list"> <i class="icon-picture"> </i><spring:message code="label.imagens" /> </a>
+							</li>
+						</ul>
+					</li>
+				
+				</sec:authorize>
+			</c:if>
 			<!-- [END] Campanhas -->
 			
 			<!-- 
@@ -190,16 +183,18 @@
 					<a href="${pageContext.request.contextPath}/employee/list"> <i class="icon-sitemap icon-2x"></i> <span><spring:message code="label.employees" /></span> </a>
 				</li>
 			</sec:authorize>
-			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<li class="">
-					<span class="glow"></span> 
-					<a href="${pageContext.request.contextPath}/indicator/list"> <i class="icon-tasks icon-2x"></i> <span><spring:message code="label.indicators" /></span> </a>
-				</li>
-				<li class="">
-					<span class="glow"></span> 
-					<a href="${pageContext.request.contextPath}/report/"><i class="icon-book icon-2x"></i> <span><spring:message code="label.reports" /></span> </a>
-				</li>  
-			</sec:authorize>
+			<c:if test="${loggedUser.account.plan.id ne planTypeBAISC}">
+				<sec:authorize access="hasRole('ROLE_ADMIN')">
+					<li class="">
+						<span class="glow"></span> 
+						<a href="${pageContext.request.contextPath}/indicator/list"> <i class="icon-tasks icon-2x"></i> <span><spring:message code="label.indicators" /></span> </a>
+					</li>
+					<li class="">
+						<span class="glow"></span> 
+						<a href="${pageContext.request.contextPath}/report/"><i class="icon-book icon-2x"></i> <span><spring:message code="label.reports" /></span> </a>
+					</li>  
+				</sec:authorize>
+			</c:if>
 			 
 			<!-- Configurações  -->
 			<sec:authorize ifAnyGranted="ROLE_MANAGER,ROLE_ADMIN">
@@ -210,6 +205,9 @@
 					</a>
 	
 					<ul id="WLGsdJPav9" class="collapse ">
+						<li class="">
+							<a href="${pageContext.request.contextPath}/account/edit"> <i class="icon-cogs"></i> <spring:message code="label.account"></spring:message></a>
+						</li>
 						<li class="">
 							<a href="${pageContext.request.contextPath}/user/list"> <i class="icon-user"></i> <spring:message code="label.users"></spring:message></a>
 						</li>

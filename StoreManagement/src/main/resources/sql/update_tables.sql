@@ -13,3 +13,7 @@ INSERT INTO tb_status(`isEnabled`,`description`) VALUES(true,"status.processing"
 INSERT INTO tb_status(`isEnabled`,`description`) VALUES(true,"status.submitted");
 
 
+
+INSERT INTO tb_ec_plan (`isEnabled`,`description`,`name`,`value`)VALUES(true,'basic plan','plan.basic',1);
+INSERT INTO tb_ec_plan (`isEnabled`,`description`,`name`,`value`)VALUES(true,'intermediate plan','plan.intermediate',1);
+INSERT INTO tb_ec_plan (`isEnabled`,`description`,`name`,`value`)VALUES(true,'full plan','plan.full',1);

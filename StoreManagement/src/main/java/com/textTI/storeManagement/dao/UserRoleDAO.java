@@ -7,7 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
 import com.textTI.storeManagement.model.UserRole;
-import com.textTI.storeManagement.utils.HibernateUtil;
+import com.textTI.utils.HibernateUtil;
 
 @Repository
 public class UserRoleDAO extends BaseDAO {

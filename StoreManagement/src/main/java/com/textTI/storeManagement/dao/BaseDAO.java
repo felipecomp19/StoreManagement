@@ -4,7 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.textTI.storeManagement.model.BaseModel;
-import com.textTI.storeManagement.utils.HibernateUtil;
+import com.textTI.utils.HibernateUtil;
 
 public abstract class BaseDAO {
 

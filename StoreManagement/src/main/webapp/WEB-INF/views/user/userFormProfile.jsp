@@ -25,6 +25,7 @@
 					<ul class="padded separate-sections">
 						<li class="input">
 							<input type="hidden" name="id" value="${user.id}"/>
+							<form:hidden path="account.id"/>
 							<label><spring:message code="label.role" /></label>
 							<form:select disabled="true" id="userRole" path="userRole" items="${roles}" itemValue="id" itemLabel="roleTranslated" class="uniform"/>
 						</li>

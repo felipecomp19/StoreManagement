@@ -1,4 +1,4 @@
-package com.textTI.storeManagement.utils;
+package com.textTI.utils;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

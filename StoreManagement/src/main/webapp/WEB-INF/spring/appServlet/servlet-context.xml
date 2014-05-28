@@ -32,6 +32,7 @@
 	 -->
 	 
 	<context:component-scan base-package="com.textTI.storeManagement" />
+	<context:component-scan base-package="com.textTI.ecommerce" />
 	
 	<!-- Custom converters registered here to allow automatic binding in forms etc -->
 	<beans:bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">

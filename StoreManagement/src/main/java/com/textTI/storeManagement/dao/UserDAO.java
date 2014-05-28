@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.textTI.storeManagement.model.Client;
 import com.textTI.storeManagement.model.User;
-import com.textTI.storeManagement.utils.HibernateUtil;
+import com.textTI.utils.HibernateUtil;
 
 @Repository
 public class UserDAO extends BaseDAO {
@@ -19,7 +19,7 @@ public class UserDAO extends BaseDAO {
 		Session session = sf.openSession();
 
 		@SuppressWarnings("unchecked")
-		List<User> users = session.createQuery("from User").list();
+		List<User> users = session.createQuery("from User u where u.userName <> 'master'").list();
 
 		session.close();
 
@@ -42,7 +42,11 @@ public class UserDAO extends BaseDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		
-		String hql = "SELECT DISTINCT u FROM User u JOIN u.stores us WHERE us.id IN (:storesId)";
+		String hql = "SELECT DISTINCT u "
+				+ " FROM User u "
+				+ " JOIN u.stores us "
+				+ " WHERE u.userName <> 'master' "
+				+ " AND us.id IN (:storesId)";
 		Query query = session.createQuery(hql);
 
 		query.setParameterList("storesId", storesId);

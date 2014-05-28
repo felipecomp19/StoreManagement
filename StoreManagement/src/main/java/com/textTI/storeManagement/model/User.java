@@ -12,6 +12,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.textTI.ecommerce.models.Account;
+
 @Entity
 @Table(name="tb_users")
 public class User extends BaseModel {
@@ -39,6 +41,10 @@ public class User extends BaseModel {
 				joinColumns = { @JoinColumn(name = "user_id", nullable = false, updatable = false) }, 
 				inverseJoinColumns = { @JoinColumn(name = "store_id", nullable = false, updatable = false) })
 	private List<Store> stores;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "account")
+	private Account account;
 	
 	public String getName() {
 		return name;
@@ -114,5 +120,12 @@ public class User extends BaseModel {
 		}
 		return result;
 	}
-	
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
 }
