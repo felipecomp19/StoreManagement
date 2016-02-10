@@ -1,0 +1,56 @@
+<!-- NOTE: If you're working offline, you might have to change the DOCTYPE to the following:
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">-->
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+
+		<property name="connection.url">jdbc:mysql://localhost:3306/db_storeManager_tutti_prod</property> <!-- prod -->
+		<property name="connection.username">root</property><!-- prod -->
+		<property name="connection.password">Fl0r1p4.20</property><!-- prod -->
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+		
+		<!-- Disable the second-level cache  -->
+        <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+
+        <property name="testOnBorrow">true</property>
+		<property name="validationQuery">select 1</property>
+		
+		<property name="hibernate.connection.provider_class">org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider</property>
+		<property name="hibernate.c3p0.min_size">1</property>
+		<property name="hibernate.c3p0.max_size">20</property>
+		<property name="hibernate.c3p0.timeout">30</property>
+		<property name="hibernate.c3p0.idle_test_period">100</property>
+
+		<property name="show_sql">true</property>
+		<property name="format_sql">false</property>
+		<!-- <property name="hbm2ddl.auto">update</property> -->
+		<!-- <property name="hibernate.hbm2ddl.import_files">sql/update_tables.sql</property> -->
+
+		<!-- JDBC connection pool (use the built-in) -->
+		<property name="connection.pool_size">1</property>
+		<property name="current_session_context_class">thread</property>
+		
+		<mapping class="com.textTI.storeManagement.model.Client"/>
+		<mapping class="com.textTI.storeManagement.model.Store"/>
+		<mapping class="com.textTI.storeManagement.model.ClientType"/>
+		<mapping class="com.textTI.storeManagement.model.Address"/>
+		<mapping class="com.textTI.storeManagement.model.MailingList"/>
+		<mapping class="com.textTI.storeManagement.model.Campaign"/>
+		<mapping class="com.textTI.storeManagement.model.User"/>
+		<mapping class="com.textTI.storeManagement.model.UserRole"/>
+		<mapping class="com.textTI.storeManagement.model.Audit"/>
+		<mapping class="com.textTI.storeManagement.model.Imagen"/>
+		<mapping class="com.textTI.storeManagement.model.Employee"/>
+		<mapping class="com.textTI.storeManagement.model.Indicator"/>
+		<mapping class="com.textTI.storeManagement.model.Status"/>
+		
+		<!-- Ecommerce -->
+		<mapping class="com.textTI.ecommerce.models.Account"/>
+		<mapping class="com.textTI.ecommerce.models.Plan"/>
+		<mapping class="com.textTI.ecommerce.models.Payment"/>
+	</session-factory>
+</hibernate-configuration>
