@@ -26,6 +26,10 @@ public class BaseModel implements Serializable{
 	
 	@Column(name = "isEnabled")
 	private boolean enabled;
+	
+	public BaseModel() {
+		super();
+	}
 
 	public Long getId() {
 		return id;
@@ -45,6 +49,9 @@ public class BaseModel implements Serializable{
 	
 	public String getIdAsString()
 	{
+		if(this.getId() == null)
+			return "";
+		
 		return this.getId().toString();
 	}
 }

@@ -1,5 +1,8 @@
 package com.textTI.storeManagement.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -15,10 +18,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.textTI.storeManagement.manager.CampaignManager;
+import com.textTI.storeManagement.manager.ImagensManager;
 import com.textTI.storeManagement.manager.MailManager;
 import com.textTI.storeManagement.manager.MailingListManager;
 import com.textTI.storeManagement.model.Campaign;
+import com.textTI.storeManagement.model.Imagen;
 import com.textTI.storeManagement.model.MailingList;
+import com.textTI.storeManagement.model.Status;
 
 @Controller
 @RequestMapping(value="/campaign")
@@ -33,6 +39,12 @@ public class CampaignController extends BaseController {
 	@Autowired
 	private MailingListManager mailingListManager;
 	
+	@Autowired
+	private ImagensManager imgManager;
+	
+	private final String relativePath = "/storeManager/morana/images/";
+	//private final String relativePath = "/storeManager/tutti/images/";
+	
 	@RequestMapping(value = "/bulding", method = RequestMethod.GET)
 	public String bulding()
 	{
@@ -43,9 +55,17 @@ public class CampaignController extends BaseController {
 	public String create(Model model)
 	{
 		Campaign campaign = new Campaign();
+		Status status = new Status();
+		campaign.setStatus(status);
+		
 		model.addAttribute("campaign", campaign);
 		
-		return "campaign/createWizard";
+		List<Imagen> imagens = this.imgManager.getAllImagens();
+        model.addAttribute("imagens", imagens);
+        model.addAttribute("imagensSize", imagens.size());
+        model.addAttribute("relativePath",this.relativePath);
+		
+		return "campaign/create";
 	}
 	
 	@ModelAttribute("mailingLists")
@@ -81,7 +101,7 @@ public class CampaignController extends BaseController {
 		return "redirect:/campaign/list";
 	}
 	
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String save(@ModelAttribute("campaign") Campaign campaign, HttpServletRequest request)
 	{
 		if(campaign.getId() != null)
@@ -90,6 +110,65 @@ public class CampaignController extends BaseController {
 			this.campaignManager.insert(campaign);
 		
 		return "redirect:/campaign/list";
+	}*/
+	
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public @ResponseBody String save(@ModelAttribute("campaign") Campaign campaign, HttpServletRequest request)
+	{
+		Campaign newCampaign = createNewCampaign(request);
+		
+		if(newCampaign.getId() != null)
+			this.campaignManager.update(newCampaign);
+		else
+			this.campaignManager.insert(newCampaign);
+		
+
+		return newCampaign.getIdAsString();
+	}
+
+	private Campaign createNewCampaign(HttpServletRequest request) {
+		Campaign newCampaign = new Campaign();
+		String sId = request.getParameter("id");
+		if(sId != null && sId != "")
+			newCampaign.setId(Long.valueOf(sId));
+		
+		newCampaign.setName(request.getParameter("name"));
+		newCampaign.setDescription(request.getParameter("description"));
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+		try {
+			String createdOn = request.getParameter("createdOn");
+			if(createdOn == null || createdOn == "")
+				newCampaign.setCreatedOn(new Date());
+			else
+				newCampaign.setCreatedOn(sdf.parse(createdOn));
+			
+			String submitedDate = request.getParameter("submittedDate");
+			if(submitedDate != null && submitedDate != "")
+				newCampaign.setSubmittedDate(sdf.parse(submitedDate));
+		} catch (ParseException e) {
+			logger.error("error parsing string date 'createdOn' or 'submittedDate' value to Date");
+		}
+		
+		newCampaign.setEmailContent(request.getParameter("emailContent"));
+		newCampaign.setEmailFileName(request.getParameter("emailFileName"));
+		
+		MailingList mailingList = new MailingList();
+		String smlId = request.getParameter("mailingList");
+		if(smlId != null && smlId != "")
+			mailingList.setId(Long.valueOf(smlId));
+		newCampaign.setMailingList(mailingList);
+		
+		newCampaign.setSubmitted(Boolean.valueOf(request.getParameter("submitted")));
+		Status status = new Status();
+		String sStatusId = request.getParameter("statusId");
+		if(sStatusId != null && sStatusId != "")
+			status.setId(Long.valueOf(sStatusId));
+		
+		newCampaign.setStatus(status);
+		
+		newCampaign.setSubject(request.getParameter("subject"));
+		
+		return newCampaign;
 	}
 	
 	@RequestMapping(value = "/getMailingListById/{id}", method = RequestMethod.GET)

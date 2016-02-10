@@ -7,7 +7,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
-import com.textTI.storeManagement.model.Client;
 import com.textTI.storeManagement.model.User;
 import com.textTI.utils.HibernateUtil;
 
@@ -30,7 +29,6 @@ public class UserDAO extends BaseDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 
-		@SuppressWarnings("unchecked")
 		User user = (User) session.createQuery("from User u where u.userName = :userName ").setParameter("userName", userName).uniqueResult();
 
 		session.close();

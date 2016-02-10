@@ -87,6 +87,12 @@ public class ClientManager {
 	}
 
 	public List<Client> getByClientTypeId(long cliTypeId, User loggedUser) {
+		
+		//if theres is no store, return an empty list
+		if(loggedUser.getStoresId() == null || loggedUser.getStoresId().size() == 0)
+			return new ArrayList<Client>();
+		
+		
 		return this.clientDAO.getByClientTypeId(cliTypeId, loggedUser.getStoresId());
 	}
 
@@ -104,7 +110,7 @@ public class ClientManager {
 	public List<Client> getAllByUser(User loggedUser) {
 
 		//if theres is no store, return an empty list
-		if(loggedUser.getStoresId() == null)
+		if(loggedUser.getStoresId() == null || loggedUser.getStoresId().size() == 0)
 			return new ArrayList<Client>();
 		
 		return this.clientDAO.getAllByUser(loggedUser.getStoresId());

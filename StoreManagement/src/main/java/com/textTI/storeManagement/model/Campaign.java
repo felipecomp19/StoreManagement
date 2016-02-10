@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
 @Entity
 @Table(name="tb_campaign")
 public class Campaign extends BaseModel {
@@ -32,6 +34,7 @@ public class Campaign extends BaseModel {
 	private String emailFileName;
 	
 	@ManyToOne(optional=false, fetch= FetchType.EAGER)
+	@JsonManagedReference
 	private MailingList mailingList;
 	
 	@Column(name = "submitted")
@@ -41,7 +44,17 @@ public class Campaign extends BaseModel {
 	private Date submittedDate;
 	
 	@ManyToOne(optional=false, fetch= FetchType.EAGER)
+	@JsonManagedReference
 	private Status status;
+	
+	private String subject;
+	
+	@Transient
+	private Date dateScheduled;
+	
+	public Campaign() {
+		super();
+	}
 	
 	public String getName() {
 		return name;
@@ -127,9 +140,16 @@ public class Campaign extends BaseModel {
 		return "";
 	}
 
-	
 	public void setSubmittedDate(Date submittedDate) {
 		this.submittedDate = submittedDate;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 }
 

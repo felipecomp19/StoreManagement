@@ -62,6 +62,10 @@ public class ReportManager {
 
 	public List<Indicator> generateReportResultOfMonth(User loggedUser, String selectedMonth, String selectedYear, Long storeId) {
 		
+		//if theres is no store, return an empty list
+		if(loggedUser.getStoresId() == null || loggedUser.getStoresId().size() == 0)
+			return new ArrayList<Indicator>();
+		
 		List<Indicator> result = this.indicatorManager.getAllByUserAndMonth(loggedUser, selectedMonth, selectedYear, storeId); 
 		
 		return result;
@@ -70,11 +74,19 @@ public class ReportManager {
 	public Indicator generateReportResultOfMonthTotals(User loggedUser,
 			String month, String year, Long storeId) {
 		
+		//if theres is no store, return an empty list
+		if(loggedUser.getStoresId() == null || loggedUser.getStoresId().size() == 0)
+			return new Indicator();
+		
 		return this.indicatorManager.generateReportResultOfMonthTotals(loggedUser, month, year, storeId);
 	}
 
 	public List<EvolutionOfIndicatorReportData> generateReportevolutionOfIndicators(User loggedUser,
 			String monthFrom, String yearFrom, String monthTo, String yearTo, Long storeId) {
+		
+		//if theres is no store, return an empty list
+		if(loggedUser.getStoresId() == null || loggedUser.getStoresId().size() == 0)
+			return new ArrayList<EvolutionOfIndicatorReportData>();
 		
 		List<Indicator> indicators = this.indicatorManager.generateReportevolutionOfIndicators(loggedUser, monthFrom, yearFrom, monthTo, yearTo, storeId);
 		
@@ -127,6 +139,10 @@ public class ReportManager {
 	public EvolutionOfIndicatorReportData generateReportevolutionOfIndicatorsTotals(
 			User loggedUser, String monthFrom, String yearFrom, String monthTo,
 			String yearTo, Long storeId) {
+		
+		//if theres is no store, return an empty list
+		if(loggedUser.getStoresId() == null || loggedUser.getStoresId().size() == 0)
+			return new EvolutionOfIndicatorReportData();
 		
 		List<Indicator> indicators = this.indicatorManager.generateReportevolutionOfIndicatorsTotals(loggedUser, monthFrom, yearFrom, monthTo, yearTo, storeId);
 		
@@ -203,6 +219,10 @@ public class ReportManager {
 	public List<Indicator> generateReportCumulativeResult(User loggedUser,
 			String monthFrom, String yearFrom, String monthTo, String yearTo, Long storeId) {
 		
+		//if theres is no store, return an empty list
+		if(loggedUser.getStoresId() == null || loggedUser.getStoresId().size() == 0)
+			return new ArrayList<Indicator>();
+		
 		List<Indicator> result = this.indicatorManager.generateReportCumulativeResult(loggedUser, monthFrom, yearFrom, monthTo, yearTo, storeId);
 		
 		return result;
@@ -211,16 +231,30 @@ public class ReportManager {
 	public Indicator generateReportCumulativeResultTotals(User loggedUser,
 			String monthFrom, String yearFrom, String monthTo, String yearTo, Long storeId) {
 		
+		//if theres is no store, return an empty list
+		if(loggedUser.getStoresId() == null || loggedUser.getStoresId().size() == 0)
+			return new Indicator();
+		
 		return this.indicatorManager.generateReportCumulativeResultTotals(loggedUser, monthFrom, yearFrom, monthTo, yearTo, storeId);
 	}
 
 	public List<Indicator> getIndicatorsByStoreMonthAndYear(User loggedUser,
 			int store, int month, int year) {
+		
+		//if theres is no store, return an empty list
+		if(loggedUser.getStoresId() == null || loggedUser.getStoresId().size() == 0)
+			return new ArrayList<Indicator>();
+		
 		return this.indicatorManager.getIndicatorsByStoreMonthAndYear(store,month,year);
 	}
 
 	public Indicator getIndicatorsByStoreMonthAndYearTotals(User loggedUser,
 			int store, int month, int year) {
+		
+		//if theres is no store, return an empty list
+		if(loggedUser.getStoresId() == null || loggedUser.getStoresId().size() == 0)
+			return new Indicator();
+		
 		return this.indicatorManager.getIndicatorsByStoreMonthAndYearTotals(store,month,year);
 	}
 }

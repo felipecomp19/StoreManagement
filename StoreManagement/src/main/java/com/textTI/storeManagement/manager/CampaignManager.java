@@ -26,8 +26,9 @@ import com.textTI.storeManagement.model.constants.SatusConstants;
 @Component
 public class CampaignManager {
 	
-	//private final String filePath = "/home/felipe/app/jboss-6.1.0.Final/server/default/deploy/ROOT.war/sm/morana/emailTemplate/"; //desenv
-	private final String filePath = "/usr/share/jboss-6.1.0.Final/server/default/deploy/ROOT.war/sm/morana/emailTemplate/"; //production
+	//private final String filePath = "/home/felipe/app/jboss-6.1.0.Final/server/default/deploy/ROOT.war/storeManager/morana/emailTemplate/"; //desenv
+	private final String filePath = "/usr/share/jboss-6.1.0.Final/server/default/deploy/ROOT.war/storeManager/morana/emailTemplate/"; //production
+	//private final String filePath = "/usr/share/jboss-6.1.0.Final/server/default/deploy/ROOT.war/storeManager/tutti/emailTemplate/"; //production
 	
 	protected static final Logger logger = LoggerFactory.getLogger(CampaignManager.class);
 	
@@ -43,6 +44,11 @@ public class CampaignManager {
 	public void insert(Campaign newCampaign) 
 	{
 		newCampaign.setCreatedOn(new Date());
+		
+		Status status = new Status();
+		status.setId(SatusConstants.CAMPAIGN_NOT_SUBMITTED); 
+		newCampaign.setStatus(status);
+		
 		this.campaignDAO.insert(newCampaign);
 		
 		String fileName = "emailTemplate" + newCampaign.getId() + ".html";
@@ -75,6 +81,18 @@ public class CampaignManager {
 
 	public void update(Campaign newCampaign) 
 	{
+		Campaign _campaign = this.campaignDAO.getById(newCampaign.getId());
+		newCampaign.setCreatedOn(_campaign.getCreatedOn());
+		newCampaign.setEmailFileName(_campaign.getEmailFileName());
+		newCampaign.setSubmitted(_campaign.isSubmitted());
+		
+		if(newCampaign.getStatus() == null || newCampaign.getStatus().getId() == null)
+		{
+			Status status = new Status();
+			status.setId(SatusConstants.CAMPAIGN_NOT_SUBMITTED); 
+			newCampaign.setStatus(status);
+		}
+		
 		this.campaignDAO.update(newCampaign);
 		
 		String fullPath = this.filePath + newCampaign.getEmailFileName();
@@ -92,33 +110,37 @@ public class CampaignManager {
 		//TODO remover
 		//campaign.getMailingList().setDefaultFromEmail("morana@moranavale.com.br");
 		//campaign.getMailingList().setDefaultFromName("Morana@moranavale.com.br");
-		
-		if (campaign.getMailingList().getClientsListSize() > 3) {
-			Calendar todayCal = Calendar.getInstance();
-			todayCal.set(todayCal.get(Calendar.YEAR), todayCal.get(Calendar.MONTH), todayCal.get(Calendar.DATE), 00, 1);
-			todayCal.add(Calendar.DATE, 1);
-			Date startTime = todayCal.getTime();
-			
-			taskScheduler.schedule(new AsyncMailSender(campaign.getId()), startTime);
-			
-			Status status = new Status();
-			status.setId(SatusConstants.CAMPAIGN_SCHEDULED);
-			this.update(campaign);
-			
-			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-			logger.info("**scheduled to: " + dateFormat.format(startTime));
-		}else{
-			this.mailManager.sendHTMLMail(campaign);
-
-			Status status = new Status();
-			status.setId(SatusConstants.CAMPAIGN_SUBMITTED);
-			campaign.setStatus(status);
-			
-			//TODO remover
-			campaign.setSubmitted(true);
-			campaign.setSubmittedDate(new Date());
-			
-			this.update(campaign);
+		try{
+			if (campaign.getMailingList().getClientsListSize() > 50) {
+				Calendar todayCal = Calendar.getInstance();
+				todayCal.set(todayCal.get(Calendar.YEAR), todayCal.get(Calendar.MONTH), todayCal.get(Calendar.DATE), 00, 1);
+				todayCal.add(Calendar.DATE, 1);
+				Date startTime = todayCal.getTime();
+				
+				taskScheduler.schedule(new AsyncMailSender(campaign.getId()), startTime);
+				
+				Status status = new Status();
+				status.setId(SatusConstants.CAMPAIGN_SCHEDULED);
+				this.update(campaign);
+				
+				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+				logger.info("**scheduled to: " + dateFormat.format(startTime));
+			}else{
+				this.mailManager.sendHTMLMail(campaign);
+	
+				Status status = new Status();
+				status.setId(SatusConstants.CAMPAIGN_SUBMITTED);
+				campaign.setStatus(status);
+				
+				//TODO remover
+				campaign.setSubmitted(true);
+				campaign.setSubmittedDate(new Date());
+				
+				this.update(campaign);
+			}
+		}catch(Exception e){
+			logger.error("error ao submeter camapnha: " + e.getMessage() );
+			e.printStackTrace();
 		}
 	}
 	

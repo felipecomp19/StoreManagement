@@ -8,7 +8,7 @@
 					<spring:message code="label.clientTypes" />
 				</h3>
 				<h5>
-					<span> A subtitle can go here </span>
+					<span><spring:message code="subtitle.clientType"/></span>
 				</h5>
 			</div>
 		</div>

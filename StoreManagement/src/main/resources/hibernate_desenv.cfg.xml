@@ -10,11 +10,6 @@
 		<property name="connection.url">jdbc:mysql://localhost:3306/db_storeManager_dev</property>
 		<property name="connection.username">root</property>
 		<property name="connection.password">123456</property>
-		<!-- PROD morana
-		<property name="connection.url">jdbc:mysql://localhost:3306/db_storeManager_morana_prod</property> 
-		<property name="connection.username">root</property>
-		<property name="connection.password">Fl0r1p4.20</property>
-		 -->
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
 		
@@ -53,5 +48,10 @@
 		<mapping class="com.textTI.storeManagement.model.Employee"/>
 		<mapping class="com.textTI.storeManagement.model.Indicator"/>
 		<mapping class="com.textTI.storeManagement.model.Status"/>
+		
+		<!-- Ecommerce -->
+		<mapping class="com.textTI.ecommerce.models.Account"/>
+		<mapping class="com.textTI.ecommerce.models.Plan"/>
+		<mapping class="com.textTI.ecommerce.models.Payment"/>
 	</session-factory>
 </hibernate-configuration>

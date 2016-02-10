@@ -75,7 +75,9 @@ public class ReportController extends BaseController {
 			logger.info("Selected report" + ReportConstants.REP_RESULT_OF_MONTH_DESC + " month:" + reportVM.getSelectedMonth());
 			
 			List<Indicator> indicators = this.reportManager.generateReportResultOfMonth(this.getLoggedUser(request), reportVM.getSelectedMonth(), reportVM.getSelectedYear(), reportVM.getStore().getId());
-			Indicator totals = this.reportManager.generateReportResultOfMonthTotals(this.getLoggedUser(request), reportVM.getSelectedMonth(), reportVM.getSelectedYear(), reportVM.getStore().getId());
+			Indicator totals = new Indicator();
+			if(indicators != null && indicators.size() > 0)
+				totals = this.reportManager.generateReportResultOfMonthTotals(this.getLoggedUser(request), reportVM.getSelectedMonth(), reportVM.getSelectedYear(), reportVM.getStore().getId());
 			
 			IndicatorsSummary result = new IndicatorsSummary();
 			
@@ -89,11 +91,14 @@ public class ReportController extends BaseController {
 			logger.info("Selected report" + ReportConstants.REP_CUMULATIVE_RESULT_DESC + " month:" + reportVM.getSelectedMonth());
 			
 			List<Indicator> indicators = this.reportManager.generateReportCumulativeResult(this.getLoggedUser(request), reportVM.getMonthFrom(), reportVM.getYearFrom(), reportVM.getMonthTo(), reportVM.getYearTo(), reportVM.getStore().getId());
-			Indicator totals = this.reportManager.generateReportCumulativeResultTotals(this.getLoggedUser(request), reportVM.getMonthFrom(), reportVM.getYearFrom(), reportVM.getMonthTo(), reportVM.getYearTo(), reportVM.getStore().getId());
+			Indicator totals = new Indicator();
+			if(indicators != null && indicators.size() > 0)
+				totals = this.reportManager.generateReportCumulativeResultTotals(this.getLoggedUser(request), reportVM.getMonthFrom(), reportVM.getYearFrom(), reportVM.getMonthTo(), reportVM.getYearTo(), reportVM.getStore().getId());
 			
 			IndicatorsSummary result = new IndicatorsSummary();
-			result.setUserData(totals);
-			result.setIndicators(indicators);
+			populateResult(result, indicators, totals);
+			/*result.setUserData(totals);
+			result.setIndicators(indicators);*/
 			
 			reportVM.setReportData(result);
 			model.addAttribute("reportVM", reportVM);

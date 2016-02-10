@@ -110,9 +110,7 @@
 	    		<div class="modal-body padding">
 	   				<span id="numberOfClients"></span>
 	   				<label>
-	   					<p>
-	   						<i class="icon-warning-sign"></i> Esta campanha será enviada para <span name="clientesNumber"></span> cliente(s). Deseja continuar?
-   						</p>
+						<i class="icon-warning-sign"></i> Esta campanha será enviada para <span name="clientesNumber"></span> cliente(s). Deseja continuar?
    					</label>
 	    		</div>
 	    		<div class="modal-footer">

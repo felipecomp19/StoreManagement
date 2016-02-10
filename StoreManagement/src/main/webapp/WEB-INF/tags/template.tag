@@ -16,7 +16,7 @@
 	<title>SM - ${loggedUser.account.name}</title>
 
 	<link href="${pageContext.request.contextPath}/resources/coreAdmin/stylesheets/application.css" media="screen" rel="stylesheet" type="text/css" />
-	<link rel="stylesheet" type="text/csjss" href="${pageContext.request.contextPath}/resources/cleditor/jquery.cleditor.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/cleditor/jquery.cleditor.css" />
 	
 	
 	<script src="${pageContext.request.contextPath}/resources/coreAdmin/javascripts/application.js" type="text/javascript"></script>
@@ -27,12 +27,14 @@
  	<script src="${pageContext.request.contextPath}/resources/js/jquery.validate.min.js" type="text/javascript"></script>
  	<script src="${pageContext.request.contextPath}/resources/js/jquery.maskMoney.min.js" type="text/javascript"></script>
  	
- 	<!-- jqGrid -->
+ 	<script src="http://malsup.github.com/jquery.form.js" type="text/javascript"></script>
+ 	
+ 	<!-- jqGrid 
  	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/jquery-ui/css/smoothness/jquery-ui.min.css" />
  	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/jqGrid/css/ui.jqgrid.css" />
- 	
- 	<script src="${pageContext.request.contextPath}/resources/js/grid.locale-pt-br.js" type="text/javascript"></script>
- 	<script src="${pageContext.request.contextPath}/resources/jqGrid/js/jquery.jqGrid.src.js" type="text/javascript"></script>
+ 	-->
+ 	<%-- <script src="${pageContext.request.contextPath}/resources/js/grid.locale-pt-br.js" type="text/javascript"></script>
+ 	<script src="${pageContext.request.contextPath}/resources/jqGrid/js/jquery.jqGrid.src.js" type="text/javascript"></script> --%>
  	
 </head>
 <body>
@@ -83,7 +85,7 @@
 							<li class="divider"></li> --%>
 							<li>
 								<a href="${pageContext.request.contextPath}/user/editProfile/${loggedUser.id}">
-									<i class="icon-cog"></i><span><spring:message code="label.configurations" /></span></a>
+									<i class="icon-cog"></i><span><spring:message code="label.profile" /></span></a>
 							</li>
 							<li class="divider"></li>
 							<li>
@@ -147,7 +149,7 @@
 			<!-- [END] Lojas -->
 				
 			<!-- Campanhas -->
-			<c:if test="${loggedUser.account.plan.id ne planTypeBAISC}">
+			<%-- <c:if test="${loggedUser.account.plan.id ne planTypeBAISIC}"> --%>
 				<sec:authorize ifAnyGranted="ROLE_MANAGER,ROLE_ADMIN">
 					<li class="dark-nav">
 						<span class="glow"></span> 
@@ -168,7 +170,7 @@
 					</li>
 				
 				</sec:authorize>
-			</c:if>
+			<%-- </c:if> --%>
 			<!-- [END] Campanhas -->
 			
 			<!-- 
@@ -183,7 +185,7 @@
 					<a href="${pageContext.request.contextPath}/employee/list"> <i class="icon-sitemap icon-2x"></i> <span><spring:message code="label.employees" /></span> </a>
 				</li>
 			</sec:authorize>
-			<c:if test="${loggedUser.account.plan.id ne planTypeBAISC}">
+			<c:if test="${loggedUser.account.plan.id ne planTypeBAISIC}">
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
 					<li class="">
 						<span class="glow"></span> 

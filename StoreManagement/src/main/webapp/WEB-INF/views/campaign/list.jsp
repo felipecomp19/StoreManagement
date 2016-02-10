@@ -88,14 +88,15 @@
 										<td>${campaign.description}</td>
 										<td>${campaign.formatedCreatedOn}</td>
 										<td>
-											<c:choose>
+											<spring:message code="${campaign.status.description}" />
+											<%-- <c:choose>
 												<c:when test="${campaign.submitted}">
 													<spring:message code="status.submitted"/>
 												</c:when>
 												<c:otherwise>
 													<spring:message code="status.NotSubmitted"/>
 												</c:otherwise>
-											</c:choose>
+											</c:choose> --%>
 										</td>
 										<td>${campaign.formatedSubmittedDate}</td>
 									</tr>

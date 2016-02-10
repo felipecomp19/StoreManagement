@@ -1,5 +1,6 @@
 package com.textTI.storeManagement.manager;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.textTI.storeManagement.dao.IndicatorDAO;
+import com.textTI.storeManagement.model.Client;
 import com.textTI.storeManagement.model.Indicator;
 import com.textTI.storeManagement.model.User;
 
@@ -52,16 +54,31 @@ public class IndicatorManager {
 	}
 
 	public List<Indicator> getAllByUser(User loggedUser) {
+		
+		//if theres is no store, return an empty list
+		if(loggedUser.getStoresId() == null || loggedUser.getStoresId().size() == 0)
+			return new ArrayList<Indicator>();
+		
 		return this.indicatorDAO.getAllByUser(loggedUser.getStoresId());
 	}
 
 	public List<Indicator> getAllByUserAndMonth(User loggedUser,
 			String selectedMonth, String selectedYear, Long storeId) {
+		
+		//if theres is no store, return an empty list
+		if(loggedUser.getStoresId() == null || loggedUser.getStoresId().size() == 0)
+			return new ArrayList<Indicator>();
+		
 		return this.indicatorDAO.getAllByUserAndMonth(loggedUser.getStoresId(),selectedMonth, selectedYear, storeId);
 	}
 	
 	public Indicator generateReportResultOfMonthTotals(User loggedUser,
 			String month, String year, Long storeId) {
+		
+		//if theres is no store, return an empty list
+		if(loggedUser.getStoresId() == null || loggedUser.getStoresId().size() == 0)
+			return new Indicator();
+		
 		Indicator indicator = this.indicatorDAO.generateReportResultOfMonthTotals(loggedUser.getStoresId(), month, year, storeId);
 		if(indicator != null){
 			Calendar mycal = new GregorianCalendar(Integer.parseInt(year), Integer.parseInt(month) - 1, 1);
@@ -80,17 +97,30 @@ public class IndicatorManager {
 
 	public List<Indicator> generateReportevolutionOfIndicators(User loggedUser,
 			String monthFrom, String yearFrom, String monthTo, String yearTo, Long storeId) {
+		
+		//if theres is no store, return an empty list
+		if(loggedUser.getStoresId() == null || loggedUser.getStoresId().size() == 0)
+			return new ArrayList<Indicator>();
+		
 		return this.indicatorDAO.getAllByUserAndMonthYearInterval(loggedUser.getStoresId(),monthFrom, yearFrom, monthTo, yearTo, storeId);
 	}
 
 	public List<Indicator> generateReportCumulativeResult(User loggedUser,
 			String monthFrom, String yearFrom, String monthTo, String yearTo, Long storeId) {
 		
+		//if theres is no store, return an empty list
+		if(loggedUser.getStoresId() == null || loggedUser.getStoresId().size() == 0)
+			return new ArrayList<Indicator>();
+		
 		return this.indicatorDAO.generateReportCumulativeResult(loggedUser.getStoresId(),monthFrom, yearFrom, monthTo, yearTo, storeId);
 	}
 
 	public Indicator generateReportCumulativeResultTotals(User loggedUser,
 			String monthFrom, String yearFrom, String monthTo, String yearTo, Long storeId) {
+		
+		//if theres is no store, return an empty list
+		if(loggedUser.getStoresId() == null || loggedUser.getStoresId().size() == 0)
+			return new Indicator();
 		
 		Indicator result = this.indicatorDAO.generateReportCumulativeResultTotals(loggedUser.getStoresId(),monthFrom, yearFrom, monthTo, yearTo, storeId);
 		
@@ -137,6 +167,10 @@ public class IndicatorManager {
 	public List<Indicator> generateReportevolutionOfIndicatorsTotals(
 			User loggedUser, String monthFrom, String yearFrom, String monthTo,
 			String yearTo, Long storeId) {
+		
+		//if theres is no store, return an empty list
+		if(loggedUser.getStoresId() == null || loggedUser.getStoresId().size() == 0)
+			return new ArrayList<Indicator>();
 		
 		return this.indicatorDAO.getAllByUserAndMonthYearIntervalTotals(loggedUser.getStoresId(),monthFrom, yearFrom, monthTo, yearTo, storeId);
 	}

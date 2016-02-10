@@ -39,6 +39,10 @@ public class MailingList extends BaseModel {
 				inverseJoinColumns = { @JoinColumn(name = "client_id", updatable = false) })
 	private List<Client> clients;
 
+	public MailingList() {
+		super();
+	}
+
 	public String getName() {
 		return name;
 	}

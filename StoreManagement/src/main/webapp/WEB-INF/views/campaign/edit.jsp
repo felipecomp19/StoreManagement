@@ -38,7 +38,7 @@
 							<span class="title"><spring:message code="label.form" /></span>
 						</div>
 						<div class="box-content">
-							<%@include file="campaignForm.jsp"%>
+							<%@include file="campaignWizard.jsp"%>
 						</div>
 					</div>
 				</div>

@@ -45,7 +45,7 @@ public class BaseController extends HandlerInterceptorAdapter {
 
 		if(modelAndView != null){
 			modelAndView.addObject("loggedUser", this.getLoggedUser(request));
-			modelAndView.addObject("planTypeBAISC", PlanType.BASIC);
+			modelAndView.addObject("planTypeBAISIC", PlanType.BASIC);
 		}
 	}
 }

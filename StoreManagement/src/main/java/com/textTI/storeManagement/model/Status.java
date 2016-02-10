@@ -11,6 +11,10 @@ public class Status extends BaseModel {
 	
 	private String description;
 	
+	public Status() {
+		super();
+	}
+
 	public String getDescription() {
 		return description;
 	}

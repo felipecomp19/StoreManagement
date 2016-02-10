@@ -1,10 +1,7 @@
 echo "starting ...."
-mv target/storeManagement-1.0.0-SNAPSHOT.war storeManagement.war
+mv target/storeManagement-1.0.0-SNAPSHOT.war storeManagement-1.0.1-morana.war
 
 echo "sending war file..."
-scp storeManagement.war storemanager@184.82.177.77:/home/storemanager
+scp storeManagement-1.0.1-morana.war stmanager@stmanager.com.br:/home/stmanager
 
 echo "sending you... bye"
-ssh storemanager@stmanager.com.br
-
-

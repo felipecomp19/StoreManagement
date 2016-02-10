@@ -22,15 +22,13 @@
 		<beans:property name="order" value="1" />
 	</beans:bean>
 	
-	<!-- 
 	<beans:bean class="org.springframework.web.servlet.view.XmlViewResolver">
 		<beans:property name="location">
 			<beans:value>/WEB-INF/spring/spring-excel-views.xml</beans:value>
 		</beans:property>
 		<beans:property name="order" value="0" />
 	</beans:bean>
-	 -->
-	 
+	
 	<context:component-scan base-package="com.textTI.storeManagement" />
 	<context:component-scan base-package="com.textTI.ecommerce" />
 	

@@ -48,6 +48,10 @@ public class EvolutionOfIndicatorReportData extends ReportData {
 		this.averageSalesPerDayMap = defaultValues;
 	}
 
+	public EvolutionOfIndicatorReportData() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Map<Date, BigDecimal> getAchievementOfGoalsMap() {
 		return achievementOfGoalsMap;
 	}

@@ -1,5 +1,6 @@
 package com.textTI.storeManagement.manager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,11 @@ public class EmployeeManager {
 	}
 
 	public List<Employee> getAllByUser(User loggedUser) {
+		
+		//if theres is no store, return an empty list
+		if(loggedUser.getStoresId() == null || loggedUser.getStoresId().size() == 0)
+			return new ArrayList<Employee>();
+		
 		return this.employeeDAO.getAllByUser(loggedUser.getStoresId());
 	}
 }

@@ -65,6 +65,11 @@ public class StoreManager {
 	}
 
 	public List<Store> getAllByUser(User loggedUser) {
+		
+		//if theres is no store, return an empty list
+		if(loggedUser.getStoresId() == null || loggedUser.getStoresId().size() == 0)
+			return new ArrayList<Store>();
+				
 		return this.storeDAO.getAllByUser(loggedUser.getStoresId());
 	}
 }

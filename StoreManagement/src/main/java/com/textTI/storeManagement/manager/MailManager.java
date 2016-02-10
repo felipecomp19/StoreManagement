@@ -41,7 +41,7 @@ public class MailManager {
 		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
 
 		helper.setFrom(campaign.getMailingList().getDefaultFromName().trim());
-		helper.setSubject(campaign.getName());
+		helper.setSubject(campaign.getSubject());
 		helper.setText(campaign.getEmailContent(), true);
 
 		for (Client cli : campaign.getMailingList().getClients()) {

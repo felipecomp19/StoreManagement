@@ -5,7 +5,6 @@
 <%@page contentType="text/html;charset=UTF-8" language="java" %>
 <t:template>
 	<jsp:body>
-		
 		<!-- top main content -->
 		<div class="container">
 			<div class="row">

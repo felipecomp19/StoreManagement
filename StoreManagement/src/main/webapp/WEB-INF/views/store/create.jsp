@@ -14,7 +14,7 @@
 							<i class="icon-building"></i> <spring:message code="label.stores" />
 						</h3>
 						<h5>
-							<span> A subtitle can go here </span>
+							<span> <spring:message code="subtitle.stores"/> </span>
 						</h5>
 					</div>
 					<ul class="list-inline pull-right sparkline-box">

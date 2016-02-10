@@ -1,5 +1,6 @@
 package com.textTI.storeManagement.manager;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.textTI.storeManagement.dao.UserDAO;
 import com.textTI.storeManagement.dao.UserRoleDAO;
+import com.textTI.storeManagement.model.Indicator;
 import com.textTI.storeManagement.model.User;
 
 @Component
@@ -77,8 +79,12 @@ public class UserManager {
 	}
 
 	public List<User> getAllByUser(User loggedUser, Locale locale) {
-		List<User> users = this.userDAO.getAllByUser(loggedUser.getStoresId());
+		//if theres is no store, return an empty list
+		if(loggedUser.getStoresId() == null || loggedUser.getStoresId().size() == 0)
+			return new ArrayList<User>();
 
+		List<User> users = this.userDAO.getAllByUser(loggedUser.getStoresId());
+		
 		for (User user : users) {
 			user.getUserRole().setRoleTranslated(msgSrc.getMessage(user.getUserRole().getRole(),null, locale));
 		}		

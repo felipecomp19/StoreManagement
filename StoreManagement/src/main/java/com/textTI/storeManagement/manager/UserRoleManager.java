@@ -1,5 +1,6 @@
 package com.textTI.storeManagement.manager;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -8,6 +9,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import com.textTI.storeManagement.dao.UserRoleDAO;
+import com.textTI.storeManagement.model.Indicator;
 import com.textTI.storeManagement.model.User;
 import com.textTI.storeManagement.model.UserRole;
 
